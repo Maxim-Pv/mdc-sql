@@ -1,0 +1,31 @@
+# билд/кэш
+.next
+out
+dist
+build
+coverage
+.vercel
+.turbo
+
+# артефакты Tina (если собираешь админку в /admin)
+admin
+
+# зависимости/локи (на всякий случай)
+node_modules
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# публичные ассеты (обычно форматировать не нужно)
+public/**
+!public/**/*.json
+!public/**/*.css
+
+# снапшоты/генерируемые файлы
+**/*.snap
+*.min.js
+*.min.css
+*.map
+
+# системные
+.DS_Store

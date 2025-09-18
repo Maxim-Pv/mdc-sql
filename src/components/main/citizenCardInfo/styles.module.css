@@ -1,0 +1,242 @@
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  background-image: linear-gradient(
+      0deg,
+      rgba(18, 16, 16, 0.5),
+      rgba(18, 16, 16, 0.5)
+    ),
+    url("/images/main/hero-bg.jpg");
+}
+
+.yellowCard {
+  position: absolute;
+  top: 3.75rem;
+  left: 1.25rem;
+  width: 284px;
+  transform: rotate(9deg);
+  z-index: 10;
+  filter: drop-shadow(9px -4px 10.1px rgba(0, 0, 0, 1));
+
+  @media (min-width: 320px) {
+    width: 250px;
+  }
+  @media (min-width: 425px) {
+    width: 330px;
+  }
+}
+
+@media (min-width: 640px) {
+  .yellowCard {
+    top: 2rem;
+    left: 20px;
+    width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .yellowCard {
+    width: 25rem;
+  }
+}
+
+.whiteCard {
+  position: absolute;
+  top: 0;
+  left: 2.5rem;
+  width: 275px;
+  transform: rotate(7deg);
+  z-index: 20;
+  border-radius: 8px;
+  filter: drop-shadow(8px -6px 4.1px rgba(0, 0, 0, 0.25));
+  @media (min-width: 320px) {
+    width: 250px;
+    left: 3.5rem;
+  }
+}
+
+@media (min-width: 375px) {
+  .whiteCard {
+    left: 3.75rem;
+  }
+}
+
+@media (min-width: 425px) {
+  .whiteCard {
+    width: 320px;
+    left: 4.4rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .whiteCard {
+    width: 400px;
+    left: 5rem;
+    top: -35px;
+    border-radius: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .whiteCard {
+    width: 25rem;
+  }
+}
+
+.visualBlock {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 290px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 10;
+  height: 100%;
+}
+
+@media (min-width: 425px) {
+  .visualBlock {
+    padding-top: 330px;
+  }
+}
+
+@media (min-width: 640px) {
+  .visualBlock {
+    padding-top: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .visualBlock {
+    padding-top: 0;
+    justify-content: flex-end;
+    align-items: center;
+    order: 2;
+    gap: 20px;
+  }
+}
+
+.advantagesList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  margin-left: 10px;
+  height: auto;
+  color: white;
+  text-align: left;
+  list-style: none;
+  font-size: 12px;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .advantagesList {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .advantagesList {
+    position: static;
+    display: block;
+    width: 400px;
+    font-size: 17px;
+    line-height: 22px;
+    margin-top: 0;
+  }
+}
+
+.advantageItem {
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .advantageItem {
+    padding: 10px;
+  }
+}
+
+.arrowMobile {
+  width: 50px;
+  height: 150px;
+  display: block;
+  margin-top: -45px;
+}
+
+@media (min-width: 425px) {
+  .arrowMobile {
+    top: 33%;
+    left: 11%;
+  }
+}
+
+@media (min-width: 640px) {
+  .arrowMobile {
+    top: 35%;
+    left: 12%;
+  }
+}
+
+@media (min-width: 768px) {
+  .arrowMobile {
+    left: 10%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .arrowMobile {
+    display: none;
+  }
+}
+
+.requirementsBlock {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 65px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 20px;
+  color: white;
+
+  @media (min-width: 375px) {
+    margin-left: 20px;
+  }
+  @media (min-width: 425px) {
+    margin-left: unset;
+  }
+}
+
+@media (min-width: 640px) {
+  .requirementsBlock {
+    gap: 20px;
+    font-size: 14px;
+    padding-left: 65px;
+    text-wrap: nowrap;
+  }
+}
+
+@media (min-width: 640px) {
+  .requirementsBlock {
+    padding-left: 70px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .requirementsBlock {
+    padding-left: 0;
+    padding-top: 0;
+    order: 1;
+  }
+}

@@ -1,0 +1,61 @@
+.footerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+@media (min-width: 425px) {
+  .footerWrapper {
+    padding: 0 20px;
+  }
+}
+
+.formContainer {
+  padding: 20px 10px;
+  position: relative;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  max-width: 1200px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 425px) {
+  .formContainer {
+    padding: 30px 10px;
+  }
+}
+
+@media (min-width: 640px) {
+  .formContainer {
+    padding: 40px 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .formContainer {
+    min-height: 800px;
+  }
+}
+
+.backgroundMap {
+  position: absolute;
+  max-height: 800px;
+  inset: 0;
+  opacity: 0.1;
+  z-index: 0;
+  background: url("/images/main/white-card.jpg");
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 1280px) {
+  .backgroundMap {
+    background-size: unset;
+  }
+}

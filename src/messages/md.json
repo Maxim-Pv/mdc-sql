@@ -1,0 +1,895 @@
+{
+  "logo": {
+    "prefix": "CENTRUL CULTURAL",
+    "line2": "EDUCAȚIONAL",
+    "main": "DIN MOLDOVA"
+  },
+  "nav": {
+    "map": "HARTĂ",
+    "merch": "MERCH",
+    "news": "ŞTIRI",
+    "currency": "CURS VALUTAR",
+    "embassy": "AMBASADĂ",
+    "culture": "CULTURĂ",
+    "contacts": "CONTACTE"
+  },
+
+  "main": {
+    "hero": {
+      "title": "CARDUL CETĂȚEANULUI MOLDOVEI ÎN\u00A0RUSIA",
+      "subtitle": "CONEXIUNEA TA FIABILĂ CU\u00A0PATRIA",
+      "cta": "Obțineți cardul gratuit"
+    },
+
+    "cardImplementedFor": {
+      "title_part1": "Programul «Cardul cetățeanului Moldovei» este implementat",
+      "title_highlight": "pentru a păstra cultura, tradițiile și obiceiurile poporului moldovenesc care trăiește în Rusia",
+      "subtitle": "E mai ușor să te obișnuiești cu cardul, iar conexiunile devin mai puternice chiar și la distanță"
+    },
+
+    "cardDescription": {
+      "title": "CARDUL CETĂȚEANULUI MOLDOVEI ÎN RUSIA — ESTE:",
+      "cards": {
+        "connection": {
+          "title": "DESPRE COMUNICARE",
+          "text": "Cardul te va ajuta să găsești rapid noi conexiuni și cunoștințe printre compatrioți și persoanele cu aceleași idei și să te simți ca acasă.\n\nCentrul Cultural și Educațional din Moldova organizează lunar o gamă largă de evenimente, la care primești acces gratuit cu Cardul."
+        },
+        "homeland": {
+          "title": "DESPRE PATRIA",
+          "text": "Scopul nostru principal este de a păstra cu grijă firul invizibil care leagă fiecare moldovean cu patria, familia și prietenii.\n\nDe aceea, cardul include comunicații mobile pentru a fi mai aprope."
+        },
+        "reliability": {
+          "title": "DESPRE ÎNCREDERE",
+          "text": "Chiar și atunci când suntem în afara țării noastre, suntem obligați să avem grijă de sănătatea noastră și să ne protejăm de circumstanțe neprevăzute.De aceea cardul include posibilitatea de a contacta cei mai buni medici din Moscova 24/7 și de a pune întrebări despre sănătate, iar dacă aveți un diagnostic, puteți obține o opinie alternativă de la cei mai buni medici."
+        }
+      }
+    },
+
+    "apply": {
+      "title": "OBȚINEȚI UN CARD",
+      "requirements": {
+        "age": "Vârsta de la 18 ani",
+        "citizen": "Cetăţean al Republicii Moldova",
+        "residence": "Reședința în Rusia"
+      },
+      "cta": "Obțineți cardul gratuit",
+      "advantages": {
+        "connection": "Comunicare și mesagerie nelimitată de la SberMobile, 30 GB de internet",
+        "telemedicine": "Acces 24/7 la cei mai buni medici din Rusia în cadrul programului „Telemedicină” și repatrierea rămășițelor de la RESO",
+        "prime": "Abonament SberPrime cu cashback mărit",
+        "sbercard": "Serviciu gratuit «SberCard»",
+        "business": "Comunitatea de afaceri din Moldova",
+        "events": "Evenimente culturale și educaționale ale din cadrul CCE Moldova",
+        "legal": "Consultare juridică gratuită",
+        "youth": "Comunitatea de tineret"
+      },
+      "alts": {
+        "arrow_desktop": "arrow",
+        "arrow_mobile": "arrow",
+        "yellow_card": "yellow_card",
+        "white_card": "white_card"
+      }
+    },
+
+    "benefits": {
+      "title": "CE OFEREȘTE CARDUL?",
+      "cards": {
+        "1": {
+          "title": "COMUNICARE ȘI INTERNET NELIMITATE DE LA „SBERMOBILE” TIMP DE 6 LUNI CU POSIBILĂ PRELUNGIRE",
+          "listTitle": "Tariful „Optim” include:",
+          "items": [
+            "**30 GB** de internet, iar când îți transferi numărul, încă + **30 GB**;",
+            "**∞** apeluri și mesagerii;",
+            "**10** SMS;",
+            "protecție împotriva spamului și a escrocilor"
+          ],
+          "note": "Tariful Optim te va ajuta să ții legătura cu cei dragi, indiferent de distanță. Minutele nu contează - comunicare fără limite."
+        },
+        "2": {
+          "title": "ABONAMENT SBERPRIME DE 6 LUNI CU POSIBILĂ PRELUNGIRE",
+          "listTitle": "Abonamentul lunar include:",
+          "items": [
+            "**∞ acces fără reclame la „Sound” și cinematograful Okko;**",
+            "**servicii bancare fără comision: 0 ruble pentru deservirea SberCard, notificări pentru conturi și carduri, plăți și transferuri de până la 500.000 de ruble;**",
+            "**↑ cashback în serviciile «Sber»: «Megamarket», «Samokat», «Kupi.ru», «EAPTEKA», plată cu bonusuri «Spasibo»**"
+          ],
+          "note": "Tariful Optim te va ajuta să ții legătura cu cei dragi, indiferent de distanță. Minutele nu contează - comunicare fără limite."
+        },
+        "3": {
+          "title": "PROGRAM DE TELEMEDICINĂ DE LA RESO DE 6 LUNI CU POSIBILĂ PRELUNGIRE",
+          "listTitle": "Programul include:",
+          "items": [
+            "posibilitatea de a contacta un medic **24/7**;",
+            "consultații cu **psihologi acreditați**;",
+            "**consultație medicală** privind afecțiunea dumneavoastră;",
+            "repatrierea **postumă a corpului** în Moldova"
+          ],
+          "note": "Tariful Optim vă va ajuta să păstrați legătura cu cei dragi, indiferent de distanță. Minutele nu contează - comunicare fără limite."
+        }
+      }
+    },
+
+    "promo": {
+      "heading": "PROMOȚII",
+      "0": {
+        "highlight": "PROMOȚIA “SUNTEM ÎMPREUNĂ” CONTINUĂ!",
+        "title": "AM PREZENTAT PESTE 100 DE BOXE SMART SBERBOOM MINI2!",
+        "p1": "Cu bucurie anunțăm că mulți dintre voi au primit deja boxele smart SberBoom Mini 2 după participarea la promoția noastră!",
+        "p2": "Dacă înca n-ați ajuns să participați, nu ratați ocazia!",
+        "footnote": "detalii despre promoție*\n**Cupoanele se emit la înregistrarea «Cardului cetățeanului Moldovei în Rusia»"
+      },
+      "1": {
+        "highlight": "CÂȘTIGĂ BILETE LA EVENIMENT",
+        "title": "POSIBILITATEA DE A CÂȘTIGA BILETE LA EVENIMENT",
+        "p1": "Lansăm un nou serviciu pentru deținătorii de carduri - tombole lunare cu bilete la concerte, spectacole și evenimente sportive din regiunea dumneavoastră!",
+        "p2": "O dată pe lună organizăm un concurs în contul personal (TG, VK, FB) doar pentru deținătorii de carduri. Întrebările concursului sunt din sfera culturii moldovenești și evenimentele viitoare. Primul care răspunde corect va primi două bilete: pentru sine și pentru invitat!",
+        "footnote": "Numărul de bilete pentru concurs variază în fiecare regiune!"
+      }
+    },
+
+    "locationBlock": {
+      "questionTitle": "ÎN CE REGIUNE POT PRIMI UN CARD?",
+      "description": {
+        "line1": "Este posibil să obțineți un card în regiunile unde există filiale ale Centrului Cultural și Educațional al Moldovei.",
+        "line2": "Dacă n-ați găsit regiunea dvs. în listă, lăsați o solicitare, și un specialist din centrul de apel vă va contacta pentru a primi cardul."
+      },
+      "about": {
+        "title": "Suntem o organizație non-profit autonomă\n«Centrului Cultural și Educațional al Moldovei»",
+        "community": "Comunitatea compatrioților, care iubesc Moldova",
+        "siteLabel": "Site-ul nostru",
+        "siteUrl": "https://moldovacenter.ru"
+      },
+      "alts": {
+        "coupleImage": "Cuplu tânăr în costume naționale"
+      },
+      "cta": "Obțineți cardul gratuit"
+    },
+
+    "faq": {
+      "heading": "RĂSPUNSURI LA ÎNTREBĂRILE DVS",
+      "show_more": "Vezi mai multe",
+      "hide": "Ascunde",
+      "items": [
+        {
+          "question": "Ce documente sunt necesare pentru a solicita și a primi cardul?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "**Buletinul de indentitate al Cetățeanului Republicii Moldova** pentru a confirma cetățenia. Dacă este posibil, pașaportul unui cetățean al Rusiei."
+            }
+          ]
+        },
+        {
+          "question": "Cât costă obținerea unui Card al cetățeanului Moldovei?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "Сardul cetățeanului Moldovei în Rusia se elibereaza la recepțiile regionale ale Centrului Cultural și Educațional din Moldova **gratuit**. Serviciile de comunicare, abonament și telemedicină sunt incluse în programul Cardului și sunt oferite gratuit timp de 6 luni, cu posibilitatea de prelungire."
+            }
+          ]
+        },
+        {
+          "question": "Este posibil să-ți păstrezi numărul de telefon și să treci de la un alt operator la Sbermobile folosind un card?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "**Da**, dacă aveți o cartelă SIM deservită de un alt operator, puteți trece la **SberMobile** păstrându-vă numărul. Pentru a face acest lucru, trebuie să depuneți o cerere pe site-ul mdcard.ru pentru a primi un Card al cetațeanului Moldovei in Rusia și să așteptați confirmarea cererii de la centrul de apeluri, indicând necesitatea păstrării numărului de telefon."
+            }
+          ]
+        },
+        {
+          "question": "Cât timp este valabil cardul?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "Cardul este valabil pentru o perioadă **nelimitată**. Pachet de servicii de comunicare conectată, abonament, telemedicină - 6 luni cu posibilitatea de prelungire până la un an."
+            }
+          ]
+        },
+        {
+          "question": "Poate soțul/soția să utilizeze servicii de comunicații mobile, abonament și asigurare de viață dacă nu este cetățean al Republicii Moldova? Dacă da, cât costă?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "Da, puteți achiziționa servicii de comunicații mobile **«SberMobile»**, abonamentul **«SberPrime»** și serviciul **«Telemedicină»** de la RESO în condiții avantajoase pentru maximum **trei rude apropiate** cu vârsta peste 18 ani."
+            },
+            {
+              "type": "paragraph",
+              "text": "Rămâneți conectat cu cei dragi într-un ecosistem mobil, digital și informațional pentru a comunica mai des și fără bariere."
+            },
+            {
+              "type": "paragraph",
+              "text": "Costul serviciilor de comunicații mobile, abonamente și telemedicină le puteți afla în filialele Centrului Cultural și Educațional Moldovei la solicitarea Сardului cetățeanului Moldovei în Rusia."
+            }
+          ]
+        },
+        {
+          "question": "Ce beneficii oferă «Сardul cetățeanului Moldovei în Rusia»?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "**«Сardul cetățeanului Moldovei în Rusia»** oferă:"
+            },
+            {
+              "type": "list",
+              "items": [
+                {
+                  "title": "Beneficii medicale",
+                  "text": "Cardul oferă acces la servicii medicale cu preț redus, inclusiv consultații de telemedicină 24/7"
+                },
+                {
+                  "title": "Beneficii sociale",
+                  "text": "Cetățenii moldoveni pot primi consultanță privind programele sociale, asistență în procesarea plății pensiilor, sprijin pentru familiile cu venituri mici și beneficii suplimentare pentru persoanele cu dizabilități din toate grupurile."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Obțineți «Сardul cetățeanului Moldovei în Rusia» pe site."
+            },
+            {
+              "type": "paragraph",
+              "text": "Cardul vă ajută să economisiți și să beneficiați de servicii prioritare în domeniile cheie."
+            }
+          ]
+        },
+        {
+          "question": "Ce programe sociale sunt disponibile pentru moldovenii din Rusia?",
+          "answer": [
+            {
+              "type": "paragraph",
+              "text": "Cetățenii moldoveni care locuiesc în Rusia pot primi diverse forme de sprijin din partea statului. Aceste măsuri de sprijin ajută în situații dificile și îmbunătățesc nivelul de trai al oamenilor."
+            },
+            {
+              "type": "paragraph",
+              "text": "**Măsuri de sprijin de bază**\nRusia are un sistem de securitate socială care include asistență pentru familiile cu venituri mici, pensionari, persoanele cu dizabilități și părinții cu mulți copii. Programele federale oferă plăți pentru copii, asistență medicală și sprijin specific pentru cei al căror venit este sub nivelul de subzistență."
+            },
+            {
+              "type": "paragraph",
+              "text": "**Cu Cardul poți obține: **"
+            },
+            {
+              "type": "list",
+              "items": [
+                "consultări privind înregistrarea beneficiilor",
+                "asistență în obținerea de beneficii",
+                "informații actualizate despre noile programe sociale",
+                "asistență juridică în interacțiunea cu agențiile guvernamentale ale Federației Ruse"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Politica socială a Rusiei prevede diverse măsuri de sprijin pentru cetățenii moldoveni, ajutându-i în situații de viață dificile și facilitând integrarea lor în societate."
+            }
+          ]
+        }
+      ]
+    },
+
+    "citizenCardForm": {
+      "supportPhone": "+7 (499) 450-50-61",
+      "supportLabel": "Număr de telefon al Serviciului de suport Card",
+      "supportEmail": "INFO@MDCARD.RU",
+      "title": "Solicitați cardul nostru cetățeanului Moldovei",
+      "subtitle": "Lăsați datele de contact și echipa noastră vă va contacta pentru a confirma cererea și a clarifica detaliile",
+      "placeholders": {
+        "firstName": "Prenumele DVS*",
+        "lastName": "Numele DVS*",
+        "region": "Regiunea DVS din Federația Rusă",
+        "city": "Orașul DVS din Federația Rusă",
+        "phone": "+7 (___) ___-__-__",
+        "coupon": "Codul cuponului (opțional)",
+        "office": "Selectați oficiul de ridicare a cardului"
+      },
+      "checkbox": {
+        "isCitizen": "Cetăţean al Moldovei",
+        "isNotCitizen": "Nu sunt cetățean al Moldovei",
+        "agree": "Prin apăsarea butonului „Comandă gratuit”, îmi dau acord cu privire la prelucrarea datelor cu caracter personal, în conformitate cu Legea Federală din 27.07.2006 nr. 152-FZ «protecția datelor cu caracter personal», în termenii și în scopurile specificate în Consimțământul pentru prelucrarea datelor cu caracter personal"
+      },
+      "submit": "Obțineți  gratuit",
+      "errors": {
+        "onlyMoldova": "Cardul se eliberează doar persoanelor cu cetățenie moldovenească.",
+        "dataTimeError": "Vă rugăm să selectați data și ora",
+        "submitFail": "Nu am reușit să trimitem cererea. Vă rugăm să încercați din nou mai târziu."
+      },
+      "toast": {
+        "title": "Sunteți înregistrați pentru a primi un card!",
+        "description": "Important! TREBUIE să aveți pașaportul moldovenesc la DVS!",
+        "errorTitle": "Încercați mai târziu"
+      }
+    },
+
+    "footer": {
+      "contactTitle": "Contact pentru presă și parteneri",
+      "email": "presscard@mdcard.ru",
+      "links": {
+        "privacy": "Politica de confidențialitate",
+        "consent": "Acord cu privire la prelucrarea datelor cu caracter personal",
+        "program": "Regulamentul programului cardului"
+      }
+    }
+  },
+
+  "currency": {
+    "centralBankRates": {
+      "code": "Cod",
+      "nominal": "Тominal",
+      "currency": "Valută",
+      "cbOn": "BC Rusiei pe",
+      "cbPrevious": "BC Rusiei pe"
+    },
+
+    "bankRates": {
+      "title": "Cele mai convenabile cursuri valutare în alte bănci",
+      "bankRateLabel": "Curs bancar",
+      "buy": "Cumpărare",
+      "sell": "Vânzare",
+      "noData": "— fără date",
+      "updated": "Actualizare:"
+    },
+
+    "converter": {
+      "title": "Curs BC în Risia",
+      "iHave": "Eu am:",
+      "iWant": "Vreau să cumpăr:",
+      "convert": "Convertează",
+      "rateLine": {
+        "rub": "1 Rubla costă {value} lei moldovenești",
+        "mdl": "1 Leu moldovenesc costă {value} ruble"
+      },
+      "rateShort": "1 {from} = {value} {to}"
+    },
+
+    "popular": {
+      "title": "Calcule populare",
+      "label": "{amount} lei moldovenești in ruble"
+    }
+  },
+
+  "embassy": {
+    "hero": {
+      "title": "mutarea în rusia\ndin moldova:\nghid complet",
+      "subtitle": "«Сardul cetățeanului Moldovei în Rusia» — este sprijin pentru moldovenii din afara țării. Puteți solicita oricând asistență juridică gratuită în materie de emigrare și documente."
+    },
+    "pattern": {
+      "movingTitle": "mutarea locului de trai în rusia",
+      "embassyTitle": "ambasada moldovei în rusia"
+    },
+    "legalStay": {
+      "title": "Ce documente sunt necesare pentru o ședere legală în Rusia?",
+      "items": [
+        {
+          "label": "ȘEDERE TEMPORARĂ",
+          "description": "Șederea temporară a cetățenilor moldoveni în Federația Rusă. Fără permis de ședere temporară sau permis de ședere, puteți sta în Rusia până la 90 de zile (în termen de 6 luni). Trebuie să vă înregistrați la serviciul de migrație în termen de 7 zile. Este important de menționat că acest statut nu oferă dreptul de a lucra în Rusia. \n\nIMPORTANT: Conform noilor reguli, pentru a intra în Federația Rusă, trebuie să vă înregistrați în prealabil în aplicația RuID a Serviciilor de Stat, să completați un profil digital cu o fotografie și date personale, apoi să primiți un cod QR (cu cel puțin 72 de ore înainte de trecerea frontierei), care trebuie prezentat la intrare; excepție fac copiii sub 6 ani, titularii unui permis de ședere temporară/permis de ședere care intră cu viză, precum și diplomații și membrii familiilor acestora."
+        },
+        {
+          "label": "PERMIS DE ȘEDERE TEMPORARĂ",
+          "description": "Permisul de ședere temporară (PȘT) este un statut care permite unui cetățean străin să locuiască pe teritoriul Federației Ruse timp de trei ani fără a părăsi țara și să lucreze fără a obține un permis de lucru. Se plasează în pașaportul moldovenesc sub formă de ștampilă.\n\nUnde te poți adresa pentru înregistrare? Centrul de migrație SAKHAROVO (deservește toate districtele). Departamentul Direcției Principale a MAI, care se ocupă de problemele de migrație. Perioada de procesare: 2 luni."
+        },
+        {
+          "label": "DREPT DE ȘEDERE",
+          "description": "Permis de ședere (RȘ) – un document care permite unui străin să locuiască permanent în Rusia. Acesta permite desfășurarea legală a activității profesionale și comerciale, oferă acces la medicină, educație și beneficii sociale. De asemenea, PȘ este necesar pentru obținerea cetățeniei ruse.\n\nUnde te poți adresa pentru înregistrare? Departamentul Direcției Principale pentru Migrație din cadrul MAI (personal sau prin intermediul Serviciilor de Stat). Centrul de Migrație SAHAROVO. Perioada de procesare: 4 luni (la Moscova - până la 6 luni)."
+        },
+        {
+          "label": "PERMIS DE LUCRU",
+          "description": "Permisul de lucru pentru cetățenii moldoveni este un document care oferă dreptul de a lucra legal în Rusia (fără viză). Este necesar pentru străinii cu ședere temporară. Permisul se eliberează pentru o perioadă de până la 1 an și este valabil numai în regiunea de înregistrare.\n\nUnde te poți adresa pentru înregistrare? Către MAI al Federației Ruse (depunerea cererii și a documentelor). Perioada de procesare: Se elibereaza înainte de încheierea unui contract de muncă. "
+        }
+      ]
+    },
+    "diaspora": {
+      "title": "Diaspora moldovenească în\u00A0Rusia",
+      "paragraph1": "Diaspora moldovenească în Rusia numără aproximativ 500 de mii de oameni, fiind una dintre cele mai mari din lume. Activitatea sa este coordonată de Centrul Cultural și Educațional din Moldova.(АНО).",
+      "paragraph2": "Se ocupă de sprijinirea compatrioților din Federația Rusă, consolidarea relațiilor ruso-moldovenești, organizarea de evenimente culturale și educaționale și oferirea de servicii gratuite cetățenilor Republicii Moldova în conformitate cu «Сardul cetățeanului Moldovei».",
+      "activeCitiesTitle": "Orașe cu comunități moldovenești active:",
+      "footer": "În aceste orașe puteți primi sprijin de la Centrele Culturale și Educaționale din Moldova și puteți deveni parte a diasporei moldovenești din Federația Rusă."
+    },
+    "card": {
+      "titleHighlight": "«Сardul cetățeanului Moldovei în Rusia»",
+      "title": "avantajul DVS atunci când vă mutați",
+      "description": "Obțineți beneficii exclusive și proceduri simplificate ale documentelor datorită «Сardului cetățeanului Moldovei în Rusia». Aceasta este o oportunitate de a te alătura unei comunități de compatrioți în altă țară.",
+      "benefitsTitle": "Beneficiile cardului",
+      "benefits": [
+        "Asistență juridică și medicală gratuită pentru cetățenii moldoveni de la RESO",
+        "Comunicare nelimitată și abonament la serviciile de streaming Sberbank"
+      ],
+      "footer": "«Сardul cetățeanului Moldovei în Rusia» — este sprijinul tău în perioada de adaptare."
+    },
+    "cases": {
+      "title": "Serviciile Ambasadei",
+      "desc1": "Dacă aveți nevoie să obțineți acte de identitate, să solicitați permisiunea de călătorie în străinătate sau să obțineți/confirmați cetățenia, vă puteți adresa la Ambasada Republicii Moldova în Federația Rusă. Aici vă vor ajuta cu documentele necesare și vă vor răspunde la întrebări.",
+      "desc2": "Serviciile consulare ale Ambasadei Republicii Moldova în Rusia",
+      "subtitle": "În ce cazuri ar trebui să contactați ambasada?",
+      "withAppointment": {
+        "title": "Serviciile Ambasadei Republicii Moldova cu programare prealabilă (prin intermediul site-ului oficial al Ambasadei):",
+        "items": [
+          "Acte de identitate (pașaport, buletin)",
+          "Întrebări referitor la cetățenia Republicii Moldova",
+          "Emigrarea legală",
+          "Acte de stare civilă: reînregistrare, înregistrare căsătorie, divorțului, nașterii, decesului, schimbarea numelui etc.",
+          "Acte notariale și certificate informative (explicative)."
+        ],
+        "note": "Important: preînregistrarea este necesară."
+      },
+      "withoutAppointment": {
+        "title": "Serviciile Ambasadei Republicii Moldova în Federația Rusă fără programare prealabilă:",
+        "items": [
+          "Certificat de returnare",
+          "Depunerea cererii pentru duplicatul certificatelor de stare civilă",
+          "Super-legalizare",
+          "Certificat de cazier judic",
+          "Semnătura electronică"
+        ]
+      }
+    },
+    "contact": {
+      "heading": "Informații de contact a Ambasadei Republicii Moldova în Rusia",
+      "mapName": "Ambasada Republicii Moldova",
+      "working": {
+        "title": "Program de lucru",
+        "days": "Luni - Vineri",
+        "reception": "Primirea documentelor: 08:00 – 12:00",
+        "issuance": "Eliberarea documentelor: 15:00 – 17:00",
+        "lunch": "Pauza de prânz: 13:00 – 14:00"
+      },
+      "daysOff": {
+        "title": "Zilele de odihnă",
+        "days": "Sâmbătă, Duminică",
+        "andHolidays": "și sărbători"
+      },
+      "addressLabel": "Adresa:",
+      "faxLabel": "Fax:"
+    }
+  },
+
+  "culture": {
+    "hero": {
+      "titlePrefix": "Cultura Moldovei:",
+      "titleSuffix": "de la obiceiuri la patrimoniu mondial",
+      "subtitle": "Un ghid complet al patrimoniului cultural al Moldovei la umbra mănăstirilor și livezelor vechi de secole",
+      "description": "Cultura moldovenească se distinge prin muzicalitatea sa deosebită, ospitalitatea și dragostea de viață. Moldova păstrează cu grijă tradițiile populare, transmițându-le din generație în generație și păstrând legătura dintre timpuri."
+    },
+    "patterns": {
+      "traditionsTitle": "Tradiții și obiceiuri ale poporului moldovenesc",
+      "musicTitle": "Muzică moldovenească",
+      "patternsTitle": "Ornamente moldovenești",
+      "cuisineTitle": "Bucătăria moldovenească",
+      "wineTitle": "Vinul moldovenesc - tradiție într-un pahar",
+      "cultureWorldTitle": "Cultura moldovenească <nowrap>în lume</nowrap>",
+      "applyCardTitle": "Obțineți Сardul cetățeanului Moldovei în Rusia",
+      "subtitle": "Apropiați-vă de cultura moldovenească aflându-vă în străinătate."
+    },
+    "traditions": {
+      "cards": [
+        {
+          "title": "Botez în stil moldovenesc: obiceiuri la cumătrie",
+          "text": "Nașterea unui copil într-o familie moldoveneasca este un eveniment plin de bucurie, care este însoțit de un ritual special - cumătrie. Acest ritual poartă un sens profund și reprezintă tradiții seculare transmise din generație în generație.",
+          "details": [
+            {
+              "type": "block",
+              "title": "Pregătirea pentru sacrament",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Părinții se pregătesc cu atenție pentru botez, alegând cumătrii, precum și principalii participanți la ceremonie - nașii. Spre deosebire de tradiția rusească, în Moldova  anume nașii care au fost la nunta părinților, joacă un rol cheie: ei organizează ceremonia și poartă responsabilitatea principală. Pot fi mulți cumătrii, dar participarea lor poate fi simbolică."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Invitație la o petrecere",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Conform obiceiului, părinții invită personal oaspeții, aducând un colac și vin. Acceptarea unui colac înseamnă acord de a deveni parte a familiei, iar refuzul este considerat inacceptabil. Dacă doresc să onoreze în mod special unul dintre cumătri, pun un mic cadou pe colac."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Ceremonia în biserică",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Botezul are loc într-un cerc restrâns: sunt prezenți doar nașii, cumătrii și rudele apropiate. Mama copilului așteaptă în acest moment lăngă biserică până când nănășca îi aduce copilul botezat."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Ritualuri acasă",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Oaspeții îi daruiesc copilului haine și alte lucruri utile, pe care le pune pe un prosop întins de nănăşica. Conform tradiției, nănăşica pune și un cadou pentru mama - o bluză sau un pulover. După ceremonie bebelușul este înfășurat în acest prosop și presărat cu bomboane - pentru ca viața să fie dulce. Apoi toată lumea se adună la masa festivă."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "La miezul nopții, nănăşica împarte colacii, iar fiecare oaspete pune un cadou sau bani în ele, anunțând cu voce tare. Colacul trebuie să fie complet acoperit cu daruri. După aceasta, tatăl copilului aprinde lumânările, le leagă între ele și arde o cruce mare pe ușă - simbol al protecției și binecuvântării pentru noul membru al familiei."
+            }
+          ]
+        },
+        {
+          "title": "Nunta moldovenească: un fir viu al tradițiilor populare",
+          "text": "Ceremoniile de nuntă moldovenești, de la cumătria până la dansurile rituale, nu sunt doar obiceiuri frumoase, ci o parte importantă a identității naționale, unde fiecare gest și simbol păstrează înțelepciunea strămoșilor.",
+          "details": [
+            {
+              "type": "block",
+              "title": "Pregătirea pentru nuntă",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "O nuntă moldovenească necesită o pregătire atentă. O importanță deosebită se acordă alegerii datei, astfel încât aceasta să nu cadă în Postul Mare sau în zile nefavorabile. O etapă importantă este alegerea nașilor – mentori spirituali ai tinerilor căsătoriți, care ar trebui să fie un exemplu de familie puternică."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Ceremonii de nuntă",
+              "list": [
+                "Răscumpărarea miresei: Mirele și prietenii săi participă la teste umoristice din partea domnișoarelor de onoare, inclusiv ghicitori și dansuri.",
+                "Binecuvântarea părinților: Părinții îi binecuvântează pe tinerii căsătoriți cu un colac și sare - mușcând o bucată, cuplul își arată pregătirea de a împărtăși bucuriile și necazurile.",
+                "Schimb de cadouri: Mireasa îi dăruiește mirelui o cămașă confecționată de ea însăși ca simbol al grijii, iar mirele îi dăruiește o eșarfă ca semn al trecerii la statutul de femeie căsătorită.",
+                "Scoaterea voalului miresei: La sfârșitul serii, voalul miresei e scos și o eșarfă e legată, marcând noul ei statut. Voalul este aruncat prietenelor ei necăsătorite - cea care îl prinde va fi următoarea care se căsătorește."
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Dansuri și muzică",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Dansul este inima unei nunți moldovenești. Hora veselă și dansuri populare energice pe sunetele viorii și ţambalului creează o atmosferă festivă unică, când toată lumea începe să danseze"
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Masa Mare",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Masa Mare este o sărbătoare pentru sufletul moldovenesc! Mesele sunt încărcate cu sarmale gingașe, plăcinte crocante și ciorbă bogată. Ulcioare de lut cu vin se mișcă în cerc, iar colacii aurii se aștern pe prosoape. Fiecare toast rostit aici este înțelepciune vie, fiecare dar este o investiție în viitorul tinerilor."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Darurile – ceremonie de dăruire",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Darurile reprezintă punctul culminant al ospitalității de nuntă, unde fiecare cadou devine o investiție în viitorul tinerei familii. Oaspeții oferă pe rând bani pe un prosop brodat sau obiecte utile de uz casnic, de la ulcioare de lut la obiecte din lemn lucrate manual, însoțind darul cu urări din inimă. Muzicienii întâmpină fiecare daruitor cu o melodie specială, iar tinerii căsătoriți, acceptând ofrandele cu o plecăciune, demonstrează respect pentru această tradiție străveche. Acest ritual simbolizează unitatea spirituală a familiei, întărind legăturile dintre generații."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Mărțișor - simbol al primăverii și al speranței în Moldova",
+          "text": "În fiecare an, pe 1 martie, Moldova întâmpină primăvara cu o sărbătoare specială. Mărțișorul este un obicei frumos transmis din generație în generație.",
+          "details": [
+            {
+              "type": "block",
+              "title": "Tradiții care unesc",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Principalul simbol al sărbătorii sunt mărțișoarele roșii și albe. Acestea sunt dăruite celor dragi și purtate pe haine pe tot parcursul lunii martie. Se crede că, dacă agăți un mărțișor de un pom fructifer pe 31 martie, acesta va aduce noroc și o recoltă bogată."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Mulți oameni fac aceste decorațiuni cu propriile mâini, punând căldură și urări de bine în ele. Acestea nu sunt doar suveniruri - sunt o bucățică de suflet care este dăruită celor mai dragi oameni."
+            },
+            {
+              "type": "block",
+              "title": "Festivalul care a făcut Moldova celebră",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "Din anul 1967, țara găzduiește Festivalul Mărțișorului, un eveniment grandios la care participă grupuri creative din toată Republica Moldova. Concertele, cântecele și dansurile populare continuă timp de 10 zile, atrăgând mii de spectatori."
+                }
+              ]
+            },
+            {
+              "type": "block",
+              "title": "Recunoaștere UNESCO",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "text": "În 2017, UNESCO a recunoscut Mărțișorul ca parte a patrimoniului cultural mondial. Acest eveniment a confirmat încă o dată că sărbătoarea noastră nu este doar o tradiție, ci o adevărată comoară de care întreaga țară este mândră."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Mărțișorul este mai mult decât un simbol al primăverii. Este o sărbătoare a sufletului care ne amintește de importanța familiei, a prieteniei și a speranței pentru un viitor mai luminos."
+            }
+          ]
+        }
+      ],
+      "cta": {
+        "title": "Vă bucurați de sărbătorile naționale departe de casă? Cu «Сardul cetațeanului Moldovei în Rusia» totul este posibil!",
+        "button": "Obțineți cardul gratuit",
+        "subtitle": "Obțineți cardul si participați la sărbătorile naționale ale Moldovei fără a părăsi Rusia."
+      }
+    },
+    "music": {
+      "hero": {
+        "title": "Muzica Moldovei: de la tradițiile populare până în timpurile moderne",
+        "subtitle": "Muzica Moldovei este o bogată moștenire culturală care a absorbit tradiții seculare, instrumente unice și tendințe moderne. Rădăcinile datează din cele mai vechi timpuri, iar originalitatea sa se manifestă în diversitatea genurilor și stilurilor."
+      },
+      "cards": [
+        {
+          "title": "Muzica populară moldovenească",
+          "text": "Muzica populară ocupă un loc special în cultura moldovenească. S-a format sub influența națiunilor vecine - ucraineni, români, turci, maghiari - dar a dobândit o unicitate proprie. Printre cele mai vechi genuri se numără colindele, bocetele de nuntă, cântecele de muncă și cele rituale. Doinele sunt deosebit de remarcabile - melodii lirice pline de emoție profundă.",
+          "image": "/images/culture/people.webp"
+        },
+        {
+          "title": "Lăutarii - sufletul muzicii moldovenești",
+          "text": "Lăutarii sunt muzicieni populari care cântau la nunți și sărbători. Orchestrele lor (tarafuri) includeau viori, chimvale, flaute și tobe. Țiganii lăutari fac parte din cultura moldovenească încă din secolul al XVI-lea.",
+          "image": "/images/culture/leutari.webp"
+        },
+        {
+          "title": "Instrumente naționale",
+          "text": "Instrumentele naționale joacă un rol important în muzica moldovenească. Printre instrumentele de suflat se remarcă fluierul, naiul și chimpoiul care creează un sunet puternic și ascuțit. Instrumente cu coarde, precum chimvalele și cobza, acompaniază dansuri și cântece, în timp ce instrumente de percuție, precum buhai, adaugă ritm festivităților populare. Orchestra tradițională de lăutari – taraf – încă mai răsună la nunți și sărbători, păstrându-și culoarea autentică.",
+          "image": "/images/culture/national-instruments.webp"
+        }
+      ]
+    },
+    "dance": {
+      "title": "Cultura dansului moldovenesc",
+      "intro": "Dansurile populare moldovenești sunt o cronică vie a poporului, unde fiecare pas și mișcare spune povestea unor tradiții seculare. Timp de secole, dansurile i-au însoțit pe moldoveni în bucurie și tristețe, devenind o parte integrantă a sărbătorilor, ritualurilor și vieții de zi cu zi. Acestea reflectau caracterul, sufletul și înțelepciunea unui întreg popor.",
+      "lead": "Un loc special în această bogată moștenire îl ocupă:",
+      "list": [
+        "Hora este cartea de vizită a culturii moldovenești, un dans care simbolizează unitatea, în care participanții, ținându-se de mână, se mișcă în cerc în ritmul muzicii.",
+        "Sârba este un dans rapid și temperamental, întruchiparea îndrăznelii și veseliei moldovenești.",
+        "Moldoveneasсa este un dans popular: începe încet, se accelerează treptat, devenind foarte dinamic.",
+        "Bătuta este un dans ritmic cu mișcări caracteristice de picior și legănături ascuțite ale brațelor, plin de energie și dragoste de viață.",
+        "Jocul nu doar un dans, ci un festival folcloric întreg, unde domnește o atmosferă de bucurie generală",
+        "Căluțul este un dans ritualic executat de bărbați. Imită cursele de cai. Se crede că aduce sănătate și prosperitate."
+      ],
+      "conclusion": "Aceste dansuri, transmise din generație în generație, continuă să trăiască și să încânte, menținând legătura timpurilor și rămânând o adevărată comoară a culturii moldovenești."
+    },
+    "moldavianPatterns": {
+      "intro": "Meșteșugurile populare moldovenești sunt o cronică vie a tradițiilor, unde fiecare covor și costum spune povestea generațiilor. Modelele lor conțin sufletul pământului, culorile lor conțin bucuria sărbătorii, iar formele lor conțin înțelepciunea strămoșilor.",
+      "carpet": {
+        "title": "Covorul național moldovenesc",
+        "paragraph1": "Covoarele moldovenești fac parte din patrimoniul cultural al umanității. Fiecare cusătură din ele este ca o literă dintr-o limbă străveche care păstrează modul de viață al strămoșilor noștri. Aceste opere de artă unice, recunoscute de UNESCO, păstrează caracterul tradițiilor din diferite epoci – motivele, amuletele și ideile lor despre lume.",
+        "paragraph2": "Anterior, covoarele erau țesute manual folosind tehnici tradiționale. Astăzi, multe sunt realizate la mașină, dar păstrează stilul moldovenesc. Covoarele de lână sunt deosebit de apreciate - sunt rezistente și durabile.",
+        "paragraph3": "Covoarele moldovenești sunt mai mult decât un simplu decor. Sunt artă care păstrează sufletul poporului.",
+        "list": [
+          "Tipuri de covoare moldovenești: covoare de podea, preșuri, carpete, covoare de perete. Fiecare tip creează confort în casă, păstrând căldura și frumusețea.",
+          "Modele tradiționale: ornamente geometrice, motive vegetale, simboluri animaliere. Cel mai adesea acestea reprezintă flori, struguri, păsări (vulturi, cocoși, porumbei), care simbolizează fertilitatea și protecția.",
+          "Schema de culori: roșu, albastru, galben, verde – reflectă legătura moldovenilor cu natura."
+        ]
+      },
+      "costume": {
+        "title": "Costumul național moldovenesc",
+        "description": "Costumul național moldovenesc este un exemplu remarcabil de artă populară, reflectând bogata istorie și tradițiile Moldovei."
+      },
+      "costumes": [
+        {
+          "label": "Costum de damă",
+          "alt": "Costum popular moldovenesc pentru femei",
+          "image": "/images/culture/woman.webp",
+          "color": "#D71960",
+          "text": "Principalul atribut al costumului național - o cămașă cu broderie colorată. Aceste ornamente sunt pline de o semnificație profundă, referindu-se la însăși rădăcinile sale. Fusta este, de asemenea, decorată cu broderie de-a lungul părții de jos, iar tivul poate fi completat cu franjuri. Părul este acoperit cu o eșarfă colorată."
+        },
+        {
+          "label": "Costum bărbătesc",
+          "alt": "Costumul popular moldovenesc bărbătesc",
+          "image": "/images/culture/man.webp",
+          "color": "#D71960",
+          "text": "O cămașă albă alungită, cu elemente de broderie, este purtată lejer și prinsă cu un cușac lat. O vestă din pânză sau piele de oaie este încadrată cu un ornament de-a lungul marginii. Imaginea este completată cu o cușmă - o pălărie conică din piele de oaie."
+        }
+      ]
+    },
+    "cuisine": {
+      "intro": "Bucătăria moldovenească este renumită cu preparatele sale simple, dar consistente și aromate, care reflectă influența diferitelor culturi. Bucătăria se bazează pe tradiții gastronomice transmise din generație în generație.",
+      "dishes": [
+        {
+          "title": "Mămăligă",
+          "description": "— una dintre cele mai faimoase mâncăruri din bucătăria moldovenească. Este un terci gros de porumb, care se servește în mod tradițional cu brânză, smântână sau carne fiartă.",
+          "image": "/images/culture/mamaliga.webp"
+        },
+        {
+          "title": "Vertută",
+          "description": "— o ruladă de foietaj subțire cu umplutură. Cel mai adesea, se folosește brânză de vaci, ouă cu ierburi sau dovleac. Vertuta se prepară atât pentru mesele de zi cu zi, cât și pentru sărbători.",
+          "image": "/images/culture/vertuta.webp"
+        },
+        {
+          "title": "Plăcintă",
+          "description": "— sunt făcute din aluat nedospit cu o varietate de umpluturi. Cel mai adesea sunt preparate cu brânză de vaci, dovleac, cartofi sau varză. Plăcintele pot fi prăjite sau coapte, se consumă atât ca fel principal, cât și ca aperitiv.",
+          "image": "/images/culture/placinte.webp"
+        },
+        {
+          "title": "Mititei",
+          "description": "— cârnați mici, preparați din carne tocată (de obicei miel sau vită) cu usturoi și condimente. Sunt gătiți la grătar, ceea ce conferă preparatului o aromă specială. Mititei sunt adesea serviți cu muștar și pâine proaspătă.",
+          "image": "/images/culture/mititei.webp"
+        },
+        {
+          "title": "Sarmale",
+          "description": "— umplutura de carne, orez și ierburi este învelită în frunze de viță sau frunze de varză și apoi fiartă într-un cazan, turnând suc de roșii. Mâncarea se primește aromată și fragedă, fiind adesea servită cu smântână.",
+          "image": "/images/culture/sarmale.webp"
+        },
+        {
+          "title": "Tocană",
+          "description": "— carne fiartă (de obicei porc sau pui) cu ceapă și condimente. Mâncarea este foarte sățioasă și aromată, de obicei se servește cu mămăliga sau cartofi.",
+          "image": "/images/culture/tokana.webp"
+        },
+        {
+          "title": "Ciorbă",
+          "description": "— supă acră cu bulion de carne, legume și ierburi aromatice. Gustul său caracteristic se obține prin utilizarea borșului acru sau a sucului de lămâie. Ciorba este îndrăgită pentru gustul său bogat și capacitatea de a încălzi pe vreme rece.",
+          "image": "/images/culture/ciorba.webp"
+        },
+        {
+          "title": "Papanași",
+          "description": "— gogoși delicate din brânză de vaci, servite cu gem, miere sau smântână. Acesta este un desert preferat în bucătăria moldovenească, fiind deosebit de popular în zonele rurale.",
+          "image": "/images/culture/papanasi.webp"
+        }
+      ]
+    },
+    "wine": {
+      "intro": [
+        "Moldova cultivă viță de vie de peste 5.000 de ani. Clima favorabilă, solurile fertile și tradițiile seculare fac ca vinurile moldovenești să fie unice. Aici se produc atât varietăți europene clasice, cât și varietăți autohtone pe care nu le veți găsi nicăieri altundeva în lume.",
+        "Moldova sărbătorește chiar și Ziua Națională a Vinului, un festival de amploare care are loc în primul weekend din octombrie, unde puteți degusta cele mai bune vinuri ale țării."
+      ],
+      "legendaryWineriesTitle": "Vinăriile legendare ale Moldovei",
+      "wineries": [
+        {
+          "name": "Cricova",
+          "text": "galerii subterane celebre care se întind pe 120 km, unde sunt depozitate vinuri de colecție și vinuri spumante produse folosind tehnologia clasică."
+        },
+        {
+          "name": "Milestii Mici",
+          "text": "deținătoarea recordului mondial Guinness pentru cea mai mare cramă din lume (200 km de tuneluri). Găzduiește colecții de 1,5 milioane de sticle."
+        },
+        {
+          "name": "Purcari",
+          "text": "cea mai veche cramă (din 1827), renumită pentru emblematicul său cupaj Negru de Purcari."
+        },
+        {
+          "name": "Castel Mimi",
+          "text": "primul castel viticol din Moldova, care îmbină istoria cu tehnologiile moderne."
+        },
+        {
+          "name": "Fautor",
+          "text": "o proprietate în dezvoltare dinamică, axată pe vinuri premium."
+        }
+      ],
+      "mainVarietiesTitle": "Principalele soiuri de vinuri moldovenești",
+      "types": {
+        "white": {
+          "title": "Albe",
+          "list": [
+            {
+              "name": "Fetească Albă",
+              "text": "vin proaspăt cu note de măr și flori sălbatice."
+            },
+            {
+              "name": "Viorica",
+              "text": "o varietate locală cu o aromă strălucitoare de citrice și fructe tropicale."
+            },
+            {
+              "name": "Sauvignon Blanc и Chardonnay",
+              "text": "clasic cu caracter moldovenesc."
+            }
+          ]
+        },
+        "red": {
+          "title": "Roșii",
+          "list": [
+            {
+              "name": "Fetească Neagră",
+              "text": "catifelat, cu note de prune uscate și condimente."
+            },
+            {
+              "name": "Rară Neagră",
+              "text": "o varietate rară cu arome intense de cireșe și ciocolată."
+            },
+            {
+              "name": "Cabernet Sauvignon și Merlot",
+              "text": "vinuri puternice și structurate."
+            }
+          ]
+        }
+      }
+    },
+    "diaspora": {
+      "intro": "Cultura moldovenească ocupă un loc special în patrimoniul umanității, păstrând tradițiile naționale și, în același timp, îmbogățind spațiul cultural mondial. Datorită diasporei moldovenești din diferite țări, tradițiile, muzica, dansul și bucătăria moldovenească devin parte a unui schimb cultural multinațional.",
+      "sectionTitle": "Diaspore moldovenești în\u00A0lume",
+      "cards": [
+        "În Rusia, unde trăiește cea mai mare diaspora moldovenească (peste 500.000 de oameni), există un Centru Cultural Moldovenesc la Moscova, care le prezintă rușilor obiceiurile moldovenești și organizează concerte și festivaluri.",
+        "În Italia, unde mulți moldoveni au plecat să câștige bani, diaspora susține activ obiceiurile autohtone prin organizarea de festivaluri folclorice.",
+        "În Spania, comunitatea moldovenească este relativ tânără, dar contribuie deja la diversitatea culturală a țării.",
+        "În Statele Unite, centrele culturale moldovenești le prezintă americanilor arta populară, muzica și bucătăria moldovenească."
+      ],
+      "unesco": {
+        "title": "Moldova in lista UNESCO",
+        "description": "Cultura moldovenească a primit o recunoaștere specială în listele UNESCO",
+        "material": {
+          "title": "Obiect de patrimoniu material",
+          "paragraph": "Arcul Struve este un obiect geodezic unic, format din 265 de puncte de cercetare. Lungimea totală este de 2820 km, arcul traversează 10 țări. Unul dintre puncte este situat în satul Rudi, raionul Soroca, pe teritoriul unei livezi de meri. În 2005, Arcul Struve a fost adăugat pe listele UNESCO."
+        },
+        "intangible": {
+          "title": "Patrimoniul cultural imaterial",
+          "list": [
+            "țesătura tradițională a covoarelor (Adăugat în 2016)",
+            "festivalul de primăvară Mărțișor (Adăugat în 2017 )",
+            "colinde de Crăciun interpretate de un cor bărbătesc (Adăugat în 2013)"
+          ]
+        }
+      }
+    }
+  },
+
+  "consent": {
+    "heading": "Acord pentru prelucrarea datelor cu caracter personal",
+    "fields": {
+      "name": "Eu,",
+      "nameHint": "(nume, prenume, patronimic (dacă există patronimic))",
+      "address": "domiciliat la adresa:",
+      "addressHint": "(adresa de domiciliu/înregistrare)"
+    },
+    "paragraphs": [
+      "(tipul documentului (pașaport/carte de identitate)) (serie, număr documentului) (data emiterii documentului) (locul emiterii documentului)",
+      "În conformitate cu art. 9 din Legea federală nr. 152-FZ din 27.07.2006 „Privind datele cu caracter personal”, prin prezenta, din proprie inițiativă și în interesul meu, îmi dau acordul pentru prelucrarea datelor mele cu caracter personal de către ANO „Centrul Cultural și Educațional din Moldova” (denumit în continuare Operator), înregistrat la adresa: Moscova, str. Bolshaya Serpukhovskaya, 31, clădirea nr. 6, biroul 1/p, care, la rândul său, asigură confidențialitatea datelor mele cu caracter personal și securitatea acestora în timpul prelucrării acestora.",
+
+      "Prezentul Consimțământ pentru prelucrarea datelor cu caracter personal este acordat de mine Operatorului pentru perioada de prestare a serviciilor către mine de către Operator în domeniul facilitării integrării cetățenilor Republicii Moldova aflați pe teritoriul Federației Ruse în societatea rusă, consolidării prieteniei, cooperării și legăturilor culturale ruso-moldovenești. Acest consimțământ este emis în cadrul Proiectului «Cardul cetățeanului Moldovei în Rusia» (denumit în continuare Proiect). Am citit Regulamentul Proiectului.",
+
+      "Lista datelor cu caracter personal pentru prelucrarea cărora este dat prezentul Acord: - numele meu de familie, prenumele, patronimicul, cetățenia, datele pașaportului de cetățean al Republicii Moldova, datele cărții de identitate de cetățean al Republicii Moldova, datele cărții de identitate provizorii cu mențiuni privind cetățenia Republicii Moldova, IDNP al cetățeanului Republicii Moldova, data nașterii (ziua/luna/anul), adresa de domiciliu (de înregistrare), numărul de telefon, adresa de e-mail, fotografia sau videoclipul meu (fotografia sau videoclipul doar în cazul fotografierii sau filmării mele voluntare cu cuvinte de recunoștință adresate Proiectului).",
+
+      "Acțiuni cu date cu caracter personal pentru care se acordă: orice acțiune (operațiune) sau set de acțiuni (operațiuni) efectuate folosind instrumente de automatizare sau fără utilizarea unor astfel de instrumente, inclusiv colectarea, înregistrarea, sistematizarea, acumularea, stocarea, clarificarea (actualizarea, modificarea), extragerea, utilizarea, transferul (distribuirea, furnizarea, accesul), depersonalizarea, blocarea, ștergerea, distrugerea datelor cu caracter personal, inclusiv transferul (furnizarea, accesul) către persoane care îndeplinesc atribuțiile legale ale Operatorului în baza contractelor de drept civil încheiate cu Operatorul în regiunea în care locuiesc.",
+
+      "Acordul este valabil până la revocare și poate fi revocat de mine prin trimiterea unei notificări scrise de revocare a Acordului pentru prelucrarea datelor cu caracter personal către Operator."
+    ],
+    "footer": {
+      "dateLabel": "(data)",
+      "signLabel": "(semnătura)"
+    }
+  },
+
+  "consentModal": {
+    "heading": "Consimțământ pentru prelucrarea datelor cu caracter personal",
+    "intro": "Prin prezenta, în conformitate cu Legea federală nr. 152-FZ „Despre datele cu caracter personal” din 27.07.2006, îmi exprim liber și în interes personal consimțământul necondiționat pentru prelucrarea datelor mele cu caracter personal înregistrate conform legislației RF de către Operator.",
+    "steps": [
+      {
+        "title": "1.",
+        "text": "Consimțământul se acordă pentru prelucrarea uneia, mai multor sau tuturor categoriilor de date cu caracter personal ne-biometrice, furnizate de mine, care pot include:",
+        "list": [
+          "Telefon",
+          "Confirmarea cetățeniei Republicii Moldova",
+          "Data întâlnirii"
+        ]
+      },
+      {
+        "title": "2.",
+        "text": "Operatorul poate efectua următoarele operațiuni: colectare; înregistrare; organizare; stocare; actualizare; extragere; utilizare; blocare; ștergere; distrugere."
+      },
+      {
+        "title": "3.",
+        "text": "Modalități de prelucrare: cu sau fără utilizarea mijloacelor de automatizare."
+      },
+      {
+        "title": "4.",
+        "text": "Scopul prelucrării: furnizarea serviciilor/lucrărilor, inclusiv trimiterea de notificări, pregătirea și răspunsul la solicitările mele, precum și informarea despre evenimente/produse/servicii."
+      },
+      {
+        "title": "5.",
+        "text": "Deoarece Operatorul poate folosi programul „1С-Bitrix24” pentru prelucrare, îmi exprim consimțământul pentru acțiunile efectuate de ООО „1С-Bitrix” (OГPН 5077746476209)."
+      },
+      {
+        "title": "6.",
+        "text": "Consimțământul este valabil până la retragerea acestuia prin notificare la tech@mdcard.ru sau la adresa Operatorului."
+      },
+      {
+        "title": "7.",
+        "text": "În caz de retragere, Operatorul poate continua prelucrarea fără consimțământ dacă există temeiuri legale conform legii 152-FZ."
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Карта гражданина Молдовы",
+  "short_name": "MDCard",
+  "description": "Официальная карта гражданина Молдовы - льготы, поддержка, услуги",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066CC",
+  "orientation": "portrait-primary",
+  "lang": "ru",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/logo/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/logo/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["government", "social", "finance"],
+  "screenshots": [
+    {
+      "src": "/images/main/yellow-card.png",
+      "sizes": "320x640",
+      "type": "image/png"
+    }
+  ]
+}

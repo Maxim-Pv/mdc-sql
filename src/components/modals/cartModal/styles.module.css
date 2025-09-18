@@ -1,0 +1,78 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* для мобильных показываем снизу */
+  padding: 1rem;
+  z-index: 1000;
+}
+
+@media (min-width: 640px) {
+  .overlay {
+    align-items: center;
+  }
+}
+
+.modal {
+  background: #fff;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 570px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.iconButton {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  color: #9f9f9f;
+  transition: color 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.iconButton:hover {
+  color: #1f2937;
+}
+
+.trashButton {
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  color: #9f9f9f;
+  transition: color 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.trashButton:hover {
+  color: #dc2626;
+}
+
+.btnOrder {
+  width: 100%;
+  padding: 12px 0;
+  background: #ed1846;
+  border-radius: 4px;
+  font-weight: medium;
+  font-size: 26px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  color: white;
+}
+
+.btnOrder:hover {
+  background: #d1153e;
+}

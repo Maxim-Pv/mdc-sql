@@ -1,0 +1,196 @@
+.textBlock {
+  /* height: 540px; */
+  height: auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 460px) {
+  .textBlock {
+    height: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .textBlock {
+    width: 58%;
+  }
+}
+
+.cardBlock {
+  position: absolute;
+  right: 0;
+  bottom: 50px;
+}
+
+@media (min-width: 640px) {
+  .cardBlock {
+    bottom: -5px;
+  }
+}
+
+@media (min-width: 640px) {
+  .cardBlock {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* align-items: flex-start; */
+    /* justify-content: flex-end; */
+  }
+}
+
+@media (min-width: 1024px) {
+  .cardBlock {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #234ba0;
+  width: 50px;
+  height: 50px;
+  border-radius: 9999px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sliderButton {
+    top: 104%;
+    width: 32px;
+    height: 32px;
+    display: none;
+  }
+}
+
+.sliderButton:hover {
+  opacity: 0.8;
+}
+
+.sliderButtonPrev {
+  left: -60px;
+}
+
+@media (max-width: 640px) {
+  .sliderButtonPrev {
+    left: 7rem;
+    padding-right: 3px;
+  }
+}
+
+/* @media (max-width: 640px) {
+  .sliderButtonPrev {
+    padding-right: 3px;
+  }
+} */
+
+.sliderButtonNext {
+  right: -60px;
+}
+
+/* @media (min-width: 320px) {
+  .sliderButtonNext {
+    right: 100px;
+  }
+} */
+
+@media (max-width: 640px) {
+  .sliderButtonNext {
+    right: 7rem;
+    padding-left: 3px;
+  }
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.arrowRotated {
+  transform: rotate(180deg);
+}
+
+.chevronIcon {
+  width: 46px;
+  height: 46px;
+}
+
+@media (max-width: 640px) {
+  .chevronIcon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.mobileSliderButton {
+  background-color: #234ba0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.mobileSliderButton:hover {
+  opacity: 0.8;
+}
+
+.chevronIcon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 768px) {
+  .chevronIcon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.promoCardWrapper {
+  position: relative;
+  height: 730px;
+  margin: 0 15px;
+  border-radius: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .promoCardWrapper {
+    padding-bottom: 30px;
+    flex-direction: row;
+    padding-right: 0;
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .promoCardWrapper {
+    max-height: 540px;
+    padding-left: 30px;
+    max-height: 605px;
+  }
+}

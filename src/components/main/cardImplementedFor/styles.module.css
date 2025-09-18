@@ -1,0 +1,48 @@
+.patternWrapper {
+  height: 170px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.patternTrack {
+  display: flex;
+  width: max-content;
+  animation: scrollTrack 40s linear infinite;
+}
+
+.patternImage {
+  flex-shrink: 0;
+  height: 170px;
+}
+
+@keyframes scrollTrack {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 380px) {
+  .patternWrapper {
+    height: 120px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .patternImage {
+    height: 120px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .patternWrapper {
+    height: 130px;
+  }
+  .patternImage {
+    height: 130px;
+  }
+}

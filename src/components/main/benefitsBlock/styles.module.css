@@ -1,0 +1,28 @@
+.logoFloatingBox {
+  position: absolute;
+  top: -1.75rem; /* -top-7 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* аналог shadow-md */
+  padding: 0.5rem; /* p-2 */
+  width: 300px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  z-index: 20;
+}
+
+@media (max-width: 420px) {
+  .logoFloatingBox {
+    width: 270px;
+  }
+}
+
+.logoImage {
+  max-height: 60px;
+  object-fit: contain;
+}

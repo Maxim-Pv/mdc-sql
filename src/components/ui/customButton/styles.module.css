@@ -1,0 +1,45 @@
+.primaryButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 290px;
+  max-height: 50px;
+  background-color: #fdb51b;
+  color: black;
+  font-size: 16px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background-color: #facc15;
+}
+
+.primaryButton:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.primaryButton:disabled:hover {
+  background-color: #e5e7eb;
+}
+
+@media (min-width: 1200px) {
+  .primaryButton {
+    max-width: 390px;
+    max-height: 58px;
+    font-size: 23px;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+  max-width: none;
+  max-height: none;
+}

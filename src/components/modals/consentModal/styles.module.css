@@ -1,0 +1,50 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  width: 100%;
+  padding: 30px 20px 20px 20px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  color: #6b7280;
+  transition: color 0.3s ease;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.scrollArea {
+  overflow-y: auto;
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE/старый Edge */
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* WebKit (Chrome, Safari, Edge Chromium, мобильные браузеры) */
+.scrollArea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

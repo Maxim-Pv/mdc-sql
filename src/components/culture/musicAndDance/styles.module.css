@@ -1,0 +1,13 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vw, 35px);
+  align-items: stretch;
+  margin-bottom: clamp(25px, 4vw, 40px);
+}
+
+@media (min-width: 800px) {
+  .cardWrapper {
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,79 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  overscroll-behavior: contain;
+}
+
+.modalContent {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 800px;
+  max-height: calc(100vh - 24px);
+  padding: 40px 10px 10px 10px;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 940px) {
+  .modalContent {
+    border-radius: 16px;
+    padding: 40px 20px 20px 20px;
+    max-height: calc(100vh - 80px);
+  }
+}
+
+.bodyScroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+
+  -webkit-overflow-scrolling: touch; /* iOS */
+  scrollbar-width: none;
+}
+
+.bodyScroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  color: #6b7280;
+  transition: color 0.3s ease;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: #000;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.modalContent:focus {
+  outline: none;
+}
+
+.modalContent:focus-visible {
+  outline: 2px solid #fdb51b;
+  outline-offset: 4px;
+  border-radius: 12px;
+}

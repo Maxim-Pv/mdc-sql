@@ -1,0 +1,19 @@
+"use client";
+
+import HeaderNav from "@/components/headerNav/HeaderNav";
+import MerchHeroBlock from "@/components/merch/heroBlock/MerchHeroBlock";
+import ProductList from "@/components/merch/productList/ProductList";
+import { useState } from "react";
+
+export default function MerchPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="flex flex-col gap-[40px] sm:gap-[75px] mb-[50px]">
+      <HeaderNav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
+      <MerchHeroBlock />
+      <ProductList />
+    </div>
+  );
+}
