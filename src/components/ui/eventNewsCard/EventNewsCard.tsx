@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import { useModal } from "@/context/ModalContext";
-import Image from "next/image";
-import { ReactNode } from "react";
-
-export type ContentKind = "news" | "events";
+import { useModal } from '@/context/ModalContext';
+import { ContentKind } from '@/types/news';
+import Image from 'next/image';
+import { ReactNode } from 'react';
 
 export interface Props {
   id: string;
@@ -21,7 +20,7 @@ export default function EventNewsCard({ id, kind, image, date, title, objectPosi
 
   const handleOpen: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation();
-    openModal("eventNews", {
+    openModal('eventNews', {
       data: {
         id,
         kind,
@@ -32,26 +31,26 @@ export default function EventNewsCard({ id, kind, image, date, title, objectPosi
 
   return (
     <div
-      className="flex flex-col gap-1 sm:gap-3 cursor-pointer focus:outline-none"
+      className="flex cursor-pointer flex-col gap-1 focus:outline-none sm:gap-3"
       role="button"
       tabIndex={0}
       onClick={handleOpen}
-      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleOpen(e as any)}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleOpen(e as any)}
     >
       {image && (
-        <div className="relative w-full max-w-none md:max-w-[530px] aspect-[53/30] overflow-hidden rounded-[10px] sm:rounded-[25px]">
+        <div className="relative aspect-[53/30] w-full max-w-none overflow-hidden rounded-[10px] sm:rounded-[25px] md:max-w-[530px]">
           <Image
             src={image}
             alt={title}
             fill
-            className="object-cover "
-            style={{ objectPosition: objectPosition || "center" }}
+            className="object-cover"
+            style={{ objectPosition: objectPosition || 'center' }}
             sizes="(max-width: 768px) 100vw, 530px"
           />
         </div>
       )}
-      {date && <span className="text-[#234BA0] text-xs sm:text-sm leading-[24px]">{date}</span>}
-      <h3 className="leading-[24px] font-semibold text-sm sm:text-base">{title}</h3>
+      {date && <span className="text-xs leading-[24px] text-[#234BA0] sm:text-sm">{date}</span>}
+      <h3 className="text-sm leading-[24px] font-semibold sm:text-base">{title}</h3>
     </div>
   );
 }

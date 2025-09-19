@@ -1,16 +1,14 @@
+export type ContentKind = 'news' | 'events';
+
 export type ContentItem = {
   id: string;
-  kind: "news" | "events";
+  kind: ContentKind;
   title: string;
   date: string;
-  dateISO?: string; // дата в формате YYYY-MM-DD
-  startISO?: string; // дата начала в формате
-  endISO?: string; // дата окончания в формате
   image?: string;
-  text?: string;
   objectPosition?: string;
   published?: boolean;
-  mdxSlug?: string;
+  body?: any;
 };
 
 export type EventItem = {
@@ -23,5 +21,5 @@ export type EventItem = {
 };
 
 export type EventModalData =
-  | { id: string; kind?: "news" | "events"; fallback?: { title?: string } }
+  | { id: string; kind?: ContentKind; fallback?: { title?: string } }
   | { id?: string; title: string; text?: string; content?: React.ReactNode };
