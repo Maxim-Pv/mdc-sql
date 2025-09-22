@@ -2,7 +2,7 @@ export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/admin/db';
-import { ContentKind } from '@/types/news';
+import { ContentKind } from '@/types/event-news';
 
 type Scope = 'upcoming' | 'past' | 'all';
 

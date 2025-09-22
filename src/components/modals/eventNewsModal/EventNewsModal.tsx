@@ -1,6 +1,6 @@
 import ProseMarkdown from '@/components/ui/ProseMarkdown';
 import Spinner from '@/components/ui/spinner/Spinner';
-import { ContentItem, ContentKind, EventModalData } from '@/types/news';
+import { ContentItem, ContentKind, EventModalData } from '@/types/event-news';
 import { IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { useEffect, useMemo } from 'react';

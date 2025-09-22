@@ -2,21 +2,19 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/admin/db';
 import { requireAdmin } from '@/lib/admin/auth.server';
 import { mkdir, writeFile, unlink } from 'fs/promises';
-import { randomBytes } from 'node:crypto';
 import path from 'path';
+import { randomBytes } from 'node:crypto';
 
 export const runtime = 'nodejs';
-
 type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_req: Request, ctx: Ctx) {
   const { id } = await ctx.params;
-  const item = await prisma.news.findUnique({ where: { id } });
+  const item = await prisma.event.findUnique({ where: { id } });
   if (!item) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  // нормализуем поле image под фронт
   return NextResponse.json({
     id: item.id,
-    kind: 'news',
+    kind: 'events',
     title: item.title,
     date: item.date ?? '',
     image: item.coverUrl ?? undefined,
@@ -32,7 +30,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const existing = await prisma.news.findUnique({ where: { id } });
+  const existing = await prisma.event.findUnique({ where: { id } });
   if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   const ct = req.headers.get('content-type') || '';
@@ -58,26 +56,25 @@ export async function PATCH(req: Request, ctx: Ctx) {
       if (cover.size > 5 * 1024 * 1024)
         return NextResponse.json({ error: 'Файл слишком большой (макс. 5MB)' }, { status: 413 });
 
-      const destDir = path.join(process.cwd(), 'public', 'images', 'news'); // твоя папка
+      const destDir = path.join(process.cwd(), 'public', 'images', 'events');
       await mkdir(destDir, { recursive: true });
       const salt = randomBytes(6).toString('hex');
-      const base = existing.slug || 'news';
+      const base = existing.slug || 'event';
       const fileName = `${base}-${salt}${ext}`;
       await writeFile(path.join(destDir, fileName), Buffer.from(await cover.arrayBuffer()));
-      newCoverPath = `/images/news/${fileName}`;
+      newCoverPath = `/images/events/${fileName}`;
       data.coverUrl = newCoverPath;
     }
   } else {
-    // JSON fallback
     const j = await req.json().catch(() => ({}));
     if (j.title !== undefined) data.title = j.title;
     if (j.body !== undefined) data.body = j.body;
     if (j.date !== undefined) data.date = j.date;
     if (j.objectPosition !== undefined) data.objectPosition = j.objectPosition;
-    if (j.coverUrl !== undefined) data.coverUrl = j.coverUrl; // ручной апдейт, если надо
+    if (j.coverUrl !== undefined) data.coverUrl = j.coverUrl;
   }
 
-  const updated = await prisma.news.update({
+  const updated = await prisma.event.update({
     where: { id },
     data,
     select: {
@@ -92,8 +89,7 @@ export async function PATCH(req: Request, ctx: Ctx) {
     },
   });
 
-  // если заменили файл — можно удалить старый (только если он в нашей папке)
-  if (newCoverPath && existing.coverUrl?.startsWith('/images/news/')) {
+  if (newCoverPath && existing.coverUrl?.startsWith('/images/events/')) {
     const oldFull = path.join(process.cwd(), 'public', existing.coverUrl);
     try {
       await unlink(oldFull);
@@ -108,7 +104,7 @@ export async function DELETE(_req: Request, ctx: Ctx) {
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const existing = await prisma.news.findUnique({ where: { id: id } });
+  const existing = await prisma.event.findUnique({ where: { id: id } });
   if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   if (existing.coverUrl?.startsWith('/images/news/')) {
@@ -119,6 +115,6 @@ export async function DELETE(_req: Request, ctx: Ctx) {
     } catch {}
   }
 
-  await prisma.news.delete({ where: { id: id } });
+  await prisma.event.delete({ where: { id: id } });
   return NextResponse.json({ ok: true, id: id, slug: existing.slug });
 }

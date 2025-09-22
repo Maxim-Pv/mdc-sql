@@ -2,7 +2,11 @@
   "name": "moldova-card",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "ts-node -P tsconfig.seed.json prisma/seed.ts"
+  },
   "scripts": {
+    "seed": "prisma db seed",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "import:mdx": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/import-mdx.ts",
@@ -21,11 +25,13 @@
     "@tabler/icons-react": "^3.34.0",
     "axios": "^1.11.0",
     "axios-cookiejar-support": "^6.0.4",
+    "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "fast-glob": "^3.3.3",
     "framer-motion": "^12.23.12",
     "gray-matter": "^4.0.3",
+    "jsonwebtoken": "^9.0.2",
     "keen-slider": "^6.8.6",
     "next": "15.3.4",
     "next-intl": "^4.3.4",
@@ -48,6 +54,7 @@
     "@next/bundle-analyzer": "^15.5.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -58,6 +65,7 @@
     "prisma": "^6.16.2",
     "tailwindcss": "^4.1.11",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5"
   }
 }

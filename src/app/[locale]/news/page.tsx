@@ -1,5 +1,9 @@
-import NewsPage from "@/components/pages/news/NewsPage";
+import NewsPage from '@/components/pages/news/NewsPage';
+import { requireAdmin } from '@/lib/admin/auth.server';
 
-export default function News() {
-  return <NewsPage />;
+export default async function Page() {
+  const admin = await requireAdmin();
+  const canCreate = !!admin;
+
+  return <NewsPage canCreate={canCreate} />;
 }

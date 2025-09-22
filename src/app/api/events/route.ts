@@ -5,7 +5,6 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 
-export const runtime = 'nodejs';
 function toSlug(s: string) {
   return s
     .normalize('NFKD')
@@ -15,9 +14,8 @@ function toSlug(s: string) {
     .replace(/\s+/g, '-')
     .toLowerCase();
 }
-
 export async function GET() {
-  const items = await prisma.news.findMany({ orderBy: { createdAt: 'desc' } });
+  const items = await prisma.event.findMany({ orderBy: { createdAt: 'desc' } });
   return NextResponse.json({ items });
 }
 
@@ -72,7 +70,7 @@ export async function POST(req: Request) {
       coverUrl = `/images/news/${fileName}`;
     }
 
-    const created = await prisma.news.create({
+    const created = await prisma.event.create({
       data: {
         slug,
         title,
@@ -106,11 +104,11 @@ export async function POST(req: Request) {
   const slugBase = body.slug?.trim() || toSlug(body.title);
   let slug = slugBase;
   let i = 1;
-  while (await prisma.news.findUnique({ where: { slug } })) {
+  while (await prisma.event.findUnique({ where: { slug } })) {
     slug = `${slugBase}-${i++}`;
   }
 
-  const created = await prisma.news.create({
+  const created = await prisma.event.create({
     data: {
       slug,
       title: body.title,
