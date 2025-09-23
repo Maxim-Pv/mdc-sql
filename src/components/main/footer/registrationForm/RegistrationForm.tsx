@@ -20,6 +20,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import st from './styles.module.css';
+import { reachYmGoal } from '@/lib/analytics/yandex';
 
 export const RegistrationForm = () => {
   const t = useTranslations('main.citizenCardForm');
@@ -120,10 +121,10 @@ export const RegistrationForm = () => {
       // const res = await new Promise<Response>((resolve) => {
       //   setTimeout(() => {
       //     resolve(
-      //       new Response(JSON.stringify({ message: "ok" }), {
+      //       new Response(JSON.stringify({ message: 'ok' }), {
       //         status: 200,
-      //         headers: { "Content-Type": "application/json" },
-      //       })
+      //         headers: { 'Content-Type': 'application/json' },
+      //       }),
       //     );
       //   }, 1000);
       // });
@@ -134,6 +135,7 @@ export const RegistrationForm = () => {
         setErrorMessage(t('errors.submitFail'));
         setErrorToastVisible(true);
         pushMailruGoal('form_submit_fail');
+        reachYmGoal('form_submit_fail');
         return;
       }
 
@@ -145,11 +147,13 @@ export const RegistrationForm = () => {
       setToastVisible(true);
 
       pushMailruGoal('form_submit_success');
+      reachYmGoal('form_submit_success');
     } catch (e) {
       // сетевая ошибка
       setErrorMessage(t('errors.submitFail'));
       setErrorToastVisible(true);
       pushMailruGoal('form_submit_fail');
+      reachYmGoal('form_submit_fail');
     }
   };
 

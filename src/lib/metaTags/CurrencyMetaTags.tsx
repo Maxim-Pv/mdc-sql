@@ -1,92 +1,92 @@
-import Script from "next/script";
+import Script from 'next/script';
 
 const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "ExchangeRateSpecification",
-  name: "Курс валют молдавского лея",
-  description: "Актуальные курсы обмена молдавского лея к рублю, евро, доллару и другим валютам",
-  url: "https://mdcard.ru/ru/currency",
-  currency: "MDL",
+  '@context': 'https://schema.org',
+  '@type': 'ExchangeRateSpecification',
+  name: 'Курс валют молдавского лея',
+  description: 'Актуальные курсы обмена молдавского лея к рублю, евро, доллару и другим валютам',
+  url: 'https://mdcard.ru/ru/currency',
+  currency: 'MDL',
   currentExchangeRate: [
     {
-      "@type": "UnitPriceSpecification",
-      price: "[динамическое значение]",
-      priceCurrency: "RUB",
-      name: "Курс лея к рублю",
+      '@type': 'UnitPriceSpecification',
+      price: '[динамическое значение]',
+      priceCurrency: 'RUB',
+      name: 'Курс лея к рублю',
     },
     {
-      "@type": "UnitPriceSpecification",
-      price: "[динамическое значение]",
-      priceCurrency: "EUR",
-      name: "Курс лея к евро",
+      '@type': 'UnitPriceSpecification',
+      price: '[динамическое значение]',
+      priceCurrency: 'EUR',
+      name: 'Курс лея к евро',
     },
     {
-      "@type": "UnitPriceSpecification",
-      price: "[динамическое значение]",
-      priceCurrency: "USD",
-      name: "Курс лея к доллару",
+      '@type': 'UnitPriceSpecification',
+      price: '[динамическое значение]',
+      priceCurrency: 'USD',
+      name: 'Курс лея к доллару',
     },
   ],
-  validFrom: "[текущая дата]",
-  validThrough: "[дата + 1 день]",
+  validFrom: '[текущая дата]',
+  validThrough: '[дата + 1 день]',
   provider: {
-    "@type": "Organization",
+    '@type': 'Organization',
     // "@id": "https://mdcard.ru/#organization",
-    name: "MDCard.ru",
-    url: "https://mdcard.ru",
+    name: 'MDCard.ru',
+    url: 'https://mdcard.ru',
     sameAs: [
-      "https://vk.com/moldovacard",
-      "https://ok.ru/group/70000007749717",
-      "https://www.instagram.com/moldovacard",
-      "https://www.facebook.com/moldovacard",
-      "https://dzen.ru/id/6853d7532a9f4e7683258d63",
+      'https://vk.com/moldovacard',
+      'https://ok.ru/group/70000007749717',
+      'https://www.instagram.com/moldovacard',
+      'https://www.facebook.com/moldovacard',
+      'https://dzen.ru/id/6853d7532a9f4e7683258d63',
     ],
     contactPoint: {
-      "@type": "ContactPoint",
-      email: "presscard@mdcard.ru",
-      contactType: "customer service",
-      availableLanguage: ["Russian", "Romanian"],
+      '@type': 'ContactPoint',
+      email: 'presscard@mdcard.ru',
+      contactType: 'customer service',
+      availableLanguage: ['Russian', 'Romanian'],
     },
   },
   areaServed: [
     {
-      "@type": "Country",
-      name: "Республика Молдова",
+      '@type': 'Country',
+      name: 'Республика Молдова',
     },
     {
-      "@type": "Country",
-      name: "Российская Федерация",
+      '@type': 'Country',
+      name: 'Российская Федерация',
     },
     {
-      "@type": "Place",
-      name: "Приднестровская Молдавская Республика",
+      '@type': 'Place',
+      name: 'Приднестровская Молдавская Республика',
     },
   ],
   audience: {
-    "@type": "PeopleAudience",
-    audienceType: "Пользователи валютных операций",
+    '@type': 'PeopleAudience',
+    audienceType: 'Пользователи валютных операций',
   },
   mainEntity: {
-    "@type": "WebApplication",
-    name: "Конвертер валют лей",
-    description: "Онлайн калькулятор для конвертации молдавского лея",
-    applicationCategory: "Finance",
-    operatingSystem: "Any",
+    '@type': 'WebApplication',
+    name: 'Конвертер валют лей',
+    description: 'Онлайн калькулятор для конвертации молдавского лея',
+    applicationCategory: 'Finance',
+    operatingSystem: 'Any',
     offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "MDL",
-      availability: "https://schema.org/InStock",
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'MDL',
+      availability: 'https://schema.org/InStock',
     },
   },
   breadcrumb: {
-    "@type": "BreadcrumbList",
+    '@type': 'BreadcrumbList',
     itemListElement: [
       {
-        "@type": "ListItem",
+        '@type': 'ListItem',
         position: 1,
-        name: "Главная",
-        item: "https://mdcard.ru",
+        name: 'Главная',
+        item: 'https://mdcard.ru',
       },
       // {
       //   "@type": "ListItem",
@@ -95,10 +95,10 @@ const schemaData = {
       //   item: "https://mdcard.ru/services/",
       // },
       {
-        "@type": "ListItem",
+        '@type': 'ListItem',
         position: 3,
-        name: "Курс валют лей",
-        item: "https://mdcard.ru/ru/currency",
+        name: 'Курс валют лей',
+        item: 'https://mdcard.ru/ru/currency',
       },
     ],
   },
@@ -114,7 +114,7 @@ export default function CurrencyMetaTags() {
       ></meta>
       <meta
         name="keywords"
-        content="курс валют лей, молдавский лей, курс лея к рублю, курс лея к евро, курс лея к доллару, курс валют на сегодня лей, курс валют рубль молдавский лей, курс лея в пмр, курс лея к доллару в молдове, 6 долларов в леях, 9 долларов в леях, курс лея в тирасполе, курс лея в кишиневе, конвертер валют лей, обмен валют лей, курс покупки лей, курс продажи лей, национальный банк молдовы, межбанковский курс лей, валютные операции молдова, котировки лей, курсовая разница лей, обменные пункты молдова, валютный рынок молдовы, кросс курс лей, динамика курса лея, прогноз курса лея, исторический курс лея, курс лея приднестровье, банки молдовы курс, сбербанк пмр курс лея, лучший курс обмена лей, где обменять рубли на леи, калькулятор валют лей рубль, курс лея реальное время, онлайн курс лея"
+        content="курс валют лей, молдавский лей, курс лея к рублю, курс лея к евро, курс лея к доллару, курс валют на сегодня лей, курс валют рубль молдавский лей, курс лея в пмр, курс лея к доллару в молдове, 6 долларов в леях, 9 долларов в леях, курс лея в тирасполе, курс лея в кишиневе, конвертер валют лей, обмен валют лей, курс покупки лей, курс продажи лей, национальный банк молдовы, межбанковский курс лей, валютные операции молдова, котировки лей, курсовая разница лей, обменные пункты молдова, валютный рынок молдовы, кросс курс лей, динамика курса лея, прогноз курса лея, исторический курс лея, курс лея приднестровье, банки молдовы курс, лучший курс обмена лей, где обменять рубли на леи, калькулятор валют лей рубль, курс лея реальное время, онлайн курс лея"
       ></meta>
 
       {/* РАСШИРЕННАЯ АВТОРСКАЯ ИНФОРМАЦИЯ */}
@@ -164,7 +164,10 @@ export default function CurrencyMetaTags() {
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/jpeg" />
-      <meta property="og:image:alt" content="Курс валют молдавского лея - актуальные котировки к рублю, евро, доллару" />
+      <meta
+        property="og:image:alt"
+        content="Курс валют молдавского лея - актуальные котировки к рублю, евро, доллару"
+      />
       <meta property="og:locale" content="ru_RU" />
       <meta property="og:locale:alternate" content="ro_MD" />
       <meta property="og:locale:alternate" content="en_US" />
@@ -197,7 +200,10 @@ export default function CurrencyMetaTags() {
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Курс молдавского лея сегодня | Конвертер валют" />
-      <meta name="twitter:description" content="Актуальные курсы валют лея к основным валютам мира. Конвертер и калькулятор обмена" />
+      <meta
+        name="twitter:description"
+        content="Актуальные курсы валют лея к основным валютам мира. Конвертер и калькулятор обмена"
+      />
       {/* <meta
         name="twitter:image"
         content="https://mdcard.ru/images/currency-rates-preview-1200x630.jpg"
@@ -242,7 +248,10 @@ export default function CurrencyMetaTags() {
 
       {/* ДОПОЛНИТЕЛЬНАЯ SEO ИНФОРМАЦИЯ */}
 
-      <meta name="news_keywords" content="курс валют лей, молдавский лей, конвертер валют, обмен валют, курс лея, банки молдовы, пмр курсы" />
+      <meta
+        name="news_keywords"
+        content="курс валют лей, молдавский лей, конвертер валют, обмен валют, курс лея, банки молдовы, пмр курсы"
+      />
       <meta name="standout" content="https://mdcard.ru/ru/currency" />
       <meta name="syndication-source" content="https://mdcard.ru/ru/currency" />
       <meta name="original-source" content="https://mdcard.ru/ru/currency" />
@@ -282,7 +291,7 @@ export default function CurrencyMetaTags() {
 
       <noscript>
         <div>
-          <img src="https://mc.yandex.ru/watch/12345678" style={{ position: "absolute", left: "-9999px" }} alt="" />
+          <img src="https://mc.yandex.ru/watch/12345678" style={{ position: 'absolute', left: '-9999px' }} alt="" />
         </div>
       </noscript>
 
