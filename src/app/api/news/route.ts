@@ -3,9 +3,11 @@ import { adminOnly } from '@/lib/auth/adminOnly';
 import crypto from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
+import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
 
 export const runtime = 'nodejs';
+
 function toSlug(s: string) {
   return s
     .normalize('NFKD')
@@ -33,6 +35,14 @@ export const POST = adminOnly(async (req) => {
     const cover = form.get('cover') as File | null;
 
     if (!title) return NextResponse.json({ error: 'title required' }, { status: 400 });
+
+    const sortDateStr = String(form.get('sortDate') ?? '').trim();
+    const currentYear = new Date().getFullYear();
+    let sortAt: Date | null = sortDateStr
+      ? parseYYYYMMDD(sortDateStr)
+      : date
+        ? parseRuDayMonth(date, currentYear)
+        : null;
 
     // slug и проверка уникальности
     const slugBase = toSlug(title);
@@ -77,6 +87,7 @@ export const POST = adminOnly(async (req) => {
         coverUrl,
         tags: [],
         published: true,
+        sortAt,
       },
       select: { id: true, slug: true, coverUrl: true },
     });
@@ -87,6 +98,14 @@ export const POST = adminOnly(async (req) => {
   // JSON-вариант
   const payload = await req.json();
   if (!payload?.title) return NextResponse.json({ error: 'title required' }, { status: 400 });
+
+  const sortDateStr = typeof payload.sortDate === 'string' ? payload.sortDate.trim() : '';
+  const currentYear = new Date().getFullYear();
+  let sortAt: Date | null = sortDateStr
+    ? parseYYYYMMDD(sortDateStr)
+    : payload.date
+      ? parseRuDayMonth(payload.date, currentYear)
+      : null;
 
   const slugBase = payload.slug?.trim() || toSlug(payload.title);
   let slug = slugBase;
@@ -105,6 +124,7 @@ export const POST = adminOnly(async (req) => {
       objectPosition: payload.objectPosition ?? null,
       tags: Array.isArray(payload.tags) ? payload.tags : [],
       published: payload.published ?? true,
+      sortAt,
     },
     select: { id: true, slug: true, coverUrl: true },
   });

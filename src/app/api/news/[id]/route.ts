@@ -3,6 +3,7 @@ import { adminOnly } from '@/lib/auth/adminOnly';
 import { mkdir, unlink, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
+import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
 
 export const runtime = 'nodejs';
@@ -48,6 +49,22 @@ export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }
     const objectPosition = form.get('objectPosition');
     if (objectPosition !== null) data.objectPosition = String(objectPosition);
 
+    const sortDate = form.get('sortDate');
+    if (sortDate !== null) {
+      const s = String(sortDate).trim();
+      if (s === '') {
+        data.sortAt = null; // явный сброс
+      } else {
+        const parsed = parseYYYYMMDD(s);
+        if (!parsed)
+          return NextResponse.json({ error: 'Некорректный sortDate, ожидается YYYY.MM.DD' }, { status: 400 });
+        data.sortAt = parsed;
+      }
+    } else if (date != null) {
+      const parsed = parseRuDayMonth(String(date), new Date().getFullYear());
+      if (parsed) data.sortAt = parsed;
+    }
+
     const cover = form.get('cover') as File | null;
     if (cover && cover.size > 0) {
       const ext = path.extname(cover.name || '').toLowerCase();
@@ -73,6 +90,21 @@ export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }
     if (j.date !== undefined) data.date = j.date;
     if (j.objectPosition !== undefined) data.objectPosition = j.objectPosition;
     if (j.coverUrl !== undefined) data.coverUrl = j.coverUrl; // ручной апдейт, если надо
+
+    if (j.sortDate !== undefined) {
+      const s = typeof j.sortDate === 'string' ? j.sortDate.trim() : '';
+      if (s === '') {
+        data.sortAt = null;
+      } else {
+        const parsed = parseYYYYMMDD(s);
+        if (!parsed)
+          return NextResponse.json({ error: 'Некорректный sortDate, ожидается YYYY.MM.DD' }, { status: 400 });
+        data.sortAt = parsed;
+      }
+    } else if (j.date !== undefined) {
+      const parsed = parseRuDayMonth(String(j.date), new Date().getFullYear());
+      if (parsed) data.sortAt = parsed;
+    }
   }
 
   const updated = await prisma.news.update({
@@ -87,6 +119,7 @@ export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }
       body: true,
       objectPosition: true,
       published: true,
+      sortAt: true,
     },
   });
 

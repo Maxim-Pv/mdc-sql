@@ -25,8 +25,11 @@ model News {
   tags        Json
   published   Boolean  @default(true)
   publishedAt DateTime @default(now())
+  sortAt      DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([sortAt]) 
 }
 
 model Event {
@@ -40,8 +43,11 @@ model Event {
   tags        Json
   published   Boolean  @default(true)
   publishedAt DateTime @default(now())
+  sortAt      DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([sortAt]) 
 }
 
 

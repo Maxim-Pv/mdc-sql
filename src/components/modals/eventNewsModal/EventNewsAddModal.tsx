@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/providers/ModalContext';
+import { ruHumanToYYYYMMDD } from '@/lib/dates/sortAt';
 import type { EventNewsUpdate, Form } from '@/types/event-news';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useTransition } from 'react';
@@ -24,15 +24,17 @@ export default function EventNewsAddModal({ isOpen, onClose, data, onSaved }: Ev
         body: (data.item.body as string) ?? '',
         date: data.item.date ?? '',
         objectPosition: data.item.objectPosition ?? '',
+        sortDate: '',
       }
     : {
         title: data.initial?.title ?? '',
         body: data.initial?.body ?? '',
         date: data.initial?.date ?? '',
         objectPosition: data.initial?.objectPosition ?? '',
+        sortDate: '',
       };
 
-  const { register, handleSubmit, reset } = useForm<Form>({ defaultValues: defaults });
+  const { register, handleSubmit, reset, setValue } = useForm<Form>({ defaultValues: defaults });
   useEffect(() => {
     if (isOpen) reset(defaults);
   }, [isOpen, isEdit, data, reset]);
@@ -44,12 +46,22 @@ export default function EventNewsAddModal({ isOpen, onClose, data, onSaved }: Ev
   if (!isOpen) return null;
 
   const onSubmit = handleSubmit(async (formData) => {
+    let sortDate = (formData.sortDate || '').trim();
+    if (!sortDate && formData.date?.trim()) {
+      const auto = ruHumanToYYYYMMDD(formData.date.trim());
+      if (auto) {
+        sortDate = auto;
+        setValue('sortDate', auto, { shouldDirty: true });
+      }
+    }
+
     const fd = new FormData();
     fd.append('title', formData.title);
     fd.append('body', formData.body ?? '');
     if (formData.date) fd.append('date', formData.date);
     if (formData.objectPosition) fd.append('objectPosition', formData.objectPosition);
 
+    fd.append('sortDate', sortDate);
     const file = fileRef.current?.files?.[0];
     if (file) fd.append('cover', file); // если файла нет — не трогаем cover
 
@@ -99,6 +111,17 @@ export default function EventNewsAddModal({ isOpen, onClose, data, onSaved }: Ev
             placeholder="Заголовок"
           />
           <input {...register('date')} className="w-full rounded border px-3 py-2" placeholder="Дата (1 января)" />
+
+          {/* Сортировка */}
+          <input
+            {...register('sortDate')}
+            placeholder="Дата для сортировки (YYYY.MM.DD)"
+            className="w-full rounded border px-3 py-2"
+          />
+          <p className="text-xs text-gray-500">
+            Если оставить пустым — система попробует вычислить по полю «Дата» на текущий год. Чтобы сбросить сортировку
+            у записи — оставьте это поле пустым и сохраните (в режиме редактирования).
+          </p>
 
           <input
             ref={fileRef}

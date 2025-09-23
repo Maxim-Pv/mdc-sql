@@ -3,6 +3,7 @@ import { adminOnly } from '@/lib/auth/adminOnly';
 import crypto from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
+import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
 
 function toSlug(s: string) {
@@ -32,10 +33,18 @@ export const POST = adminOnly(async (req) => {
 
     if (!title) return NextResponse.json({ error: 'title required' }, { status: 400 });
 
+    const sortDateStr = String(form.get('sortDate') ?? '').trim();
+    const currentYear = new Date().getFullYear();
+    let sortAt: Date | null = sortDateStr
+      ? parseYYYYMMDD(sortDateStr)
+      : date
+        ? parseRuDayMonth(date, currentYear)
+        : null;
+
     const slugBase = toSlug(title);
     let slug = slugBase;
     let i = 1;
-    while (await prisma.news.findUnique({ where: { slug } })) {
+    while (await prisma.event.findUnique({ where: { slug } })) {
       slug = `${slugBase}-${i++}`;
     }
 
@@ -73,6 +82,7 @@ export const POST = adminOnly(async (req) => {
         coverUrl,
         tags: [],
         published: true,
+        sortAt,
       },
       select: { id: true, slug: true, coverUrl: true },
     });
@@ -83,6 +93,14 @@ export const POST = adminOnly(async (req) => {
   const payload = await req.json();
   if (!payload?.title) return NextResponse.json({ error: 'title required' }, { status: 400 });
 
+  const sortDateStr = typeof payload.sortDate === 'string' ? payload.sortDate.trim() : '';
+  const currentYear = new Date().getFullYear();
+  let sortAt: Date | null = sortDateStr
+    ? parseYYYYMMDD(sortDateStr)
+    : payload.date
+      ? parseRuDayMonth(payload.date, currentYear)
+      : null;
+
   const slugBase = payload.slug?.trim() || toSlug(payload.title);
   let slug = slugBase;
   let i = 1;
@@ -90,7 +108,7 @@ export const POST = adminOnly(async (req) => {
     slug = `${slugBase}-${i++}`;
   }
 
-  const created = await prisma.news.create({
+  const created = await prisma.event.create({
     data: {
       slug,
       title: payload.title,
@@ -100,6 +118,7 @@ export const POST = adminOnly(async (req) => {
       objectPosition: payload.objectPosition ?? null,
       tags: Array.isArray(payload.tags) ? payload.tags : [],
       published: payload.published ?? true,
+      sortAt,
     },
     select: { id: true, slug: true, coverUrl: true },
   });

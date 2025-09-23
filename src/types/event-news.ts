@@ -19,6 +19,7 @@ export type Form = {
   objectPosition?: string;
   tags?: string[];
   published?: boolean;
+  sortDate?: string;
 };
 
 export type EventItem = {
