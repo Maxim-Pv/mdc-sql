@@ -2,7 +2,7 @@
 
 import EventNewsCard from '@/components/ui/eventNewsCard/EventNewsCard';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { useModal } from '@/context/ModalContext';
+import { useModal } from '@/providers/ModalContext';
 import { ContentItem, ContentKind } from '@/types/event-news';
 import { IconCopyPlusFilled } from '@tabler/icons-react';
 import clsx from 'clsx';
@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import st from './styles.module.css';
+import { useIsAdmin } from '@/lib/auth/useIsAdmin';
 
 type PageResponse = {
   items: ContentItem[];
@@ -38,13 +39,12 @@ export default function ContentFeed({
   kind,
   pageSize,
   scope = 'all',
-  isAdmin = false,
 }: {
   kind: ContentKind;
   pageSize: number; // 6 для новостей, 4 для мероприятий
   scope?: 'upcoming' | 'past' | 'all'; // фильтр на будущее
-  isAdmin?: boolean;
 }) {
+  const isAdmin = useIsAdmin();
   const rootRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
 

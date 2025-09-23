@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 
 const schema = z.object({
   email: z.string().email('Некорректный email'),
@@ -13,7 +14,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export default function AuthPage() {
+export default function AdminLoginPage() {
   const router = useRouter();
   const search = useSearchParams();
   const [error, setError] = useState<string | null>(null);
@@ -30,20 +31,20 @@ export default function AuthPage() {
   const onSubmit = (values: FormValues) => {
     setError(null);
     startTransition(async () => {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
       });
 
-      if (res.ok) {
-        const next = search.get('next') || '/';
-        router.replace(next);
-        router.refresh();
-      } else {
-        const data = await res.json().catch(() => ({}));
-        setError(data?.error ?? 'Ошибка авторизации');
+      if (!res || res.error) {
+        setError('Ошибка авторизации');
+        return;
       }
+
+      const next = search.get('next') || search.get('callbackUrl') || '/';
+      router.replace(next);
+      router.refresh();
     });
   };
 
@@ -60,7 +61,7 @@ export default function AuthPage() {
             {...register('email')}
             type="email"
             className="w-full rounded-lg border px-3 py-2 outline-none focus:ring"
-            placeholder="admin@site.local"
+            placeholder="admin@example.com"
             autoComplete="username"
           />
           {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
@@ -80,7 +81,7 @@ export default function AuthPage() {
 
         <button
           disabled={isPending}
-          className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-2 text-white disabled:opacity-60 cursor-pointer hover:bg-black/80"
+          className="inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-3 text-white disabled:opacity-60 cursor-pointer hover:bg-black/80"
         >
           {isPending ? 'Входим…' : 'Войти'}
         </button>

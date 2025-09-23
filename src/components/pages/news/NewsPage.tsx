@@ -7,7 +7,7 @@ import NewsHeroBlock from '@/components/news/heroBlock/NewsHeroBlock';
 import NewsMetaTags from '@/lib/metaTags/NewsMetaTags';
 import { useState } from 'react';
 
-export default function NewsPage({ canCreate }: { canCreate: boolean }) {
+export default function NewsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
@@ -16,9 +16,9 @@ export default function NewsPage({ canCreate }: { canCreate: boolean }) {
         <HeaderNav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         <NewsHeroBlock />
         <PatternTitle title={`последние мероприятия и\u00A0акции`} />
-        <ContentFeed kind="events" pageSize={4} isAdmin={canCreate} />
+        <ContentFeed kind="events" pageSize={4} />
         <PatternTitle title="популярные новости молдовы" />
-        <ContentFeed kind="news" pageSize={6} isAdmin={canCreate} />
+        <ContentFeed kind="news" pageSize={6} />
       </div>
     </>
   );

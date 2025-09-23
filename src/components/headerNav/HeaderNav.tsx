@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import LogoutBtn from '../admin/LogoutBtn';
 
 const rawNavLinks = [
   { href: '/', labelKey: 'nav.map' },
@@ -19,29 +20,6 @@ const rawNavLinks = [
   { href: '/culture', labelKey: 'nav.culture' },
   { href: '/#contacts', labelKey: 'nav.contacts' },
 ];
-
-// async function getMe() {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/auth/me`, {
-//     cache: 'no-store',
-//   });
-//   return (await res.json()) as { user: { id: string; role: 'ADMIN' | 'USER' } | null };
-// }
-
-// async function LogoutButton() {
-//   const { user } = await getMe();
-//   if (!user) return null;
-//   return (
-//     <button
-//       className="rounded border px-3 py-1"
-//       onClick={async () => {
-//         await fetch('/api/auth/logout', { method: 'POST' });
-//         location.href = '/auth';
-//       }}
-//     >
-//       Выйти
-//     </button>
-//   );
-// }
 
 function buildLocalizedHref(href: string, locale: string) {
   if (href.startsWith('/#')) {
@@ -125,9 +103,9 @@ export default function HeaderNav({
               </div>
             </Link>
 
-            {/* <div className="block [@media(min-width:1200px)]:hidden">
-              <LogoutButton />
-            </div> */}
+            <div className="block [@media(min-width:1200px)]:hidden">
+              <LogoutBtn variant="solid" />
+            </div>
 
             <div className="block [@media(min-width:1200px)]:hidden">
               <BurgerButton open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
@@ -158,6 +136,10 @@ export default function HeaderNav({
             <div className="absolute right-[20px] bottom-[10px] sm:right-[30px]">
               <LanguageSwitcher />
             </div>
+            <LogoutBtn
+              variant="link"
+              className="flex cursor-pointer justify-center rounded bg-white px-4 py-1 font-bold text-black"
+            />
           </div>
         </div>
         <DrawerMenu open={menuOpen} onClose={() => setMenuOpen(false)} />

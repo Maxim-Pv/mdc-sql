@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useCart } from "@/context/CartContext";
-import { useModal } from "@/context/ModalContext";
-import { CartItem } from "@/types/cart";
-import { MerchItem } from "@/types/merch";
-import ProductDetail from "../productDetail/ProductDetail";
+import { useCart } from '@/providers/CartContext';
+import { useModal } from '@/providers/ModalContext';
+import { CartItem } from '@/types/cart';
+import { MerchItem } from '@/types/merch';
+import ProductDetail from '../productDetail/ProductDetail';
 
 export default function ProductClient({ product }: { product: MerchItem }) {
   const { addItem } = useCart();
@@ -12,7 +12,7 @@ export default function ProductClient({ product }: { product: MerchItem }) {
 
   const handleAdd = (item: CartItem) => {
     addItem(item);
-    openModal("cart");
+    openModal('cart');
   };
 
   return <ProductDetail product={product} onAddToCart={handleAdd} />;

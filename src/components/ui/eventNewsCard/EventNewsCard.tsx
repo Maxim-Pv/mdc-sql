@@ -2,7 +2,7 @@
 
 import DeleteButton from '@/components/admin/DeleteBtn';
 import EditButton from '@/components/admin/EditButton';
-import { useModal } from '@/context/ModalContext';
+import { useModal } from '@/providers/ModalContext';
 import { ContentKind } from '@/types/event-news';
 import Image from 'next/image';
 import { ReactNode } from 'react';

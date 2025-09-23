@@ -2,7 +2,7 @@
 
 import { City } from '@/types/city';
 import { EventModalData, EventNewsUpdateProps } from '@/types/event-news';
-import { useModal } from '../../context/ModalContext';
+import { useModal } from '../../providers/ModalContext';
 import { CartModal } from './cartModal/CartModal';
 import CityModal from './cityModal/CityModal';
 import ConsentModal from './consentModal/ConsentModal';

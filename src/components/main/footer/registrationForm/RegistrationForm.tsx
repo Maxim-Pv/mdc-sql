@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { useCachedOffices } from "@/components/hooks/usedCashedOffices";
-import CustomButton from "@/components/ui/customButton/CustomButton";
-import { DateTimePicker } from "@/components/ui/dateTimePicker/DateTimePicker";
-import CustomSelect from "@/components/ui/inputs/customSelect/CustomSelect";
-import { FormCheckbox } from "@/components/ui/inputs/formCheckbox/FormCheckbox";
-import { FormInput } from "@/components/ui/inputs/formInput/FormInput";
-import { Toast } from "@/components/ui/toast/Toast";
-import { regions } from "@/constant/regions";
-import { useModal } from "@/context/ModalContext";
-import { pushMailruGoal } from "@/lib/analytics/mailru";
-import { scrollToField } from "@/lib/forms/scrollToField";
-import { useScrollToError } from "@/lib/forms/useScrollToError";
-import { formSchema } from "@/lib/formSchema";
-import { FIELD_ORDER, FormValues } from "@/types/registrationFields";
-import { zodResolver } from "@hookform/resolvers/zod";
-import clsx from "clsx";
-import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import st from "./styles.module.css";
+import { useCachedOffices } from '@/components/hooks/usedCashedOffices';
+import CustomButton from '@/components/ui/customButton/CustomButton';
+import { DateTimePicker } from '@/components/ui/dateTimePicker/DateTimePicker';
+import CustomSelect from '@/components/ui/inputs/customSelect/CustomSelect';
+import { FormCheckbox } from '@/components/ui/inputs/formCheckbox/FormCheckbox';
+import { FormInput } from '@/components/ui/inputs/formInput/FormInput';
+import { Toast } from '@/components/ui/toast/Toast';
+import { regions } from '@/constant/regions';
+import { useModal } from '@/providers/ModalContext';
+import { pushMailruGoal } from '@/lib/analytics/mailru';
+import { scrollToField } from '@/lib/forms/scrollToField';
+import { useScrollToError } from '@/lib/forms/useScrollToError';
+import { formSchema } from '@/lib/formSchema';
+import { FIELD_ORDER, FormValues } from '@/types/registrationFields';
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import st from './styles.module.css';
 
 export const RegistrationForm = () => {
-  const t = useTranslations("main.citizenCardForm");
+  const t = useTranslations('main.citizenCardForm');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [dataTimeError, setDataTimeError] = useState<string>("");
+  const [dataTimeError, setDataTimeError] = useState<string>('');
   const [toastVisible, setToastVisible] = useState(false);
   const [errorToastVisible, setErrorToastVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const { openModal } = useModal();
   const { offices, loading: isOfficeLoading } = useCachedOffices();
@@ -43,79 +43,77 @@ export const RegistrationForm = () => {
     trigger,
   } = useForm({
     resolver: zodResolver(formSchema),
-    mode: "onSubmit",
-    reValidateMode: "onChange",
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     shouldFocusError: true,
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      region: "",
-      city: "",
-      phone: "",
-      coupon: "",
+      firstName: '',
+      lastName: '',
+      region: '',
+      city: '',
+      phone: '',
+      coupon: '',
       isCitizen: false,
       isNotCitizen: false,
-      office: "",
+      office: '',
       agree: false,
     },
   });
 
-  const isCitizen = watch("isCitizen");
-  const isNotCitizen = watch("isNotCitizen");
-  const isChoosedOffice = watch("office");
-  const isAgree = watch("agree");
+  const isCitizen = watch('isCitizen');
+  const isNotCitizen = watch('isNotCitizen');
+  const isChoosedOffice = watch('office');
+  const isAgree = watch('agree');
 
   const selectedOffice = offices?.find((o) => o.id === isChoosedOffice);
 
   const typedValues = useWatch({
     control,
-    name: ["firstName", "lastName", "city", "region"],
+    name: ['firstName', 'lastName', 'city', 'region'],
   });
 
-  const anyInputTyped = typedValues.some(
-    (v) => typeof v === "string" && v.trim().length > 0
-  );
+  const anyInputTyped = typedValues.some((v) => typeof v === 'string' && v.trim().length > 0);
   const shouldWarnAgree = !isAgree && anyInputTyped;
 
   useEffect(() => {
     setSelectedDate(null);
     setSelectedTime(null);
-    setDataTimeError("");
+    setDataTimeError('');
   }, [isChoosedOffice]);
 
   const onSubmit = async (data: any) => {
-    const officeVal = String(watch("office") ?? "").trim();
+    const officeVal = String(watch('office') ?? '').trim();
     const hasOffice = !!officeVal;
     if (isCitizen) {
       if (!hasOffice) {
-        setDataTimeError("Выберите офис");
-        scrollToField("office");
+        setDataTimeError('Выберите офис');
+        scrollToField('office');
         return;
       }
       if (!selectedDate || !selectedTime) {
-        setDataTimeError("Выберите дату и время");
-        scrollToField("book_time");
+        setDataTimeError('Выберите дату и время');
+        scrollToField('book_time');
         return;
       }
     }
-    setDataTimeError("");
+    setDataTimeError('');
 
     const formData = {
       city: data.city,
       region: data.region,
-      promo: data.coupon || "",
+      promo: data.coupon || '',
       phone: data.phone,
       last_name: data.lastName,
       name: data.firstName,
-      citizenship: data.isCitizen ? "Y" : "N",
+      citizenship: data.isCitizen ? 'Y' : 'N',
       resource: Number(data.office),
       book_time: `${selectedDate} ${selectedTime}:00`,
     };
 
     try {
-      const res = await fetch("/api/applyCard", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/applyCard', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -133,9 +131,9 @@ export const RegistrationForm = () => {
 
       if (!res.ok) {
         // ошибка бэка
-        setErrorMessage(t("errors.submitFail"));
+        setErrorMessage(t('errors.submitFail'));
         setErrorToastVisible(true);
-        pushMailruGoal("form_submit_fail");
+        pushMailruGoal('form_submit_fail');
         return;
       }
 
@@ -146,41 +144,35 @@ export const RegistrationForm = () => {
       setSelectedTime(null);
       setToastVisible(true);
 
-      pushMailruGoal("form_submit_success");
+      pushMailruGoal('form_submit_success');
     } catch (e) {
       // сетевая ошибка
-      setErrorMessage(t("errors.submitFail"));
+      setErrorMessage(t('errors.submitFail'));
       setErrorToastVisible(true);
-      pushMailruGoal("form_submit_fail");
+      pushMailruGoal('form_submit_fail');
     }
   };
 
-  const onError = useScrollToError<FormValues>(
-    FIELD_ORDER as unknown as string[],
-    () =>
-      isCitizen && (!selectedDate || !selectedTime) ? "book_time" : undefined
+  const onError = useScrollToError<FormValues>(FIELD_ORDER as unknown as string[], () =>
+    isCitizen && (!selectedDate || !selectedTime) ? 'book_time' : undefined,
   );
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onError)}
-      className={st.form}
-      id="form"
-    >
-      <h2 className="text-[20px] sm:text-[30px] text-center sm:text-left w-full md:w-[56%] font-bold mb-[10px] uppercase">
-        {t("title")}
+    <form onSubmit={handleSubmit(onSubmit, onError)} className={st.form} id="form">
+      <h2 className="mb-[10px] w-full text-center text-[20px] font-bold uppercase sm:text-left sm:text-[30px] md:w-[56%]">
+        {t('title')}
       </h2>
-      <p className="mb-[10px] text-[12px] sm:text-[16px] md:mb-[30px] text-center sm:text-left text-gray-700">
-        {t("subtitle")}
+      <p className="mb-[10px] text-center text-[12px] text-gray-700 sm:text-left sm:text-[16px] md:mb-[30px]">
+        {t('subtitle')}
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-[30px] pb-[20px]">
+      <div className="grid grid-cols-1 gap-[30px] pb-[20px] sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         <div data-field="firstName" className="contents">
           <FormInput
             name="firstName"
             control={control}
             error={errors.firstName}
-            placeholder={t("placeholders.firstName")}
+            placeholder={t('placeholders.firstName')}
             className={st.input}
           />
         </div>
@@ -190,7 +182,7 @@ export const RegistrationForm = () => {
             name="lastName"
             control={control}
             error={errors.lastName}
-            placeholder={t("placeholders.lastName")}
+            placeholder={t('placeholders.lastName')}
             className={st.input}
           />
         </div>
@@ -203,7 +195,7 @@ export const RegistrationForm = () => {
               <CustomSelect
                 {...field}
                 options={regions.map((r) => ({ label: r, value: r }))}
-                placeholder={t("placeholders.region")}
+                placeholder={t('placeholders.region')}
                 wrapperClassName={st.selectWrapper}
                 selectClassName={st.select}
                 error={errors.region}
@@ -217,7 +209,7 @@ export const RegistrationForm = () => {
             name="city"
             control={control}
             error={errors.city}
-            placeholder={t("placeholders.city")}
+            placeholder={t('placeholders.city')}
             className={st.input}
           />
         </div>
@@ -226,10 +218,8 @@ export const RegistrationForm = () => {
           <FormInput
             name="phone"
             control={control}
-            error={
-              errors.phone && touchedFields.phone ? errors.phone : undefined
-            }
-            placeholder={t("placeholders.phone")}
+            error={errors.phone && touchedFields.phone ? errors.phone : undefined}
+            placeholder={t('placeholders.phone')}
             className={st.input}
             isMasked
           />
@@ -239,44 +229,37 @@ export const RegistrationForm = () => {
           name="coupon"
           control={control}
           error={errors.coupon}
-          placeholder={t("placeholders.coupon")}
+          placeholder={t('placeholders.coupon')}
           className={st.input}
         />
 
         <div
           data-field="isCitizen"
-          className="flex items-center gap-2 text-[12px] sm:text-[16px] xl:col-start-3 whitespace-nowrap"
+          className="flex items-center gap-2 text-[12px] whitespace-nowrap sm:text-[16px] xl:col-start-3"
         >
           <FormCheckbox
             name="isCitizen"
             control={control}
-            label={t("checkbox.isCitizen")}
+            label={t('checkbox.isCitizen')}
             disabled={isNotCitizen}
-            className="font-semibold text-[12px] sm:text-[16px] xl:col-start-3"
-            trigger={() => trigger(["isCitizen", "isNotCitizen"])}
+            className="text-[12px] font-semibold sm:text-[16px] xl:col-start-3"
+            trigger={() => trigger(['isCitizen', 'isNotCitizen'])}
           />
         </div>
 
-        <div
-          data-field="isNotCitizen"
-          className="flex font-semibold items-center gap-2 text-[12px] sm:text-[16px]"
-        >
+        <div data-field="isNotCitizen" className="flex items-center gap-2 text-[12px] font-semibold sm:text-[16px]">
           <FormCheckbox
             name="isNotCitizen"
             control={control}
-            label={t("checkbox.isNotCitizen")}
+            label={t('checkbox.isNotCitizen')}
             disabled={isCitizen}
             className="text-[12px] sm:text-[16px]"
-            trigger={() => trigger(["isCitizen", "isNotCitizen"])}
+            trigger={() => trigger(['isCitizen', 'isNotCitizen'])}
           />
         </div>
       </div>
 
-      {isNotCitizen && (
-        <p className="text-red-600 text-center text-lg">
-          {t("errors.onlyMoldova")}
-        </p>
-      )}
+      {isNotCitizen && <p className="text-center text-lg text-red-600">{t('errors.onlyMoldova')}</p>}
       {isCitizen && (
         <>
           <div data-field="office" className="contents">
@@ -287,10 +270,8 @@ export const RegistrationForm = () => {
                 <CustomSelect
                   {...field}
                   clearable
-                  options={
-                    offices?.map((o) => ({ label: o.name, value: o.id })) || []
-                  }
-                  placeholder={t("placeholders.office")}
+                  options={offices?.map((o) => ({ label: o.name, value: o.id })) || []}
+                  placeholder={t('placeholders.office')}
                   wrapperClassName={st.selectWrapper}
                   selectClassName={`${st.select} ${st.officeSelect}`}
                   error={errors.office}
@@ -305,12 +286,12 @@ export const RegistrationForm = () => {
                 onSelect={(date, time) => {
                   setSelectedDate(date);
                   setSelectedTime(time);
-                  setDataTimeError("");
+                  setDataTimeError('');
                 }}
                 onDateChange={(date) => {
                   setSelectedDate(date);
                   setSelectedTime(null);
-                  setDataTimeError("");
+                  setDataTimeError('');
                 }}
                 selectedOfficeId={isChoosedOffice}
                 selectedOfficeName={selectedOffice?.name ?? null}
@@ -324,27 +305,14 @@ export const RegistrationForm = () => {
 
       <div className="mt-5">
         <div>
-          <CustomButton
-            type="submit"
-            full
-            title={t("submit")}
-            disabled={isNotCitizen}
-            loading={isSubmitting}
-          />
+          <CustomButton type="submit" full title={t('submit')} disabled={isNotCitizen} loading={isSubmitting} />
         </div>
-        <div className="min-h-[20px] mt-2 flex justify-center w-full">
-          {(touchedFields.isCitizen ||
-            touchedFields.isNotCitizen ||
-            isSubmitted) &&
-            errors.isCitizen?.message && (
-              <p className="text-red-500 text-sm text-center sm:text-left">
-                {errors.isCitizen.message}
-              </p>
-            )}
+        <div className="mt-2 flex min-h-[20px] w-full justify-center">
+          {(touchedFields.isCitizen || touchedFields.isNotCitizen || isSubmitted) && errors.isCitizen?.message && (
+            <p className="text-center text-sm text-red-500 sm:text-left">{errors.isCitizen.message}</p>
+          )}
           {dataTimeError && !isCitizen && (
-            <p className="text-red-500 text-sm text-center sm:text-left">
-              {dataTimeError}
-            </p>
+            <p className="text-center text-sm text-red-500 sm:text-left">{dataTimeError}</p>
           )}
         </div>
       </div>
@@ -353,28 +321,24 @@ export const RegistrationForm = () => {
         <FormCheckbox
           name="agree"
           control={control}
-          label={t("checkbox.agree")}
+          label={t('checkbox.agree')}
           className="text-xs sm:text-sm"
           labelClassName={clsx(
-            "whitespace-wrap hover:underline cursor-pointer",
-            shouldWarnAgree && "!text-red-600 !font-semibold"
+            'whitespace-wrap hover:underline cursor-pointer',
+            shouldWarnAgree && '!text-red-600 !font-semibold',
           )}
           error={!!errors.agree}
-          onLabelClick={() => openModal("consent")}
+          onLabelClick={() => openModal('consent')}
         />
       </div>
 
       {toastVisible && (
-        <Toast
-          title={t("toast.title")}
-          description={t("toast.description")}
-          onClose={() => setToastVisible(false)}
-        />
+        <Toast title={t('toast.title')} description={t('toast.description')} onClose={() => setToastVisible(false)} />
       )}
 
       {errorToastVisible && (
         <Toast
-          title={t("toast.errorTitle")}
+          title={t('toast.errorTitle')}
           description={errorMessage}
           onClose={() => setErrorToastVisible(false)}
           variant="error"

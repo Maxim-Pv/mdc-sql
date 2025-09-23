@@ -1,14 +1,17 @@
-import AnalyticsRouterEvents from "@/components/analytics/AnalyticsRouterEvents";
-import ModalRoot from "@/components/modals/ModalRoot";
-import { LocaleFadeWrapper } from "@/components/ui/LocaleFadeWrapper";
-import { CartProvider } from "@/context/CartContext";
-import { ModalProvider } from "@/context/ModalContext";
-import { routing } from "@/i18n/routing";
-import CommonMetaTags from "@/lib/metaTags/CommonMetaTags";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
-import "../styles/globals.css";
+import AnalyticsRouterEvents from '@/components/analytics/AnalyticsRouterEvents';
+import ModalRoot from '@/components/modals/ModalRoot';
+import { LocaleFadeWrapper } from '@/components/ui/LocaleFadeWrapper';
+import { CartProvider } from '@/providers/CartContext';
+import { ModalProvider } from '@/providers/ModalContext';
+import { routing } from '@/i18n/routing';
+import CommonMetaTags from '@/lib/metaTags/CommonMetaTags';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import '../styles/globals.css';
+import SessionProvider from '@/providers/SessionProvider';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/auth';
 
 export const dynamicParams = false;
 
@@ -21,19 +24,15 @@ function NoscriptMetrikaPixel() {
   return (
     <noscript>
       <div>
-        <img
-          src={`https://mc.yandex.ru/watch/${ymId}`}
-          style={{ position: "absolute", left: "-9999px" }}
-          alt=""
-        />
+        <img src={`https://mc.yandex.ru/watch/${ymId}`} style={{ position: 'absolute', left: '-9999px' }} alt="" />
       </div>
     </noscript>
   );
 }
 
 function NoscriptMailruPixels() {
-  const ids = (process.env.NEXT_PUBLIC_MAILRU_IDS ?? "")
-    .split(",")
+  const ids = (process.env.NEXT_PUBLIC_MAILRU_IDS ?? '')
+    .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
   if (!ids.length) return null;
@@ -45,10 +44,10 @@ function NoscriptMailruPixels() {
           src={`https://top-fwz1.mail.ru/counter?id=${id};js=na`}
           style={{
             border: 0,
-            position: "absolute",
-            left: "-9999px",
-            width: "1px",
-            height: "1px",
+            position: 'absolute',
+            left: '-9999px',
+            width: '1px',
+            height: '1px',
           }}
           alt="Top.Mail.Ru"
         />
@@ -65,6 +64,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const session = await getServerSession(authOptions);
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
@@ -85,12 +85,14 @@ export default async function LocaleLayout({
 
         <NextIntlClientProvider>
           <LocaleFadeWrapper>
-            <ModalProvider>
-              <CartProvider>
-                {children}
-                <ModalRoot />
-              </CartProvider>
-            </ModalProvider>
+            <SessionProvider session={session}>
+              <ModalProvider>
+                <CartProvider>
+                  {children}
+                  <ModalRoot />
+                </CartProvider>
+              </ModalProvider>
+            </SessionProvider>
           </LocaleFadeWrapper>
         </NextIntlClientProvider>
       </body>

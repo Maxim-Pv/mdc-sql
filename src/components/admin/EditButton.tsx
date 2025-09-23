@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/context/ModalContext';
+import { useModal } from '@/providers/ModalContext';
 import { IconEdit } from '@tabler/icons-react';
 import { useState } from 'react';
 

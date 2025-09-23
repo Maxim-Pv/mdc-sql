@@ -1,58 +1,48 @@
-"use client";
+'use client';
 
-import CustomButton from "@/components/ui/customButton/CustomButton";
-import { useModal } from "@/context/ModalContext";
-import { cities, mainCity } from "@/constant/cities";
-import Image from "next/image";
-import st from "./styles.module.css";
-import { useTranslations } from "next-intl";
+import CustomButton from '@/components/ui/customButton/CustomButton';
+import { useModal } from '@/providers/ModalContext';
+import { cities, mainCity } from '@/constant/cities';
+import Image from 'next/image';
+import st from './styles.module.css';
+import { useTranslations } from 'next-intl';
 
 export default function LocationBlock() {
   const { openModal } = useModal();
-  const t = useTranslations("main.locationBlock");
+  const t = useTranslations('main.locationBlock');
 
   const handleOpen = (cityName: string) => {
-    const found =
-      cities.find((c) => c.name === cityName) ||
-      mainCity.find((c) => c.name === cityName);
+    const found = cities.find((c) => c.name === cityName) || mainCity.find((c) => c.name === cityName);
 
-    if (found) openModal("city", { city: found });
+    if (found) openModal('city', { city: found });
   };
 
   return (
     <section className="w-full">
       <div className={st.locationBlock}>
         <div className={st.container}>
-          <div className="flex flex-col gap-6 items-center">
-            <h2 className={st.titleQuestion}>{t("questionTitle")}</h2>
+          <div className="flex flex-col items-center gap-6">
+            <h2 className={st.titleQuestion}>{t('questionTitle')}</h2>
             <div className={st.description}>
-              <p>{t("description.line1")}</p>
-              <p>{t("description.line2")}</p>
+              <p>{t('description.line1')}</p>
+              <p>{t('description.line2')}</p>
             </div>
             <a href="#form" className="flex justify-center">
-              <CustomButton title={t("cta")} />
+              <CustomButton title={t('cta')} />
             </a>
           </div>
 
-          <div className="flex flex-col gap-6 w-full">
-            <div className="grid grid-cols-2 sm:grid-cols-4 ">
+          <div className="flex w-full flex-col gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4">
               {mainCity.map((city, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleOpen(city.name)}
-                  className={`${st.cityLink} ${st.mainCity}`}
-                >
+                <button key={idx} onClick={() => handleOpen(city.name)} className={`${st.cityLink} ${st.mainCity}`}>
                   {city.name}
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-3 sm:gap-x-2">
+            <div className="grid grid-cols-2 gap-y-3 sm:grid-cols-4 sm:gap-x-2">
               {cities.map((city, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleOpen(city.name)}
-                  className={st.cityLink}
-                >
+                <button key={idx} onClick={() => handleOpen(city.name)} className={st.cityLink}>
                   {city.name}
                 </button>
               ))}
@@ -64,11 +54,11 @@ export default function LocationBlock() {
         <div className="w-full bg-[#ab0826]">
           <div className={st.aboutUsWrapper}>
             <div className={st.textBlock}>
-              <h3 className={st.title}>{t("about.title")}</h3>
+              <h3 className={st.title}>{t('about.title')}</h3>
               <div className="flex flex-col">
-                <p className={st.paragraph}>{t("about.community")}</p>
+                <p className={st.paragraph}>{t('about.community')}</p>
                 <a href="https://moldovacenter.ru" className={st.link}>
-                  {t("about.siteLabel")}
+                  {t('about.siteLabel')}
                 </a>
               </div>
             </div>

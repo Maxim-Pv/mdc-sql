@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/admin/db';
-import { requireAdmin } from '@/lib/admin/auth.server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import { adminOnly } from '@/lib/auth/adminOnly';
 import crypto from 'crypto';
+import { mkdir, writeFile } from 'fs/promises';
+import { NextResponse } from 'next/server';
+import path from 'path';
 
 export const runtime = 'nodejs';
 function toSlug(s: string) {
@@ -21,15 +21,11 @@ export async function GET() {
   return NextResponse.json({ items });
 }
 
-export async function POST(req: Request) {
-  const admin = await requireAdmin();
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
+export const POST = adminOnly(async (req) => {
   const ct = req.headers.get('content-type') || '';
 
   if (ct.includes('multipart/form-data')) {
     const form = await req.formData();
-
     const title = String(form.get('title') ?? '').trim();
     const body = String(form.get('body') ?? '');
     const date = String(form.get('date') ?? '');
@@ -42,7 +38,6 @@ export async function POST(req: Request) {
     const slugBase = toSlug(title);
     let slug = slugBase;
     let i = 1;
-    // короткий цикл даже при коллизиях
     while (await prisma.news.findUnique({ where: { slug } })) {
       slug = `${slugBase}-${i++}`;
     }
@@ -76,11 +71,11 @@ export async function POST(req: Request) {
       data: {
         slug,
         title,
-        date, // TEXT
-        body, // TEXT
-        objectPosition, // nullable
-        coverUrl, // nullable
-        tags: [], // по умолчанию пустой массив
+        date,
+        body,
+        objectPosition,
+        coverUrl,
+        tags: [],
         published: true,
       },
       select: { id: true, slug: true, coverUrl: true },
@@ -89,21 +84,11 @@ export async function POST(req: Request) {
     return NextResponse.json(created, { status: 201 });
   }
 
-  // Fallback: старый JSON-вариант тоже поддерживаем
-  const body = (await req.json()) as {
-    title: string;
-    body?: string;
-    date?: string;
-    coverUrl?: string | null;
-    objectPosition?: string | null;
-    tags?: string[];
-    published?: boolean;
-    slug?: string;
-  };
+  // JSON-вариант
+  const payload = await req.json();
+  if (!payload?.title) return NextResponse.json({ error: 'title required' }, { status: 400 });
 
-  if (!body.title) return NextResponse.json({ error: 'title required' }, { status: 400 });
-
-  const slugBase = body.slug?.trim() || toSlug(body.title);
+  const slugBase = payload.slug?.trim() || toSlug(payload.title);
   let slug = slugBase;
   let i = 1;
   while (await prisma.news.findUnique({ where: { slug } })) {
@@ -113,16 +98,16 @@ export async function POST(req: Request) {
   const created = await prisma.news.create({
     data: {
       slug,
-      title: body.title,
-      date: body.date ?? '',
-      body: body.body ?? '',
-      coverUrl: body.coverUrl ?? null,
-      objectPosition: body.objectPosition ?? null,
-      tags: Array.isArray(body.tags) ? body.tags : [],
-      published: body.published ?? true,
+      title: payload.title,
+      date: payload.date ?? '',
+      body: payload.body ?? '',
+      coverUrl: payload.coverUrl ?? null,
+      objectPosition: payload.objectPosition ?? null,
+      tags: Array.isArray(payload.tags) ? payload.tags : [],
+      published: payload.published ?? true,
     },
     select: { id: true, slug: true, coverUrl: true },
   });
 
   return NextResponse.json(created, { status: 201 });
-}
+});

@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/context/ModalContext';
+import { useModal } from '@/providers/ModalContext';
 import type { EventNewsUpdate, Form } from '@/types/event-news';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useTransition } from 'react';
@@ -98,7 +98,7 @@ export default function EventNewsAddModal({ isOpen, onClose, data, onSaved }: Ev
             className="w-full rounded border px-3 py-2"
             placeholder="Заголовок"
           />
-          <input {...register('date')} className="w-full rounded border px-3 py-2" placeholder="Дата (YYYY-MM-DD)" />
+          <input {...register('date')} className="w-full rounded border px-3 py-2" placeholder="Дата (1 января)" />
 
           <input
             ref={fileRef}

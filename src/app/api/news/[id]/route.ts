@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/admin/db';
-import { requireAdmin } from '@/lib/admin/auth.server';
-import { mkdir, writeFile, unlink } from 'fs/promises';
+import { adminOnly } from '@/lib/auth/adminOnly';
+import { mkdir, unlink, writeFile } from 'fs/promises';
+import { NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
 import path from 'path';
 
@@ -13,7 +13,7 @@ export async function GET(_req: Request, ctx: Ctx) {
   const { id } = await ctx.params;
   const item = await prisma.news.findUnique({ where: { id } });
   if (!item) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  // нормализуем поле image под фронт
+
   return NextResponse.json({
     id: item.id,
     kind: 'news',
@@ -27,10 +27,8 @@ export async function GET(_req: Request, ctx: Ctx) {
   });
 }
 
-export async function PATCH(req: Request, ctx: Ctx) {
+export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }> }) => {
   const { id } = await ctx.params;
-  const admin = await requireAdmin();
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const existing = await prisma.news.findUnique({ where: { id } });
   if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -101,12 +99,10 @@ export async function PATCH(req: Request, ctx: Ctx) {
   }
 
   return NextResponse.json(updated);
-}
+});
 
-export async function DELETE(_req: Request, ctx: Ctx) {
+export const DELETE = adminOnly(async (_req, ctx: { params: Promise<{ id: string }> }) => {
   const { id } = await ctx.params;
-  const admin = await requireAdmin();
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const existing = await prisma.news.findUnique({ where: { id: id } });
   if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -121,4 +117,4 @@ export async function DELETE(_req: Request, ctx: Ctx) {
 
   await prisma.news.delete({ where: { id: id } });
   return NextResponse.json({ ok: true, id: id, slug: existing.slug });
-}
+});

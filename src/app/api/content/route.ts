@@ -11,7 +11,7 @@ function toItem(kind: ContentKind, r: any) {
     id: r.id,
     kind,
     title: r.title,
-    date: r.date, // строка из БД
+    date: r.date,
     image: r.coverUrl ?? undefined,
     objectPosition: r.objectPosition ?? undefined,
     published: r.published,
