@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import LogoutBtn from '../admin/LogoutBtn';
+import LogoutBtn from '../admin/headerNav/LogoutBtn';
 
 const rawNavLinks = [
   { href: '/', labelKey: 'nav.map' },
@@ -68,7 +68,7 @@ export default function HeaderNav({
 
       <header
         className={clsx(
-          'fixed inset-x-0 top-0 z-30 overflow-x-clip rounded-b-[10px] transition-colors duration-300',
+          'duration-300s fixed inset-x-0 top-0 z-30 overflow-x-clip rounded-b-[10px] transition-colors',
           hasBackground
             ? "bg-[linear-gradient(360deg,rgba(0,0,0,0)_0%,#000_100%),url('/images/main/hero-bg.jpg')] bg-cover bg-center shadow-md"
             : 'bg-[linear-gradient(360deg,rgba(0,0,0,0)_0%,#000_100%)]',

@@ -14,6 +14,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(ADMIN)
+  name         String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
 model News {
   id          String   @id @default(cuid())
   slug        String   @unique
@@ -50,18 +65,16 @@ model Event {
   @@index([sortAt]) 
 }
 
+model NewsHero {
+  id        String   @id @default(cuid())
+  locale    String   @default("ru") // "ru" | "md"
+  title     String?
+  dateLabel String?
+  text      String?
+  imageUrl  String?
+  linkUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-enum Role {
-  ADMIN
-}
-
-model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(ADMIN)
-  name         String?
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  @@unique([locale])
 }
