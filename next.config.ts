@@ -11,6 +11,20 @@ const withPWA = require('next-pwa')({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
+  publicExcludes: ['upload/**'],
+  runtimeCaching: [
+    {
+      urlPattern: /^https?:\/\/[^/]+\/upload\/.+$/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'dynamic-uploads',
+        cacheableResponse: { statuses: [200] },
+      },
+    },
+  ],
+  fallbacks: {
+    image: '/images/placeholder.jpg',
+  },
 });
 
 const withNextIntl = createNextIntlPlugin();

@@ -1,9 +1,10 @@
-import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/admin/prisma';
 import { adminOnly } from '@/lib/auth/adminOnly';
-import path from 'node:path';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
+import { NextResponse } from 'next/server';
 import crypto from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import path from 'node:path';
 
 export const runtime = 'nodejs';
 
@@ -26,15 +27,14 @@ export async function GET(req: Request) {
   });
 }
 
-export const PATCH = adminOnly(async (req) => {
+export const PATCH = adminOnly(async (req: Request): Promise<Response> => {
   const url = new URL(req.url);
   const locale = (url.searchParams.get('locale') || 'ru') as string;
 
-  // гарантируем наличие записи
   await prisma.newsHero.upsert({ where: { locale }, create: { locale }, update: {} });
 
   const ct = req.headers.get('content-type') || '';
-  const data: any = {};
+  const data: Record<string, any> = {};
   let newImageUrl: string | null = null;
 
   if (ct.includes('multipart/form-data')) {
@@ -51,19 +51,20 @@ export const PATCH = adminOnly(async (req) => {
       if (!allowed.has(ext)) return NextResponse.json({ error: 'bad file type' }, { status: 400 });
       if (file.size > 5 * 1024 * 1024) return NextResponse.json({ error: 'too big' }, { status: 413 });
 
-      const dir = path.join(process.cwd(), 'public', 'images', 'hero');
+      const dir = getUploadDir('hero');
       await mkdir(dir, { recursive: true });
+
       const salt = crypto.randomBytes(6).toString('hex');
-      const name = `news-${locale}-${salt}${ext}`;
+      const name = buildUploadFileName(`news-${locale}`, salt, ext);
       await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
-      newImageUrl = `/images/hero/${name}`;
+      newImageUrl = buildUploadUrl('hero', name);
       data.imageUrl = newImageUrl;
     }
   } else {
     const j = await req.json().catch(() => ({}));
-    ['title', 'dateLabel', 'text', 'linkUrl', 'imageUrl'].forEach((k) => {
+    for (const k of ['title', 'dateLabel', 'text', 'linkUrl', 'imageUrl'] as const) {
       if (k in j) data[k] = j[k] ?? null;
-    });
+    }
   }
 
   const saved = await prisma.newsHero.update({ where: { locale }, data });

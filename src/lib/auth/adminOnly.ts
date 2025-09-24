@@ -1,11 +1,18 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/auth';
 
-type ParamsMaybePromise = Record<string, string> | Promise<Record<string, string>>;
-type AnyCtx = { params?: ParamsMaybePromise };
+export type RouteCtx = { params: Promise<Record<string, string>> };
 
-export function adminOnly<T extends AnyCtx>(handler: (req: Request, ctx: T & { session: any }) => Promise<Response>) {
-  return async (req: Request, ctx: T) => {
+// Перегрузка 1: без params
+export function adminOnly(handler: (req: Request) => Promise<Response>): (req: Request) => Promise<Response>;
+
+// Перегрузка 2: с params (динамические маршруты)
+export function adminOnly(
+  handler: (req: Request, ctx: RouteCtx) => Promise<Response>,
+): (req: Request, ctx: RouteCtx) => Promise<Response>;
+
+export function adminOnly(handler: any) {
+  return async (req: Request, ctx?: RouteCtx) => {
     const session = await getServerSession(authOptions);
     if (!session || (session as any).role !== 'ADMIN') {
       return new Response('Unauthorized', { status: 401 });
@@ -19,6 +26,6 @@ export function adminOnly<T extends AnyCtx>(handler: (req: Request, ctx: T & { s
       }
     }
 
-    return handler(req, { ...ctx, session } as T & { session: any });
+    return ctx ? handler(req, ctx) : handler(req);
   };
 }

@@ -5,6 +5,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
+import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
 
 export const runtime = 'nodejs';
 
@@ -23,7 +24,7 @@ export async function GET() {
   return NextResponse.json({ items });
 }
 
-export const POST = adminOnly(async (req) => {
+export const POST = adminOnly(async (req: Request): Promise<Response> => {
   const ct = req.headers.get('content-type') || '';
 
   if (ct.includes('multipart/form-data')) {
@@ -64,17 +65,17 @@ export const POST = adminOnly(async (req) => {
         return NextResponse.json({ error: 'Файл слишком большой (макс. 5MB)' }, { status: 413 });
       }
 
-      const destDir = path.join(process.cwd(), 'public', 'images', 'news');
+      const destDir = getUploadDir('news');
       await mkdir(destDir, { recursive: true });
 
       const salt = crypto.randomBytes(6).toString('hex');
-      const fileName = `${slug}-${salt}${ext}`;
-      const filePath = path.join(destDir, fileName);
+      const fileName = buildUploadFileName(slug, salt, ext);
 
+      const filePath = path.join(destDir, fileName);
       const buffer = Buffer.from(await cover.arrayBuffer());
       await writeFile(filePath, buffer);
 
-      coverUrl = `/images/news/${fileName}`;
+      coverUrl = buildUploadUrl('news', fileName);
     }
 
     const created = await prisma.news.create({

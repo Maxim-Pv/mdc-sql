@@ -160,6 +160,6 @@ function stampAttributionCookies(
 
 export const config = {
   matcher: [
-    '/((?!api|trpc|_next/static|_next/image|_next/webpack-hmr|_vercel|favicon.ico|robots.txt|sitemap.xml|assets|images|fonts|icons|.*\\.(?:js|mjs|css|map|json|txt|xml|png|jpg|jpeg|gif|svg|webp|avif|ico|woff|woff2|ttf|otf)).*)',
+    '/((?!api|trpc|_next/static|_next/image|_next/webpack-hmr|_vercel|favicon.ico|robots.txt|sitemap.xml|assets|images|upload|fonts|icons|.*\\.(?:js|mjs|css|map|json|txt|xml|png|jpg|jpeg|gif|svg|webp|avif|ico|woff|woff2|ttf|otf)).*)',
   ],
 };

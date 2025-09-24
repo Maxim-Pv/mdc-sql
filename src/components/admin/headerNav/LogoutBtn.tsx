@@ -21,14 +21,12 @@ export default function LogoutBtn({ className, variant = 'solid' }: Props) {
 
   const isAdmin = (session as any)?.role === 'ADMIN';
 
-  // пока грузится сессия — ничего не рисуем (без "мигания")
   if (status === 'loading') return null;
   if (!isAdmin) return null;
 
   const onClick = async () => {
     try {
       setBusy(true);
-      // после выхода отправим на локализованную страницу логина админа
       await signOut({ redirect: true, callbackUrl: `/${locale}/admin` });
     } finally {
       setBusy(false);
@@ -41,7 +39,7 @@ export default function LogoutBtn({ className, variant = 'solid' }: Props) {
         onClick={onClick}
         disabled={busy}
         className={clsx(
-          'opacity-70 transition-opacity hover:opacity-100',
+          'opacity-70 transition-opacity hover:opacity-100 text-white',
           className,
         )}
         title="Выйти из админ-панели"

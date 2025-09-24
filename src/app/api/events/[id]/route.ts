@@ -1,10 +1,11 @@
 import { prisma } from '@/lib/admin/db';
-import { adminOnly } from '@/lib/auth/adminOnly';
+import { adminOnly, RouteCtx } from '@/lib/auth/adminOnly';
 import { mkdir, unlink, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
 import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
+import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
 
 export const runtime = 'nodejs';
 type Ctx = { params: Promise<{ id: string }> };
@@ -26,7 +27,7 @@ export async function GET(_req: Request, ctx: Ctx) {
   });
 }
 
-export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }> }) => {
+export const PATCH = adminOnly(async (req: Request, ctx: RouteCtx): Promise<Response> => {
   const { id } = await ctx.params;
 
   const existing = await prisma.event.findUnique({ where: { id } });
@@ -71,13 +72,13 @@ export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }
       if (cover.size > 5 * 1024 * 1024)
         return NextResponse.json({ error: 'Файл слишком большой (макс. 5MB)' }, { status: 413 });
 
-      const destDir = path.join(process.cwd(), 'public', 'images', 'events');
+      const destDir = getUploadDir('events');
       await mkdir(destDir, { recursive: true });
       const salt = randomBytes(6).toString('hex');
       const base = existing.slug || 'event';
-      const fileName = `${base}-${salt}${ext}`;
+      const fileName = buildUploadFileName(base, salt, ext);
       await writeFile(path.join(destDir, fileName), Buffer.from(await cover.arrayBuffer()));
-      newCoverPath = `/images/events/${fileName}`;
+      newCoverPath = buildUploadUrl('events', fileName);
       data.coverUrl = newCoverPath;
     }
   } else {
@@ -130,7 +131,7 @@ export const PATCH = adminOnly(async (req, ctx: { params: Promise<{ id: string }
   return NextResponse.json(updated);
 });
 
-export const DELETE = adminOnly(async (_req, ctx: { params: Promise<{ id: string }> }) => {
+export const DELETE = adminOnly(async (req: Request, ctx: RouteCtx): Promise<Response> => {
   const { id } = await ctx.params;
 
   const existing = await prisma.event.findUnique({ where: { id: id } });

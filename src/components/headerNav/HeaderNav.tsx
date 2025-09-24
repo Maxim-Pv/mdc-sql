@@ -138,7 +138,7 @@ export default function HeaderNav({
             </div>
             <LogoutBtn
               variant="link"
-              className="flex cursor-pointer justify-center rounded bg-white px-4 py-1 font-bold text-black"
+              className="flex cursor-pointer justify-center rounded bg-blue-800 px-4 py-1 font-bold"
             />
           </div>
         </div>
