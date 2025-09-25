@@ -1,23 +1,14 @@
 import { prisma } from '@/lib/admin/db';
 import { adminOnly } from '@/lib/auth/adminOnly';
+import { parseRuDayMonth, parseYYYYMMDD } from '@/lib/dates/sortAt';
+import { toSlug } from '@/lib/slug';
+import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
 import crypto from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
-import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
-import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
 
 export const runtime = 'nodejs';
-
-function toSlug(s: string) {
-  return s
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .toLowerCase();
-}
 
 export async function GET() {
   const items = await prisma.news.findMany({ orderBy: { createdAt: 'desc' } });
@@ -46,7 +37,7 @@ export const POST = adminOnly(async (req: Request): Promise<Response> => {
         : null;
 
     // slug и проверка уникальности
-    const slugBase = toSlug(title);
+    const slugBase = toSlug(title, { fallbackPrefix: 'news' });
     let slug = slugBase;
     let i = 1;
     while (await prisma.news.findUnique({ where: { slug } })) {

@@ -46,3 +46,6 @@ public/workbox-*.js
 
 
 /src/generated/prisma
+
+*.db 
+*.db-*

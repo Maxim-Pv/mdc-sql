@@ -13,7 +13,15 @@ export function getUploadDir(kind: UploadKind) {
 }
 
 export function buildUploadFileName(base: string, salt: string, ext: string) {
-  return `${base}-${salt}${ext}`;
+  const cleanBase =
+    (base || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-+/g, '-')
+      .slice(0, 64) || 'file';
+
+  return `${cleanBase}-${salt}${ext}`;
 }
 
 // URL который кладём в БД

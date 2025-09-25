@@ -6,16 +6,8 @@ import { NextResponse } from 'next/server';
 import { parseYYYYMMDD, parseRuDayMonth } from '@/lib/dates/sortAt';
 import path from 'path';
 import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
+import { toSlug } from '@/lib/slug';
 
-function toSlug(s: string) {
-  return s
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .toLowerCase();
-}
 export async function GET() {
   const items = await prisma.event.findMany({ orderBy: { createdAt: 'desc' } });
   return NextResponse.json({ items });
@@ -42,7 +34,7 @@ export const POST = adminOnly(async (req: Request): Promise<Response> => {
         ? parseRuDayMonth(date, currentYear)
         : null;
 
-    const slugBase = toSlug(title);
+    const slugBase = toSlug(title, { fallbackPrefix: 'event' });
     let slug = slugBase;
     let i = 1;
     while (await prisma.event.findUnique({ where: { slug } })) {
