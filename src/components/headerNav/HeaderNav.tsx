@@ -13,7 +13,7 @@ import LogoutBtn from '../admin/headerNav/LogoutBtn';
 
 const rawNavLinks = [
   { href: '/', labelKey: 'nav.map' },
-  // { href: "/merch", labelKey: "nav.merch" },
+  { href: '/merch', labelKey: 'nav.merch' },
   { href: '/news', labelKey: 'nav.news' },
   { href: '/currency', labelKey: 'nav.currency' },
   { href: '/embassy', labelKey: 'nav.embassy' },

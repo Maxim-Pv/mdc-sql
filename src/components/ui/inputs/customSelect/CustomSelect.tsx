@@ -1,36 +1,29 @@
-import clsx from "clsx";
-import { useSelect } from "@/lib/forms/useSelect";
-import { OptionList } from "@/components/ui/select/OptionList";
-import type { FieldError } from "react-hook-form";
-import type { InputHTMLAttributes, ChangeEvent } from "react";
-import { IconChevronDown, IconLoader2, IconX } from "@tabler/icons-react";
+import { OptionList } from '@/components/ui/select/OptionList';
+import { useSelect } from '@/lib/forms/useSelect';
+import { IconChevronDown, IconLoader2 } from '@tabler/icons-react';
+import clsx from 'clsx';
+import type { ChangeEvent, InputHTMLAttributes } from 'react';
+import type { FieldError } from 'react-hook-form';
 
-type BaseInputProps = Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  "onChange" | "value" | "defaultValue"
->;
+type BaseInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'defaultValue'>;
 
 interface SelectFieldProps extends BaseInputProps {
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onValueChange?: (value: string) => void;
-
   onBlur?: () => void;
   name: string;
   error?: FieldError;
-
   options: { label: string; value: string }[];
-
   wrapperClassName?: string;
   selectClassName?: string;
   iconClassName?: string;
-
   placeholder?: string;
   loading?: boolean;
   noOptionsText?: string;
-
   clearable?: boolean;
   onClear?: () => void;
+  readOnlyInput?: boolean;
 }
 
 export default function CustomSelect({
@@ -44,11 +37,12 @@ export default function CustomSelect({
   wrapperClassName,
   selectClassName,
   iconClassName,
-  placeholder = "Выберите...",
+  placeholder = 'Выберите...',
   loading = false,
-  noOptionsText = "Ничего не найдено",
+  noOptionsText = 'Ничего не найдено',
   clearable = true,
   onClear,
+  readOnlyInput = false,
   ...props
 }: SelectFieldProps) {
   const s = useSelect({
@@ -58,44 +52,49 @@ export default function CustomSelect({
     onChange,
     name,
     onBlur,
+    readOnlyInput,
   });
 
-  const emitClear = () => {
-    // уведомим rhf (и onValueChange)
-    onValueChange?.("");
-    if (onChange) {
-      const synthetic = {
-        target: { value: "", name },
-        currentTarget: { value: "", name },
-      } as unknown as React.ChangeEvent<HTMLInputElement>;
-      onChange(synthetic);
-    }
-    s.setInputValue("");
-    s.setOpen(false);
-    onClear?.();
-  };
+  // *** Доп функция очистки селекта (если понадобиться) ***
+  // const emitClear = () => {
+  //   // уведомим rhf (и onValueChange)
+  //   onValueChange?.("");
+  //   if (onChange) {
+  //     const synthetic = {
+  //       target: { value: "", name },
+  //       currentTarget: { value: "", name },
+  //     } as unknown as React.ChangeEvent<HTMLInputElement>;
+  //     onChange(synthetic);
+  //   }
+  //   s.setInputValue("");
+  //   s.setOpen(false);
+  //   onClear?.();
+  // };
 
   return (
-    <div ref={s.containerRef} className={clsx("relative", wrapperClassName)}>
+    <div ref={s.containerRef} className={clsx('relative', wrapperClassName)}>
       <div className="relative">
         <input
           type="text"
           name={name}
           value={s.inputValue}
+          readOnly={readOnlyInput}
+          onClick={() => s.setOpen(true)}
           onChange={(e) => {
+            if (readOnlyInput) return;
             s.setInputValue(e.target.value);
             s.setOpen(true);
           }}
           onFocus={() => s.setOpen(true)}
           onBlur={() => onBlur?.()}
           onKeyDown={s.onKeyDown}
-          placeholder={loading ? "Загрузка офисов..." : placeholder}
+          placeholder={loading ? 'Загрузка ...' : placeholder}
           autoComplete="off"
           className={clsx(
-            "w-full px-3 py-2 border rounded cursor-text",
-            "overflow-hidden text-ellipsis whitespace-nowrap",
+            'w-full cursor-text rounded border px-3 py-2',
+            'overflow-hidden text-ellipsis whitespace-nowrap',
             selectClassName,
-            { "border-red-500": !!error }
+            { 'border-red-500': !!error },
           )}
           {...props}
         />
@@ -112,23 +111,17 @@ export default function CustomSelect({
           </button>
         )} */}
 
-        {!loading ? (
-          <IconChevronDown
-            className={clsx(
-              "absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none",
-              iconClassName
-            )}
-            size={20}
-          />
-        ) : (
-          <IconLoader2
-            className={clsx(
-              "absolute right-3 top-1/2 -translate-y-1/2 animate-spin pointer-events-none",
-              iconClassName
-            )}
-            size={18}
-          />
-        )}
+        <div
+          className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
+          onClick={() => s.setOpen((p) => !p)}
+          aria-hidden
+        >
+          {!loading ? (
+            <IconChevronDown size={20} className={iconClassName} />
+          ) : (
+            <IconLoader2 size={18} className={clsx('animate-spin', iconClassName)} />
+          )}
+        </div>
       </div>
 
       {s.open && !loading && (
@@ -143,9 +136,7 @@ export default function CustomSelect({
         />
       )}
 
-      {error && (
-        <p className="ml-2 text-red-500 text-[14px] mt-1">{error.message}</p>
-      )}
+      {error && <p className="mt-1 ml-2 text-[14px] text-red-500">{error.message}</p>}
     </div>
   );
 }

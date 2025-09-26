@@ -27,7 +27,7 @@ export default async function middleware(req: NextRequest) {
   if (url.pathname.includes('/main')) {
     return NextResponse.redirect(REDIRECT_MAIN, 302);
   }
-  if (url.pathname.includes('/lkmd') || url.pathname.includes('/merch')) {
+  if (url.pathname.includes('/lkmd')) {
     return NextResponse.redirect(REDIRECT_LKMD, 302);
   }
 

@@ -2,38 +2,90 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  align-items: center;
   gap: 32px;
-  padding-top: 180px;
+  padding: 125px 20px 50px 20px;
   min-height: 100vh;
   background-color: white;
 }
 
+.imageWrapper {
+  position: relative;
+}
+
 @media (min-width: 1024px) {
   .wrapper {
+    padding-top: 180px;
+    justify-content: center;
     flex-direction: row;
     align-items: flex-start;
     gap: 60px;
   }
 }
 
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ed1846;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  background: #c2143a;
+}
+
+.leftArrow {
+  left: 8px;
+}
+.rightArrow {
+  right: 8px;
+}
+
+@media (min-width: 640px) {
+  .imageWrapper:hover .arrow {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .imageSection {
   flex: 1;
-  max-width: 600px;
+  max-width: 470px;
+  padding-bottom: 10px;
 }
 
 .mainImage {
   width: 100%;
-  max-width: 600px;
-  height: 100%;
-  max-height: 650px;
-  border-radius: 12px;
+  height: clamp(290px, 25vw + 190px, 650px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  object-fit: contain;
+}
+
+@media (min-width: 1280px) {
+  .imageSection {
+    max-width: 600px;
+    width: 600px;
+  }
+
+  .mainImage {
+    height: 650px;
+    width: 600px;
+    object-fit: contain;
+  }
 }
 
 .thumbList {
   display: flex;
   gap: 8px;
-  margin-top: 12px;
+  padding: 15px 0 10px 0;
   overflow-x: auto;
   overflow-y: hidden;
 
@@ -47,6 +99,13 @@
   scrollbar-width: none;
 }
 
+@media (min-width: 1280px) {
+  .thumbList {
+    margin-top: 5px;
+    padding: 10px;
+  }
+}
+
 /* Chrome, Safari, Opera */
 .thumbList::-webkit-scrollbar {
   display: none;
@@ -54,12 +113,19 @@
 
 .thumb {
   flex: 0 0 auto;
-  width: 90px;
-  height: 120px;
+  width: 55px;
+  height: 70px;
   object-fit: cover;
   cursor: pointer;
   border: 2px solid transparent;
   box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 640px) {
+  .thumb {
+    width: 90px;
+    height: 120px;
+  }
 }
 
 .thumb.active {
@@ -68,22 +134,51 @@
 
 .info {
   flex: 1;
-  max-width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .info {
+    gap: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info {
+    max-width: 400px;
+  }
 }
 
 .title {
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    margin-bottom: 20px;
+  }
 }
 
 .price {
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .price {
+    font-size: 26px;
+  }
 }
 
 .selectWrapper {
@@ -94,7 +189,6 @@
 .select {
   height: 40px;
   width: 100%;
-  /* padding: 15px 35px 15px 20px; */
   border: 1px solid #9f9f9f;
   background-color: #e7e7e7;
   border-radius: 4px;
@@ -105,7 +199,10 @@
 
 .buyButton {
   width: 100%;
-  max-height: 52px;
+  max-height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #ed1846;
   color: white;
   font-size: 26px;
@@ -115,6 +212,12 @@
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.3s;
+}
+
+@media (min-width: 640px) {
+  .buyButton {
+    max-height: 52px;
+  }
 }
 
 .buyButton:hover {

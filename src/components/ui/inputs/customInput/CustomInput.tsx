@@ -1,16 +1,7 @@
-import { IMaskInput } from "react-imask";
-import clsx from "clsx";
+import { IMaskInput } from 'react-imask';
+import clsx from 'clsx';
 
-export default function CustomInput({
-  name,
-  value,
-  onChange,
-  onBlur,
-  placeholder,
-  error,
-  className,
-  isMasked,
-}: {
+interface Props {
   name: string;
   value?: string;
   onChange?: (...event: any[]) => void;
@@ -19,7 +10,8 @@ export default function CustomInput({
   error?: any;
   className?: string;
   isMasked?: boolean;
-}) {
+}
+export default function CustomInput({ name, value, onChange, onBlur, placeholder, error, className, isMasked }: Props) {
   return (
     <div>
       {isMasked ? (
@@ -31,29 +23,19 @@ export default function CustomInput({
           onAccept={(val) => onChange?.(val)}
           onBlur={onBlur}
           name={name}
-          className={clsx(
-            "border rounded px-3 py-2 w-full",
-            className,
-            error && "border-red-500"
-          )}
+          className={clsx('w-full rounded border px-3 py-2', className, error && 'border-red-500')}
         />
       ) : (
         <input
           name={name}
-          value={value ?? ""}
+          value={value ?? ''}
           onChange={(e) => onChange?.(e.target.value)}
           onBlur={onBlur}
           placeholder={placeholder}
-          className={clsx(
-            "border rounded px-3 py-2 w-full",
-            className,
-            error && "border-red-500"
-          )}
+          className={clsx('w-full rounded border px-3 py-2', className, error && 'border-red-500')}
         />
       )}
-      <div className="h-[20px] mt-1 ml-2">
-        {error && <p className="text-red-500 text-sm">{error.message}</p>}
-      </div>
+      <div className="mt-1 ml-2 h-[20px]">{error && <p className="text-sm text-red-500">{error.message}</p>}</div>
     </div>
   );
 }
