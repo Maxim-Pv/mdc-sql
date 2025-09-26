@@ -54,41 +54,53 @@ function json(data: any, status = 200) {
 
 export async function GET(req: Request) {
   try {
-    const url = new URL(req.url);
-    const code = url.searchParams.get('city_code');
-    const name = url.searchParams.get('city');
-    if (!code && !name) return json([], 200);
+    const base = (process.env.CDEK_API_URL || '').replace(/\/+$/, '');
+    if (!base) return json([], 200);
 
     const token = await ensureToken();
-    let cityCode = code;
 
-    if (!cityCode && name) {
-      const r = await fetch(
-        `${process.env.CDEK_API_URL!.replace(/\/+$/, '')}/location/cities?city=${encodeURIComponent(name)}&size=1`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          cache: 'no-store',
-        },
-      );
-      const arr = await r.json();
-      cityCode = Array.isArray(arr) && arr[0]?.code ? String(arr[0].code) : '';
-      if (!cityCode) return json([], 200);
+    const url = new URL(req.url);
+    let code = url.searchParams.get('city_code');
+    const name = url.searchParams.get('city');
+    const size = url.searchParams.get('size') || '300';
+    const is_handout = url.searchParams.get('is_handout') || 'true';
+    const type = url.searchParams.get('type') || 'PVZ';
+
+    if (!code && name) {
+      const citiesRes = await fetch(`${base}/location/cities?city=${encodeURIComponent(name)}&size=1`, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
+      });
+      const citiesData = await citiesRes.json();
+      if (!citiesRes.ok) {
+        console.error('CDEK /location/cities failed:', citiesRes.status, citiesData);
+        return json([], 200);
+      }
+      code = Array.isArray(citiesData) && citiesData[0]?.code ? String(citiesData[0].code) : '';
+      if (!code) return json([], 200);
     }
 
-    const p = new URLSearchParams({
-      city_code: cityCode!,
-      type: 'PVZ',
-      is_handout: 'true',
-      size: '300',
+    const pointsParams = new URLSearchParams({
+      city_code: code!,
+      type,
+      is_handout,
+      size,
     });
 
-    const res = await fetch(`${process.env.CDEK_API_URL!.replace(/\/+$/, '')}/deliverypoints?${p}`, {
+    const pointsRes = await fetch(`${base}/deliverypoints?${pointsParams}`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: 'no-store',
     });
-    const data = await res.json();
-    return json(data, res.status);
+    const pointsData = await pointsRes.json();
+
+    if (!pointsRes.ok) {
+      console.error('CDEK /deliverypoints failed:', pointsRes.status, pointsData);
+      return json([], 200);
+    }
+
+    return json(Array.isArray(pointsData) ? pointsData : [], 200);
   } catch (e: any) {
-    return json({ error: e?.message ?? 'offices failed' }, 500);
+    console.error('offices failed:', e?.message || e);
+    return json([], 200);
   }
 }

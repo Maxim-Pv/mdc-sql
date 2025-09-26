@@ -1,10 +1,10 @@
 'use client';
 import CustomSelect from '@/components/ui/inputs/customSelect/CustomSelect';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-type CityOpt = { label: string; value: string; raw: any };
+type CityOpt = { label: string; value: string; cityData: any };
 
-function useDebouncedCallback<T extends (...args: any[]) => void>(cb: T, delay = 700) {
+function useDebouncedCallback<T extends (...args: any[]) => void>(cb: T, delay = 300) {
   const cbRef = useRef(cb);
   useEffect(() => {
     cbRef.current = cb;
@@ -37,32 +37,42 @@ export default function CitySelect({
   const lastSentRef = useRef<string>('');
 
   const fetchCities = useCallback(async (q: string) => {
+    const query = q.trim();
     // минимальная длина
-    if (!q || q.trim().length < 3) {
+    if (query.length < 2) {
       setOpts([]);
       lastSentRef.current = '';
       ctrlRef.current?.abort();
       return;
     }
-    // не слать одинаковый q подряд
-    if (q === lastSentRef.current) return;
-    lastSentRef.current = q;
+    // не слать одинаковый запрос подряд
+    if (query === lastSentRef.current) return;
+    lastSentRef.current = query;
 
     ctrlRef.current?.abort();
     ctrlRef.current = new AbortController();
     setLoading(true);
     try {
-      const r = await fetch(`/api/cdek/cities?q=${encodeURIComponent(q)}`, {
+      const r = await fetch(`/api/cdek/cities?q=${encodeURIComponent(query)}&size=20`, {
         signal: ctrlRef.current.signal,
         cache: 'no-store',
       });
-      const j = await r.json();
-      const mapped: CityOpt[] = (Array.isArray(j) ? j : []).map((c: any) => ({
-        label: [c.city, c.region].filter(Boolean).join(', '),
-        value: String(c.code),
-        raw: c,
-      }));
-      setOpts(mapped);
+      const list = await r.json();
+      // console.log("JSON первого запроса:", list);
+
+      const cityData: CityOpt[] = Array.isArray(list)
+        ? list.map((c: any) => ({
+            label: [c.city, c.region].filter(Boolean).join(', '),
+            value: String(c.code),
+            cityData: c,
+          }))
+        : [];
+
+      const qLower = query.toLowerCase();
+      const filtered = cityData.filter((o) => o.label.toLowerCase().includes(qLower));
+      // console.log("Отфильтрованные варианты:", filtered);
+
+      setOpts(filtered);
     } catch {
       // игнор отмен/ошибок сети
     } finally {
@@ -70,8 +80,7 @@ export default function CitySelect({
     }
   }, []);
 
-  // трейлинговый дебаунс 700 мс
-  const debouncedFetch = useDebouncedCallback(fetchCities, 700);
+  const debouncedFetch = useDebouncedCallback(fetchCities, 300);
 
   return (
     <CustomSelect
@@ -80,13 +89,12 @@ export default function CitySelect({
       onValueChange={(code) => {
         if (!code) return onChange('', '');
         const picked = opts.find((o) => o.value === code);
-        if (picked) onChange(picked.value, picked.label);
+        if (picked) onChange(picked.value, picked.cityData.city);
       }}
       options={opts}
       placeholder={placeholder}
       selectClassName={className}
       loading={loading}
-      readOnlyInput={false}
       onInputChange={debouncedFetch}
       noOptionsText="Начните вводить город"
       clearable

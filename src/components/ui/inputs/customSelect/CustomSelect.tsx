@@ -1,6 +1,6 @@
 import { OptionList } from '@/components/ui/select/OptionList';
 import { useSelect } from '@/lib/forms/useSelect';
-import { IconChevronDown, IconLoader2 } from '@tabler/icons-react';
+import { IconChevronDown, IconLoader2, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import type { ChangeEvent, InputHTMLAttributes } from 'react';
 import type { FieldError } from 'react-hook-form';
@@ -57,21 +57,21 @@ export default function CustomSelect({
     readOnlyInput,
   });
 
-  // *** Доп функция очистки селекта (если понадобиться) ***
-  // const emitClear = () => {
-  //   // уведомим rhf (и onValueChange)
-  //   onValueChange?.("");
-  //   if (onChange) {
-  //     const synthetic = {
-  //       target: { value: "", name },
-  //       currentTarget: { value: "", name },
-  //     } as unknown as React.ChangeEvent<HTMLInputElement>;
-  //     onChange(synthetic);
-  //   }
-  //   s.setInputValue("");
-  //   s.setOpen(false);
-  //   onClear?.();
-  // };
+  const emitClear = () => {
+    onValueChange?.('');
+    if (onChange) {
+      const synthetic = {
+        target: { value: '', name },
+        currentTarget: { value: '', name },
+      } as unknown as React.ChangeEvent<HTMLInputElement>;
+      onChange(synthetic);
+    }
+    s.setInputValue('');
+    s.setOpen(true);
+    onClear?.();
+  };
+
+  const showClearIcon = clearable && (Boolean(value) || Boolean(s.inputValue)) && s.open && !loading;
 
   return (
     <div ref={s.containerRef} className={clsx('relative', wrapperClassName)}>
@@ -97,32 +97,35 @@ export default function CustomSelect({
             'w-full cursor-text rounded border px-3 py-2',
             'overflow-hidden text-ellipsis whitespace-nowrap',
             selectClassName,
-            { 'border-red-500': !!error },
+            {
+              'border-red-500': !!error,
+            },
           )}
           {...props}
         />
 
-        {/* Кнопка очистки */}
-        {/* {clearable && (value || s.inputValue) && !loading && (
-          <button
-            type="button"
-            aria-label="Очистить"
-            onClick={emitClear}
-            className="absolute right-8 top-1/2 -translate-y-1/2 px-1 text-gray-500 hover:text-gray-700"
-          >
-            <IconX size={18} />
-          </button>
-        )} */}
-
         <div
           className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
-          onClick={() => s.setOpen((p) => !p)}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => {
+            if (!loading && !showClearIcon) s.setOpen((p) => !p);
+          }}
           aria-hidden
         >
-          {!loading ? (
-            <IconChevronDown size={20} className={iconClassName} />
-          ) : (
+          {loading ? (
             <IconLoader2 size={18} className={clsx('animate-spin', iconClassName)} />
+          ) : showClearIcon ? (
+            <IconX
+              size={18}
+              className={iconClassName}
+              onClick={(e) => {
+                e.stopPropagation();
+                emitClear();
+              }}
+              aria-label="Очистить"
+            />
+          ) : (
+            <IconChevronDown size={20} className={iconClassName} />
           )}
         </div>
       </div>

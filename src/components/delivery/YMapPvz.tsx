@@ -2,24 +2,13 @@
 
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
+import { PvzCommon } from '@/types/delivery';
 import Spinner from '../ui/spinner/Spinner';
-
-type Pvz = {
-  code: string;
-  name?: string;
-  work_time?: string;
-  location?: {
-    latitude?: number | string;
-    longitude?: number | string;
-    address_full?: string;
-    address?: string;
-  };
-};
 
 type Props = {
   cityName?: string | null;
-  offices: Pvz[]; // «сырые» ПВЗ из CDEK /deliverypoints
-  onPick?: (pvz: Pvz) => void; // клик по маркеру (или по кнопке в баллуне)
+  offices: PvzCommon[]; // «сырые» ПВЗ из CDEK /deliverypoints
+  onPick?: (pvz: PvzCommon) => void; // клик по маркеру (или по кнопке в баллуне)
   className?: string;
   height?: number;
   selectedPvzCode?: string | null;
@@ -118,7 +107,7 @@ export default function YandexPvzMap({ cityName, offices, onPick, className, hei
   }, []);
 
   // --- helpers ---
-  function renderOffices(ymaps: any, list: Pvz[]) {
+  function renderOffices(ymaps: any, list: PvzCommon[]) {
     if (!mapRef.current) return;
 
     if (!clustererRef.current) {
@@ -149,7 +138,7 @@ export default function YandexPvzMap({ cityName, offices, onPick, className, hei
           `<div style="max-width:240px">` +
           `<div style="font-weight:600;margin-bottom:6px">${escapeHtml(address)}</div>` +
           (p.work_time ? `<div style="font-size:12px;color:#555">Время работы: ${escapeHtml(p.work_time)}</div>` : ``) +
-          `<button id="pvz-${p.code}" style="margin-top:8px;padding:6px 10px;border-radius:6px;border:none;background:#ED1846;color:#fff;cursor:pointer">Выбрать ПВЗ</button>` +
+          `<button type="button" id="pvz-${p.code}" style="margin-top:8px;padding:6px 10px;border-radius:6px;border:none;background:#ED1846;color:#fff;cursor:pointer">Выбрать ПВЗ</button>` +
           `</div>`;
 
         const placemark = new ymaps.Placemark(
@@ -167,7 +156,18 @@ export default function YandexPvzMap({ cityName, offices, onPick, className, hei
         placemark.events.add('balloonopen', () => {
           setTimeout(() => {
             const btn = document.getElementById(`pvz-${p.code}`);
-            if (btn) btn.onclick = () => onPick?.(p);
+            if (btn) {
+              btn.onclick = (e: any) => {
+                e?.preventDefault?.();
+                // try {
+                //   placemark.balloon.close();
+                // } catch {}
+                // try {
+                //   mapRef.current?.balloon?.close?.();
+                // } catch {}
+                onPick?.(p);
+              };
+            }
           }, 0);
         });
 
@@ -183,7 +183,7 @@ export default function YandexPvzMap({ cityName, offices, onPick, className, hei
     }
   }
 
-  async function recenterToCity(ymaps: any, name: string, list: Pvz[]) {
+  async function recenterToCity(ymaps: any, name: string, list: PvzCommon[]) {
     try {
       const res = await ymaps.geocode(name);
       const first = res?.geoObjects?.get(0);
@@ -204,7 +204,7 @@ export default function YandexPvzMap({ cityName, offices, onPick, className, hei
     if (list?.length) fitToOffices(ymaps, list);
   }
 
-  function fitToOffices(ymaps: any, list: Pvz[]) {
+  function fitToOffices(ymaps: any, list: PvzCommon[]) {
     if (!mapRef.current) return;
     const coords = list
       .map((p) => [Number(p?.location?.latitude), Number(p?.location?.longitude)])

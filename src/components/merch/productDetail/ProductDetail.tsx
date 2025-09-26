@@ -78,6 +78,7 @@ export default function ProductDetail({ product, onAddToCart }: Props) {
                   selectClassName={st.select}
                   wrapperClassName={st.selectWrapper}
                   readOnlyInput
+                  clearable={false}
                   placeholder="Выберите размер"
                 />
               </div>

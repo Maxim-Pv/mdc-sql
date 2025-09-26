@@ -1,6 +1,7 @@
 'use client';
 
-import { CdekDeliveryPicker } from '@/components/cdek/CdekDeliveryPicker';
+import { CdekDeliveryPicker } from '@/components/delivery/cdek/CdekDeliveryPicker';
+import CitySelect from '@/components/delivery/cdek/CitySelect';
 import { FormInput } from '@/components/ui/inputs/formInput/FormInput';
 import { useCart } from '@/providers/CartContext';
 import { calcWeight } from '@/lib/shipping';
@@ -46,7 +47,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
       firstName: '',
       email: '',
       phone: '',
-      region: '',
+      region: 'Москва',
       pickupPoint: '',
       address: '',
       comment: '',
@@ -57,7 +58,9 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
 
   const delivery = watch('delivery');
   const selectedPvzCode = watch('pickupPoint');
+  const cityName = watch('region');
 
+  const [uiCity, setUiCity] = useState({ code: '44', name: 'Москва' });
   // локально только для "Итого"
   const [shipping, setShipping] = useState<{
     price: number | null;
@@ -202,6 +205,26 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
 
               <div className="mb-[30px] flex flex-col gap-[30px]">
                 <span className="text-sm font-medium lg:text-lg">Доставка</span>
+
+                <Controller
+                  name="region" // в форме храним НАЗВАНИЕ города
+                  control={control}
+                  rules={{ required: delivery !== 'pickup' ? 'Выберите город' : (false as any) }}
+                  render={() => (
+                    <CitySelect
+                      value={uiCity.code}
+                      onChange={(code, name) => {
+                        setUiCity({ code, name });
+                        setValue('region', name, { shouldValidate: true });
+                        setValue('pickupPoint', '', { shouldValidate: true }); // смена города = сброс ПВЗ
+                        setValue('comment', '');
+                      }}
+                      placeholder="Ваш город"
+                      className={st.select}
+                    />
+                  )}
+                />
+
                 <div className="flex flex-col gap-3" role="radiogroup" aria-label="Способ доставки">
                   <Controller
                     name="delivery"
@@ -241,14 +264,10 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                 {delivery === 'cdek' && (
                   <>
                     <CdekDeliveryPicker
-                      initialCity={{ code: '44', name: 'Москва' }}
+                      key={cityName || 'no-city'}
+                      city={uiCity}
                       totalWeightGrams={calcWeight(items)}
                       valuePvz={selectedPvzCode || ''}
-                      onChangeCity={(code, name) => {
-                        // пишем только в форму
-                        setValue('region', name, { shouldValidate: true });
-                        setValue('pickupPoint', '', { shouldValidate: true }); // смена города очищает ПВЗ
-                      }}
                       onChangePvz={(code, address) => {
                         setValue('pickupPoint', code, { shouldValidate: true });
                         setValue('comment', address ? `ПВЗ: ${address}` : '');
@@ -266,14 +285,6 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                 )}
 
                 {/* Скрытые поля для валидации RHF (вместо старых контролов CitySelect/CustomSelect) */}
-                <Controller
-                  name="region"
-                  control={control}
-                  rules={{
-                    required: delivery !== 'pickup' ? 'Выберите город' : (false as any),
-                  }}
-                  render={({ field }) => <input type="hidden" {...field} />}
-                />
                 <Controller
                   name="pickupPoint"
                   control={control}
