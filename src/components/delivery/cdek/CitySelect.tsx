@@ -1,6 +1,7 @@
 'use client';
 import CustomSelect from '@/components/ui/inputs/customSelect/CustomSelect';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { FieldError } from 'react-hook-form';
 
 type CityOpt = { label: string; value: string; cityData: any };
 
@@ -21,14 +22,16 @@ function useDebouncedCallback<T extends (...args: any[]) => void>(cb: T, delay =
 
 export default function CitySelect({
   value,
-  onChange, // (code: string, name: string) => void
+  onChange,
   placeholder = 'Ваш город',
   className,
+  error,
 }: {
   value: string;
   onChange: (code: string, name: string) => void;
   placeholder?: string;
   className?: string;
+  error?: FieldError;
 }) {
   const [opts, setOpts] = useState<CityOpt[]>([]);
   const [loading, setLoading] = useState(false);
@@ -98,6 +101,7 @@ export default function CitySelect({
       onInputChange={debouncedFetch}
       noOptionsText="Начните вводить город"
       clearable
+      error={error}
     />
   );
 }

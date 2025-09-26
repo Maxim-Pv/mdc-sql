@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CustomSelect from '../../ui/inputs/customSelect/CustomSelect';
 import YandexPvzMap from '../YMapPvz';
 import st from './styles.module.css';
+import { FieldError } from 'react-hook-form';
 
 type Props = {
   city: { code: string; name: string };
@@ -12,8 +13,16 @@ type Props = {
   valuePvz: string;
   onChangePvz: (code: string, address?: string) => void;
   onQuoteChange?: (price: number | null, days: string | null) => void;
+  error?: FieldError;
 };
-export function CdekDeliveryPicker({ city, totalWeightGrams = 250, valuePvz, onChangePvz, onQuoteChange }: Props) {
+export function CdekDeliveryPicker({
+  city,
+  totalWeightGrams = 250,
+  valuePvz,
+  onChangePvz,
+  onQuoteChange,
+  error,
+}: Props) {
   const cdek = useCdekDelivery(city.code || '44', city.name || 'Москва');
   const [showPvzInfo, setShowPvzInfo] = useState(false);
   const [pickedPvz, setPickedPvz] = useState<any | null>(null);
@@ -24,12 +33,6 @@ export function CdekDeliveryPicker({ city, totalWeightGrams = 250, valuePvz, onC
       cdek.setCity(city.code, clean);
     }
   }, [city]);
-
-  // useEffect(() => {
-  //   setShowPvzInfo(false);
-  //   setPickedPvz(null);
-  //   cdek.setSelectedPvzCode("");
-  // }, [cdek.cityName]);
 
   useEffect(() => {
     if (valuePvz !== cdek.selectedPvzCode) cdek.setSelectedPvzCode(valuePvz || '');
@@ -76,23 +79,26 @@ export function CdekDeliveryPicker({ city, totalWeightGrams = 250, valuePvz, onC
 
   return (
     <div className="space-y-[30px]">
-      <CustomSelect
-        name="pvz"
-        value={cdek.selectedPvzCode}
-        options={cdek.pvzOptions}
-        placeholder="Пункт получения"
-        onValueChange={(code) => {
-          const pvz = cdek.offices.find((p: any) => String(p.code) === code);
-          const address = pvz?.location?.address_full || pvz?.address || '';
-          cdek.setSelectedPvzCode(code);
-          onChangePvz(code, address);
-          cdek.quote(Number(pvz?.city_code), totalWeightGrams);
+      <div data-field="pickupPoint">
+        <CustomSelect
+          name="pvz"
+          value={cdek.selectedPvzCode}
+          options={cdek.pvzOptions}
+          placeholder="Пункт получения"
+          onValueChange={(code) => {
+            const pvz = cdek.offices.find((p: any) => String(p.code) === code);
+            const address = pvz?.location?.address_full || pvz?.address || '';
+            cdek.setSelectedPvzCode(code);
+            onChangePvz(code, address);
+            cdek.quote(Number(pvz?.city_code), totalWeightGrams);
 
-          setPickedPvz(pvz);
-          setShowPvzInfo(true);
-        }}
-        selectClassName={st.select}
-      />
+            setPickedPvz(pvz);
+            setShowPvzInfo(true);
+          }}
+          selectClassName={st.select}
+          error={error}
+        />
+      </div>
 
       {showPvzInfo && pickedPvz ? (
         <PvzInfo pvz={pickedPvz} />

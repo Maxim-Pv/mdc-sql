@@ -12,7 +12,7 @@ import { useModal } from '@/providers/ModalContext';
 import { pushMailruGoal } from '@/lib/analytics/mailru';
 import { scrollToField } from '@/lib/forms/scrollToField';
 import { useScrollToError } from '@/lib/forms/useScrollToError';
-import { formSchema } from '@/lib/formSchema';
+import { formSchema } from '@/lib/zod/formSchema';
 import { FIELD_ORDER, FormValues } from '@/types/registrationFields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';

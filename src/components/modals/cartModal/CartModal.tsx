@@ -4,35 +4,24 @@ import { CdekDeliveryPicker } from '@/components/delivery/cdek/CdekDeliveryPicke
 import CitySelect from '@/components/delivery/cdek/CitySelect';
 import { FormInput } from '@/components/ui/inputs/formInput/FormInput';
 import { useCart } from '@/providers/CartContext';
+import { useScrollToError } from '@/lib/forms/useScrollToError';
 import { calcWeight } from '@/lib/shipping';
+import { OrderForm, orderSchema } from '@/lib/zod/orderSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IconCircleMinus, IconCirclePlus, IconTrashX, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import st from './styles.module.css';
 
-type DeliveryMethod = 'cdek' | 'post' | 'pickup';
-type PaymentMethod = 'card' | 'tinkoff';
-
-type CheckoutForm = {
-  firstName: string;
-  email: string;
-  phone: string;
-  region: string;
-  pickupPoint?: string; // ПВЗ для СДЭК
-  address?: string; // адрес/индекс для Почты РФ
-  comment?: string;
-  delivery: DeliveryMethod;
-  payment: PaymentMethod;
-};
 interface CartModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { items, total, increment, decrement, removeItem } = useCart();
+  const { items, total, increment, decrement, removeItem, clearCart } = useCart();
   const [showForm, setShowForm] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,13 +30,18 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
     handleSubmit,
     watch,
     setValue,
+    register,
     formState: { errors, isSubmitting },
-  } = useForm<CheckoutForm>({
+  } = useForm<OrderForm>({
+    resolver: zodResolver(orderSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    shouldFocusError: false,
     defaultValues: {
-      firstName: '',
+      fullName: '',
       email: '',
       phone: '',
-      region: 'Москва',
+      region: '',
       pickupPoint: '',
       address: '',
       comment: '',
@@ -55,6 +49,11 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
       payment: 'card',
     },
   });
+
+  useEffect(() => {
+    register('pickupPoint');
+    register('address');
+  }, [register]);
 
   const delivery = watch('delivery');
   const selectedPvzCode = watch('pickupPoint');
@@ -98,8 +97,21 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
     }
   }, [delivery, setValue]);
 
-  const onSubmit = async (data: CheckoutForm) => {
+  const onError = useScrollToError<OrderForm>([
+    'fullName',
+    'email',
+    'phone',
+    'region',
+    'pickupPoint',
+    'address',
+    'comment',
+    'delivery',
+    'payment',
+  ]);
+
+  const onSubmit: SubmitHandler<OrderForm> = async (data) => {
     console.log('ORDER:', { items, total, ...data });
+    clearCart();
     onClose();
   };
 
@@ -177,53 +189,61 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
 
         {showForm && (
           <div ref={formRef} className="mt-4 sm:px-[10px]">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                <FormInput
-                  name="firstName"
-                  control={control}
-                  error={errors.firstName}
-                  placeholder="Ваше ФИО*"
-                  className={st.input}
-                />
-                <FormInput
-                  name="email"
-                  control={control}
-                  error={errors.email}
-                  placeholder="Ваш mail (для получения трек-кода)*"
-                  className={st.input}
-                />
-                <FormInput
-                  name="phone"
-                  control={control}
-                  error={errors.phone}
-                  placeholder="+7 (999) 999-99-99"
-                  className={st.input}
-                  isMasked
-                />
+            <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-4">
+              <div className="grid grid-cols-1 gap-5">
+                <div data-field="fullName" className="contents">
+                  <FormInput
+                    name="fullName"
+                    control={control}
+                    error={errors.fullName}
+                    placeholder="Ваше ФИО*"
+                    className={st.input}
+                  />
+                </div>
+                <div data-field="email" className="contents">
+                  <FormInput
+                    name="email"
+                    control={control}
+                    error={errors.email}
+                    placeholder="Ваш mail (для получения трек-кода)*"
+                    className={st.input}
+                  />
+                </div>
+                <div data-field="phone" className="contents">
+                  <FormInput
+                    name="phone"
+                    control={control}
+                    error={errors.phone}
+                    placeholder="+7 (999) 999-99-99"
+                    className={st.input}
+                    isMasked
+                  />
+                </div>
               </div>
 
               <div className="mb-[30px] flex flex-col gap-[30px]">
                 <span className="text-sm font-medium lg:text-lg">Доставка</span>
 
-                <Controller
-                  name="region" // в форме храним НАЗВАНИЕ города
-                  control={control}
-                  rules={{ required: delivery !== 'pickup' ? 'Выберите город' : (false as any) }}
-                  render={() => (
-                    <CitySelect
-                      value={uiCity.code}
-                      onChange={(code, name) => {
-                        setUiCity({ code, name });
-                        setValue('region', name, { shouldValidate: true });
-                        setValue('pickupPoint', '', { shouldValidate: true }); // смена города = сброс ПВЗ
-                        setValue('comment', '');
-                      }}
-                      placeholder="Ваш город"
-                      className={st.select}
-                    />
-                  )}
-                />
+                <div data-field="region" className="contents">
+                  <Controller
+                    name="region"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <CitySelect
+                        value={uiCity.code}
+                        onChange={(code, name) => {
+                          setUiCity({ code, name });
+                          setValue('region', name, { shouldValidate: true });
+                          setValue('pickupPoint', '', { shouldValidate: true }); // смена города = сброс ПВЗ
+                          setValue('comment', '');
+                        }}
+                        placeholder="Ваш город"
+                        className={st.select}
+                        error={fieldState.error}
+                      />
+                    )}
+                  />
+                </div>
 
                 <div className="flex flex-col gap-3" role="radiogroup" aria-label="Способ доставки">
                   <Controller
@@ -270,9 +290,10 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                       valuePvz={selectedPvzCode || ''}
                       onChangePvz={(code, address) => {
                         setValue('pickupPoint', code, { shouldValidate: true });
-                        setValue('comment', address ? `ПВЗ: ${address}` : '');
+                        // setValue("comment", address ? `ПВЗ: ${address}` : "");
                       }}
                       onQuoteChange={handleQuoteChange}
+                      error={errors.pickupPoint}
                     />
 
                     {/* Отображение доставки и Итого (опционально) */}
@@ -283,19 +304,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                   </div> */}
                   </>
                 )}
-
-                {/* Скрытые поля для валидации RHF (вместо старых контролов CitySelect/CustomSelect) */}
-                <Controller
-                  name="pickupPoint"
-                  control={control}
-                  rules={{
-                    required: delivery === 'cdek' ? 'Выберите пункт получения' : (false as any),
-                  }}
-                  render={({ field }) => <input type="hidden" {...field} />}
-                />
               </div>
-
-              {/* ниже пока не смотрим  */}
 
               {delivery === 'post' && (
                 <Controller
@@ -347,21 +356,16 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                     <span>Банковской картой (Visa, Mastercard)</span>
                   </label>
 
-                  <label className="inline-flex cursor-pointer items-center gap-2">
+                  {/* <label className="inline-flex items-center gap-2 cursor-pointer">
                     <Controller
                       name="payment"
                       control={control}
                       render={({ field }) => (
-                        <input
-                          type="radio"
-                          value="tinkoff"
-                          checked={field.value === 'tinkoff'}
-                          onChange={() => field.onChange('tinkoff')}
-                        />
+                        <input type="radio" value="tinkoff" checked={field.value === "tinkoff"} onChange={() => field.onChange("tinkoff")} />
                       )}
                     />
                     <span>Долями от Тинькофф</span>
-                  </label>
+                  </label> */}
                 </div>
               </fieldset>
 
@@ -374,7 +378,9 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                     </div>
                     <p className="text-xs font-semibold lg:text-lg">Итоговая сумма: {total} р.</p>
                   </div>
-                  <button className={st.btnOrder}>Оформить заказ</button>
+                  <button type="submit" className={st.btnOrder}>
+                    Оформить заказ
+                  </button>
                 </div>
               </div>
             </form>
