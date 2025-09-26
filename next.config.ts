@@ -34,14 +34,17 @@ const csp = [
   "base-uri 'self'",
   "object-src 'none'",
 
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.cdek.ru https://mc.yandex.ru https://mc.yandex.com https://top-fwz1.mail.ru https://privacy-cs.mail.ru https://www.googletagmanager.com https://vk.com https://ok.ru https://api-maps.yandex.ru https://yastatic.net https://core-renderer-tiles.maps.yandex.net",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://geocode-maps.yandex.ru https://cdn.jsdelivr.net https://api-maps.yandex.ru https://yastatic.net https://mc.yandex.ru https://mc.yandex.com https://top-fwz1.mail.ru https://privacy-cs.mail.ru https://www.googletagmanager.com https://vk.com https://ok.ru https://api-maps.yandex.ru https://yastatic.net https://core-renderer-tiles.maps.yandex.net",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api-maps.yandex.ru https://yastatic.net",
-  "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https: https://www.cdek.ru",
-  "connect-src 'self' https://api.mdcard.ru https://mc.yandex.ru https://mc.yandex.com https://www.cdek.ru wss://mc.yandex.ru wss://mc.yandex.com https://top-fwz1.mail.ru https://privacy-cs.mail.ru https://api-maps.yandex.ru https://yastatic.net https://api.exchangerate.host https://www.cbr.ru",
-  'frame-src https://api-maps.yandex.ru https://www.cdek.ru https://vk.com https://mc.yandex.ru https://mc.yandex.com',
+  "font-src 'self' https://fonts.gstatic.com https://core-renderer-tiles.maps.yandex.net https://content-provider.maps.yandex.net",
 
-  "worker-src 'self' blob:",
+  "img-src 'self' data: https: https://yastatic.net https://api-maps.yandex.ru https://geocode-maps.yandex.ru https://core-renderer-tiles.maps.yandex.net https://content-provider.maps.yandex.net",
+
+  "connect-src 'self' https://geocode-maps.yandex.ru https://core-renderer-tiles.maps.yandex.net https://content-provider.maps.yandex.net https://api-maps.yandex.ru https://yastatic.net https://api.mdcard.ru https://mc.yandex.ru https://mc.yandex.com wss://mc.yandex.ru wss://mc.yandex.com https://top-fwz1.mail.ru https://privacy-cs.mail.ru https://api-maps.yandex.ru https://yastatic.net https://api.exchangerate.host https://www.cbr.ru",
+
+  'frame-src https://api-maps.yandex.ru https://vk.com https://mc.yandex.ru https://mc.yandex.com',
+
+  "worker-src 'self' blob: data:",
 ].join('; ');
 
 /** @type {import('next').NextConfig} */

@@ -9,7 +9,7 @@ export default function MerchPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex min-h-[100vh] flex-col gap-[40px] bg-white pb-[50px] sm:gap-[75px] lg:pb-[200px]">
+    <div className="mx-auto flex min-h-[100vh] max-w-[1440px] flex-col gap-[40px] bg-white pb-[50px] sm:gap-[75px] lg:pb-[200px]">
       <HeaderNav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <MerchHeroBlock />

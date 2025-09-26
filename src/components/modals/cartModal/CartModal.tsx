@@ -1,12 +1,13 @@
 'use client';
 
-import CustomSelect from '@/components/ui/inputs/customSelect/CustomSelect';
+import { CdekDeliveryPicker } from '@/components/cdek/CdekDeliveryPicker';
 import { FormInput } from '@/components/ui/inputs/formInput/FormInput';
 import { useCart } from '@/providers/CartContext';
+import { calcWeight } from '@/lib/shipping';
 import { IconCircleMinus, IconCirclePlus, IconTrashX, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import st from './styles.module.css';
 
@@ -34,9 +35,6 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
   const [showForm, setShowForm] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
 
-  const regions = useMemo(() => ['Москва', 'Санкт-Петербург', 'Казань', 'Новосибирск'], []);
-  const pickupPoints = useMemo(() => ['ПВЗ—Тверская, 7', 'ПВЗ—Литейный, 10', 'ПВЗ—Невский, 24'], []);
-
   const {
     control,
     handleSubmit,
@@ -58,7 +56,22 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
   });
 
   const delivery = watch('delivery');
+  const selectedPvzCode = watch('pickupPoint');
 
+  // локально только для "Итого"
+  const [shipping, setShipping] = useState<{
+    price: number | null;
+    days: string | null;
+  }>({
+    price: null,
+    days: null,
+  });
+
+  const handleQuoteChange = useCallback((price: number | null, days: string | null) => {
+    setShipping((prev) => (prev.price === price && prev.days === days ? prev : { price, days }));
+  }, []);
+
+  // Жизненный цикл модалки
   useEffect(() => {
     if (isOpen && items.length === 0) onClose();
   }, [items, isOpen, onClose]);
@@ -70,8 +83,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
+  // Очистка адреса/ПВЗ при смене варианта доставки
   useEffect(() => {
     if (delivery === 'cdek') {
       setValue('address', '');
@@ -82,8 +94,6 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
       setValue('address', '');
     }
   }, [delivery, setValue]);
-
-  if (!isOpen) return null;
 
   const onSubmit = async (data: CheckoutForm) => {
     console.log('ORDER:', { items, total, ...data });
@@ -96,6 +106,8 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
       formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={st.overlay} onClick={onClose}>
@@ -188,80 +200,91 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                 />
               </div>
 
-              <fieldset className="space-y-2 lg:space-y-4">
-                <legend className="text-sm font-medium lg:text-lg">Доставка</legend>
-                <div className="flex flex-col gap-3">
-                  {[
-                    { value: 'cdek', label: 'СДЭК' },
-                    { value: 'post', label: 'Почта России' },
-                    { value: 'pickup', label: 'Самовывоз из офиса КСЦ' },
-                  ].map((option) => (
-                    <label key={option.value} className="inline-flex cursor-pointer items-center gap-2">
-                      <Controller
-                        name="delivery"
-                        control={control}
-                        render={({ field }) => (
-                          <input
-                            type="radio"
-                            value={option.value}
-                            checked={field.value === option.value}
-                            onChange={() => field.onChange(option.value)}
-                          />
-                        )}
-                      />
-                      <span className="text-xs sm:text-sm">{option.label}</span>
-                    </label>
-                  ))}
+              <div className="mb-[30px] flex flex-col gap-[30px]">
+                <span className="text-sm font-medium lg:text-lg">Доставка</span>
+                <div className="flex flex-col gap-3" role="radiogroup" aria-label="Способ доставки">
+                  <Controller
+                    name="delivery"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        {[
+                          { value: 'cdek', label: 'СДЭК' },
+                          { value: 'post', label: 'Почта России' },
+                          { value: 'pickup', label: 'Самовывоз из офиса КСЦ' },
+                        ].map((option) => {
+                          const id = `delivery-${option.value}`;
+                          const labelId = `${id}-label`;
+                          return (
+                            <div key={option.value} className="inline-flex items-center gap-2">
+                              <input
+                                id={id}
+                                type="radio"
+                                name={field.name}
+                                value={option.value}
+                                checked={field.value === option.value}
+                                onChange={() => field.onChange(option.value)}
+                                aria-labelledby={labelId}
+                                className="cursor-pointer"
+                              />
+                              <span id={labelId} className="text-xs select-none sm:text-sm">
+                                {option.label}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </>
+                    )}
+                  />
                 </div>
-              </fieldset>
 
-              {delivery !== 'pickup' && (
+                {delivery === 'cdek' && (
+                  <>
+                    <CdekDeliveryPicker
+                      initialCity={{ code: '44', name: 'Москва' }}
+                      totalWeightGrams={calcWeight(items)}
+                      valuePvz={selectedPvzCode || ''}
+                      onChangeCity={(code, name) => {
+                        // пишем только в форму
+                        setValue('region', name, { shouldValidate: true });
+                        setValue('pickupPoint', '', { shouldValidate: true }); // смена города очищает ПВЗ
+                      }}
+                      onChangePvz={(code, address) => {
+                        setValue('pickupPoint', code, { shouldValidate: true });
+                        setValue('comment', address ? `ПВЗ: ${address}` : '');
+                      }}
+                      onQuoteChange={handleQuoteChange}
+                    />
+
+                    {/* Отображение доставки и Итого (опционально) */}
+                    {/* <div className="text-sm text-gray-700 mt-2">
+                    <div>Доставка: {shipping.price != null ? `${shipping.price} р.` : "—"}</div>
+                    <div>{shipping.days ? `Срок: ${shipping.days} дн.` : ""}</div>
+                    <div className="font-semibold mt-1">Итого: {(shipping.price ?? 0) + total} р.</div>
+                  </div> */}
+                  </>
+                )}
+
+                {/* Скрытые поля для валидации RHF (вместо старых контролов CitySelect/CustomSelect) */}
                 <Controller
                   name="region"
                   control={control}
-                  rules={{ required: 'Выберите город' }}
-                  render={({ field }) => (
-                    <CustomSelect
-                      {...field}
-                      options={regions.map((r) => ({ label: r, value: r }))}
-                      placeholder="Ваш город"
-                      wrapperClassName={st.selectWrapper}
-                      selectClassName={st.select}
-                      error={errors.region}
-                    />
-                  )}
+                  rules={{
+                    required: delivery !== 'pickup' ? 'Выберите город' : (false as any),
+                  }}
+                  render={({ field }) => <input type="hidden" {...field} />}
                 />
-              )}
+                <Controller
+                  name="pickupPoint"
+                  control={control}
+                  rules={{
+                    required: delivery === 'cdek' ? 'Выберите пункт получения' : (false as any),
+                  }}
+                  render={({ field }) => <input type="hidden" {...field} />}
+                />
+              </div>
 
-              {delivery === 'cdek' && (
-                <>
-                  <Controller
-                    name="pickupPoint"
-                    control={control}
-                    rules={{ required: 'Выберите пункт получения' }}
-                    render={({ field }) => (
-                      <CustomSelect
-                        {...field}
-                        options={pickupPoints.map((p) => ({
-                          label: p,
-                          value: p,
-                        }))}
-                        placeholder="Пункт получения"
-                        wrapperClassName={st.selectWrapper}
-                        selectClassName={st.select}
-                        error={errors.pickupPoint}
-                      />
-                    )}
-                  />
-
-                  <div className="h-[180px] w-full overflow-hidden rounded border border-gray-300 sm:h-[220px]">
-                    {/* подключить карту СДЭК / Яндекс */}
-                    <div className="grid h-full w-full place-items-center bg-gray-100 text-sm text-gray-500">
-                      Карта ПВЗ (плейсхолдер)
-                    </div>
-                  </div>
-                </>
-              )}
+              {/* ниже пока не смотрим  */}
 
               {delivery === 'post' && (
                 <Controller

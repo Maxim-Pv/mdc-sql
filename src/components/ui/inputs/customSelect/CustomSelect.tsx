@@ -24,6 +24,7 @@ interface SelectFieldProps extends BaseInputProps {
   clearable?: boolean;
   onClear?: () => void;
   readOnlyInput?: boolean;
+  onInputChange?: (q: string) => void;
 }
 
 export default function CustomSelect({
@@ -43,6 +44,7 @@ export default function CustomSelect({
   clearable = true,
   onClear,
   readOnlyInput = false,
+  onInputChange,
   ...props
 }: SelectFieldProps) {
   const s = useSelect({
@@ -84,6 +86,7 @@ export default function CustomSelect({
             if (readOnlyInput) return;
             s.setInputValue(e.target.value);
             s.setOpen(true);
+            onInputChange?.(e.target.value);
           }}
           onFocus={() => s.setOpen(true)}
           onBlur={() => onBlur?.()}
