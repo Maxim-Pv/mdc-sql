@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/admin/db';
+import { prisma } from '@/lib/db/prisma';
 import { adminOnly, RouteCtx } from '@/lib/auth/adminOnly';
 import { mkdir, unlink, writeFile } from 'fs/promises';
 import { NextResponse } from 'next/server';

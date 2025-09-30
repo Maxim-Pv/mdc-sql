@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/admin/db';
+import { prisma } from '@/lib/db/prisma';
 import { adminOnly } from '@/lib/auth/adminOnly';
 import { parseRuDayMonth, parseYYYYMMDD } from '@/lib/dates/sortAt';
 import { toSlug } from '@/lib/slug';
