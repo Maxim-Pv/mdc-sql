@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/admin/prisma';
-import { prismaAmount } from '@/lib/admin/prisma-amount';
+import { prisma } from '@/lib/db/prisma';
+import { prismaAmount } from '@/lib/db/prisma-amount';
 import { YooKassa } from '@/lib/yookassa';
 import { NextRequest, NextResponse } from 'next/server';
 

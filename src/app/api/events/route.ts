@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/admin/db';
+import { prisma } from '@/lib/db/prisma';
 import { adminOnly } from '@/lib/auth/adminOnly';
 import crypto from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';

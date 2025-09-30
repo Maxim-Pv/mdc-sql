@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/admin/db';
+import { prisma } from '@/lib/db/prisma';
 import { ContentKind } from '@/types/event-news';
 
 function toItem(kind: ContentKind, r: any) {

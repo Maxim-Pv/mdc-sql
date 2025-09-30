@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/admin/prisma';
+import { prisma } from '@/lib/db/prisma';
 import { adminOnly } from '@/lib/auth/adminOnly';
 import { buildUploadFileName, buildUploadUrl, getUploadDir } from '@/lib/uploads';
 import { NextResponse } from 'next/server';

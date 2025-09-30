@@ -1,9 +1,9 @@
 import { YooKassa } from '@/lib/yookassa';
-import { BodySchema } from '@/lib/zod/bodySchema';
+import { BodySchema } from '@/lib/schemes/bodySchema';
 import type { ICreatePayment } from '@a2seven/yoo-checkout';
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuid } from 'uuid';
-import { prisma } from '@/lib/admin/prisma';
+import { prisma } from '@/lib/db/prisma';
 import { Prisma } from '@prisma/client';
 
 export const runtime = 'nodejs';

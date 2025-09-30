@@ -1,4 +1,4 @@
-import { formSchema } from '@/lib/zod/formSchema';
+import { formSchema } from '@/lib/schemes/formSchema';
 import { IconCheck } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Controller, UseFormTrigger } from 'react-hook-form';

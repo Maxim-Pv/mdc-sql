@@ -1,6 +1,6 @@
 import { YooKassa } from '@/lib/yookassa';
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/admin/prisma';
+import { prisma } from '@/lib/db/prisma';
 
 export const runtime = 'nodejs';
 type Hook = {
