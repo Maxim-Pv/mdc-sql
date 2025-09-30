@@ -1,7 +1,7 @@
-import ProductClient from "@/components/merch/productClient/ProductClient";
-import { merchDetail } from "@/constant/merch/merchDetail";
-import { MerchItem } from "@/types/merch";
-import { notFound } from "next/navigation";
+import ProductClient from '@/components/merch/productClient/ProductClient';
+import { merchDetail } from '@/constant/merch/merchDetail';
+import { MerchItem } from '@/types/merch';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ slug: string }>;

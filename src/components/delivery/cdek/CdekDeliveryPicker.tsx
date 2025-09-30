@@ -124,10 +124,10 @@ export function CdekDeliveryPicker({
         </div>
       )}
 
-      <div className="text-sm text-gray-700">
+      {/* <div className="text-sm text-gray-700">
         <div>Доставка: {cdek.price != null ? `${cdek.price} р.` : '—'}</div>
         <div>{cdek.days ? `Срок: ${cdek.days} дн.` : ''}</div>
-      </div>
+      </div> */}
     </div>
   );
 }

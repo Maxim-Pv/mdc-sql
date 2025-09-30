@@ -24,6 +24,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
   const { items, total, increment, decrement, removeItem, clearCart } = useCart();
   const [showForm, setShowForm] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
+  const [paying, setPaying] = useState(false);
 
   const {
     control,
@@ -110,9 +111,73 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
   ]);
 
   const onSubmit: SubmitHandler<OrderForm> = async (data) => {
-    console.log('ORDER:', { items, total, ...data });
-    clearCart();
-    onClose();
+    if (paying) return; // защита от повторных кликов
+
+    try {
+      setPaying(true);
+      const uid = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`; // на случай старых браузеров
+      const amountRub = Number((total + (shipping?.price ?? 0)).toFixed(2));
+      const description = `Заказ на mdcard: ${items
+        .map((i) => i.name)
+        .join(', ')
+        .slice(0, 120)}`;
+
+      const orderId = uid();
+      localStorage.setItem('LAST_ORDER_ID', orderId);
+      localStorage.setItem('LAST_ORDER_MARK', String(Date.now()));
+      // собираем полезные поля (по желанию)
+      const payload = {
+        amount: amountRub,
+        description,
+        orderId,
+        customer: {
+          fullName: data.fullName,
+          email: data.email,
+          phone: data.phone,
+        },
+        delivery: {
+          method: delivery, // 'cdek' | 'post' | 'pickup'
+          city: uiCity?.name ?? '',
+          address: data.address ?? '',
+          pickupPoint: data.pickupPoint ?? '',
+        },
+        items: items.map((i) => ({
+          id: String(i.id),
+          title: i.name,
+          price: i.price,
+          qty: i.qty,
+        })),
+      };
+
+      const res = await fetch('/api/yookassa/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Idempotence-Key': uid(), // защита от двойных кликов
+        },
+        body: JSON.stringify(payload),
+      });
+
+      let json: any = null;
+      try {
+        json = await res.json();
+      } catch {
+        /* игнорируем не-JSON */
+      }
+
+      if (!res.ok || !json?.confirmationUrl) {
+        throw new Error(json?.error || `Не удалось создать платёж (HTTP ${res.status})`);
+      }
+
+      window.location.href = json.confirmationUrl; // переходим на страницу оплаты
+    } catch (e: any) {
+      console.error('create-payment error:', e);
+      localStorage.removeItem('LAST_ORDER_ID');
+      localStorage.removeItem('LAST_ORDER_MARK');
+      alert(e.message || 'Ошибка оплаты');
+    } finally {
+      setPaying(false);
+    }
   };
 
   const scrollToForm = () => {
@@ -290,7 +355,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                       valuePvz={selectedPvzCode || ''}
                       onChangePvz={(code, address) => {
                         setValue('pickupPoint', code, { shouldValidate: true });
-                        // setValue("comment", address ? `ПВЗ: ${address}` : "");
+                        setValue('address', address, { shouldValidate: true });
                       }}
                       onQuoteChange={handleQuoteChange}
                       error={errors.pickupPoint}
@@ -370,18 +435,18 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
               </fieldset>
 
               <div className={st.modalFooter}>
-                <div className="flex w-full flex-col items-start justify-between gap-[30px]">
-                  <div className="flex flex-col gap-2">
-                    <div className="text-xs lg:text-lg">
-                      <span className="mr-1 text-gray-600">Сумма:</span>
-                      <span>{total} р.</span>
-                    </div>
-                    <p className="text-xs font-semibold lg:text-lg">Итоговая сумма: {total} р.</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-xs lg:text-base">Сумма: {total} р.</p>
+                    <p className="text-xs lg:text-base">
+                      {shipping.price != null ? `Доставка: ${shipping.price} р.` : 'Доставка: —'}
+                    </p>
                   </div>
-                  <button type="submit" className={st.btnOrder}>
-                    Оформить заказ
-                  </button>
+                  <p className="text-xs font-semibold lg:text-lg">Итоговая сумма: {total + (shipping.price ?? 0)} р.</p>
                 </div>
+                <button type="submit" className={st.btnOrder}>
+                  {paying ? 'Переходим к оплате…' : 'Оформить заказ'}
+                </button>
               </div>
             </form>
           </div>

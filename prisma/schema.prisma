@@ -67,7 +67,7 @@ model Event {
 
 model NewsHero {
   id        String   @id @default(cuid())
-  locale    String   @default("ru") // "ru" | "md"
+  locale    String   @default("ru") 
   title     String?
   dateLabel String?
   text      String?
@@ -77,4 +77,57 @@ model NewsHero {
   updatedAt DateTime @updatedAt
 
   @@unique([locale])
+}
+
+// --- Заказы / оплатa (YooKassa) ---
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELED
+}
+
+enum DeliveryMethod {
+  CDEK
+  POST
+  PICKUP
+}
+
+model Order {
+  id             String        @id @default(cuid())
+  clientOrderId  String        @unique
+  paymentId      String?       @unique
+  status         OrderStatus   @default(PENDING)
+
+  amountCents    Int
+  currency       String        @default("RUB")
+
+  customerName   String?
+  customerEmail  String?
+  customerPhone  String?
+
+  deliveryMethod DeliveryMethod?
+  city           String?
+  address        String?
+  pickupPoint    String?
+
+  returnTo       String?
+  items          OrderItem[]
+
+  meta           Json?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model OrderItem {
+  id            String   @id @default(cuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId     String?
+  title         String
+
+  unitPriceCents Int
+  qty            Int
+  totalCents     Int
 }

@@ -2,6 +2,7 @@
 
 import HeaderNav from '@/components/headerNav/HeaderNav';
 import MerchHeroBlock from '@/components/merch/heroBlock/MerchHeroBlock';
+import MerchAfterPay from '@/components/merch/MerchAfterPay';
 import ProductList from '@/components/merch/productList/ProductList';
 import { useState } from 'react';
 
@@ -14,6 +15,7 @@ export default function MerchPage() {
 
       <MerchHeroBlock />
       <ProductList />
+      <MerchAfterPay />
     </div>
   );
 }
