@@ -1,6 +1,6 @@
-import Link from "next/link";
-import st from "./styles.module.css";
-import { MerchItem } from "@/types/merch";
+import Link from 'next/link';
+import st from './styles.module.css';
+import { MerchItem } from '@/lib/schemes/merchSchema';
 
 export default function ProductCard({ images, name, price, slug }: MerchItem) {
   return (

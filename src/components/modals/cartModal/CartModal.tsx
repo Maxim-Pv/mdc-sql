@@ -6,7 +6,6 @@ import { FormInput } from '@/components/ui/inputs/formInput/FormInput';
 import { useCart } from '@/providers/CartContext';
 import { useScrollToError } from '@/lib/forms/useScrollToError';
 import { calcWeight } from '@/lib/shipping';
-import { OrderForm, orderSchema } from '@/lib/zod/orderSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconCircleMinus, IconCirclePlus, IconTrashX, IconX } from '@tabler/icons-react';
 import clsx from 'clsx';
@@ -14,6 +13,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import st from './styles.module.css';
+import { OrderForm, orderSchema } from '@/lib/schemes/orderSchema';
 
 interface CartModalProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ interface CartModalProps {
 }
 
 export function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { items, total, increment, decrement, removeItem, clearCart } = useCart();
+  const { items, total, increment, decrement, removeItem } = useCart();
   const [showForm, setShowForm] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
   const [paying, setPaying] = useState(false);
@@ -112,9 +112,9 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
 
   const onSubmit: SubmitHandler<OrderForm> = async (data) => {
     if (paying) return; // защита от повторных кликов
+    setPaying(true);
 
     try {
-      setPaying(true);
       const uid = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`; // на случай старых браузеров
       const amountRub = Number((total + (shipping?.price ?? 0)).toFixed(2));
       const description = `Заказ на mdcard: ${items
@@ -169,14 +169,14 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
         throw new Error(json?.error || `Не удалось создать платёж (HTTP ${res.status})`);
       }
 
-      window.location.href = json.confirmationUrl; // переходим на страницу оплаты
+      window.location.assign(json.confirmationUrl); // переходим на страницу оплаты
+      return;
     } catch (e: any) {
       console.error('create-payment error:', e);
       localStorage.removeItem('LAST_ORDER_ID');
       localStorage.removeItem('LAST_ORDER_MARK');
-      alert(e.message || 'Ошибка оплаты');
-    } finally {
       setPaying(false);
+      alert(e.message || 'Ошибка оплаты');
     }
   };
 
@@ -202,7 +202,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
             <div key={`${item.id}-${item.size}`} className="flex items-center gap-[10px] py-[10px] last:mb-0 lg:mb-4">
               <div className="flex flex-1 items-center gap-[10px]">
                 <div className={st.imageWrapper}>
-                  <Image src={item.image} alt={item.name} width={60} height={80} className={st.cartItemImage} />
+                  <Image src={item.image} alt={item.name} width={180} height={240} className={st.cartItemImage} />
                   {/* кнопка удаления для мобилок */}
                   <button
                     className={st.trashButtonMobile}
@@ -444,7 +444,7 @@ export function CartModal({ isOpen, onClose }: CartModalProps) {
                   </div>
                   <p className="text-xs font-semibold lg:text-lg">Итоговая сумма: {total + (shipping.price ?? 0)} р.</p>
                 </div>
-                <button type="submit" className={st.btnOrder}>
+                <button type="submit" className={st.btnOrder} disabled={paying}>
                   {paying ? 'Переходим к оплате…' : 'Оформить заказ'}
                 </button>
               </div>

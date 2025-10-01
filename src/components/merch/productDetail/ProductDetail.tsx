@@ -3,10 +3,10 @@
 import HeaderNav from '@/components/headerNav/HeaderNav';
 import CustomSelect from '@/components/ui/inputs/customSelect/CustomSelect';
 import { CartItem } from '@/types/cart';
-import { MerchItem } from '@/types/merch';
 import { useState } from 'react';
 import st from './styles.module.css';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { MerchItem } from '@/lib/schemes/merchSchema';
 
 interface Props {
   product: MerchItem;

@@ -3,8 +3,8 @@
 import { useCart } from '@/providers/CartContext';
 import { useModal } from '@/providers/ModalContext';
 import { CartItem } from '@/types/cart';
-import { MerchItem } from '@/types/merch';
 import ProductDetail from '../productDetail/ProductDetail';
+import { MerchItem } from '@/lib/schemes/merchSchema';
 
 export default function ProductClient({ product }: { product: MerchItem }) {
   const { addItem } = useCart();
